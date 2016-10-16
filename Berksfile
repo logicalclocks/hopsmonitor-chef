@@ -5,7 +5,7 @@ metadata
 
 #cookbook 'ark'
 cookbook 'java'
-#cookbook 'kagent', github: "karamelchef/kagent-chef", branch: "master"
+cookbook 'kagent', github: "karamelchef/kagent-chef", branch: "master"
 
 cookbook 'graphite', '~> 1.0.4'
 #cookbook 'runit'

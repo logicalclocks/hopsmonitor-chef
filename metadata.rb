@@ -12,7 +12,7 @@ source_url       "https://github.com/hopshadoop/hopsmonitor-chef"
 end
 
 depends 'java'
-#depends 'kagent'
+depends 'kagent'
 depends 'graphite'
 depends 'chef-grafana'
 

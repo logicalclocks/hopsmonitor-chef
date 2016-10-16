@@ -1,7 +1,7 @@
 Encoding.default_external = "UTF-8"
 source 'https://supermarket.chef.io'
 
-metadata
+
 
 #cookbook 'ark'
 cookbook 'java'
@@ -23,3 +23,4 @@ cookbook 'simple-logstash', '~> 0.2.4'
 #cookbook 'curl'
 #cookbook 'yum-epel'
 
+metadata

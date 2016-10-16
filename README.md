@@ -1,3 +1,9 @@
-# Kibana Chef Cookbook (karamelized)
+# Graphite/Grafana Wrapper Chef Cookbook (karamelized)
 
-This cookbook installs Kibana for Elasticsearch.
+
+
+Problematic dependencies:
+  * windows (2.0.2)
+  * yum (4.0.0)
+  * yum-epel (1.0.1)
+

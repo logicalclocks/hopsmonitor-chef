@@ -125,13 +125,13 @@ end
 
 
 # Don't install nginx on port 80
-node.override['grafana']['webserver'] = ''
-node.override['grafana']['home'] = '/srv/grafana'
-node.override['grafana']['data_dir'] = '/srv/grafana-data'
-#node.override['grafana']['conf_dir'] = node.grafana.home
-node.override['grafana']['webserver_port'] = 9999
+# node.override['grafana']['webserver'] = ''
+# node.override['grafana']['home'] = '/srv/grafana'
+# node.override['grafana']['data_dir'] = '/srv/grafana-data'
+# #node.override['grafana']['conf_dir'] = node.grafana.home
+# node.override['grafana']['webserver_port'] = 9999
 
-include_recipe "grafana::default"
+# include_recipe "grafana::default"
 
 
 # grafana_datasource 'graphite-test' do

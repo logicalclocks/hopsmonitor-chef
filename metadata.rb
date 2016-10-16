@@ -13,13 +13,13 @@ end
 
 depends 'java'
 depends 'kagent'
-depends 'graphite'
-depends 'runit'
-depends 'grafana'
-depends 'influxdb'
-depends 'apt'
-depends 'yum'
-depends 'nginx'
+#depends 'graphite'
+#depends 'runit'
+#depends 'grafana'
+#depends 'influxdb'
+#depends 'apt'
+#depends 'yum'
+#depends 'nginx'
 
 recipe "hopsmonitor::install", "Installs Kibana Server"
 recipe "hopsmonitor::default", "configures Kibana Server"

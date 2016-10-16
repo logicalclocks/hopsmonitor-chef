@@ -14,6 +14,8 @@ cookbook 'graphite', '~> 1.0.4'
 
 cookbook 'chef-grafana', github: "chef-cookbooks/chef-grafana", branch: "master"
 
+cookbook 'simple-logstash', '~> 0.2.4'
+
 #cookbook 'grafana', '~> 2.1.3'
 #cookbook 'nginx', '>= 2.5'
 #cookbook 'git'

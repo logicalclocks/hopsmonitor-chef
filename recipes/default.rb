@@ -143,6 +143,8 @@ end
 # end
 
 
+include_recipe "simple-logstash::default"
+
 
 if node.kagent.enabled == "true" 
    kagent_config "graphite" do

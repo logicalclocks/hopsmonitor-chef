@@ -7,7 +7,7 @@ metadata
 cookbook 'java'
 cookbook 'kagent', github: "karamelchef/kagent-chef", branch: "master"
 
-#cookbook 'graphite', '~> 1.0.4'
+cookbook 'graphite', '~> 1.0.4'
 #cookbook 'runit'
 
 #cookbook 'influxdb', '~> 5.0.2'

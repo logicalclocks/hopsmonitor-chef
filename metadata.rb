@@ -13,7 +13,7 @@ end
 
 depends 'java'
 depends 'kagent'
-#depends 'graphite'
+depends 'graphite'
 #depends 'runit'
 #depends 'grafana'
 #depends 'influxdb'

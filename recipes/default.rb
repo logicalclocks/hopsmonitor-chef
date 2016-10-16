@@ -5,9 +5,14 @@ my_public_ip = my_public_ip()
 #node.override['graphite']['base_dir'] = "/srv"
 node.override['graphite']['install_type'] = "package"
 
-node.override['graphite']['user'] = node.hopsmonitor.user
-node.override['graphite']['group'] = node.hopsmonitor.group
+#node.override['graphite']['user'] = node.hopsmonitor.user
+#node.override['graphite']['group'] = node.hopsmonitor.group
 
+directory "#{base_dir}/conf" do
+  owner node['graphite']['user']
+  group node['graphite']['group']
+  recursive true
+end
 
 include_recipe "runit"
 include_recipe "graphite::carbon"
@@ -54,12 +59,6 @@ end
 graphite_service "cache"
 
 base_dir = "#{node['graphite']['base_dir']}"
-
-directory "#{base_dir}/conf" do
-  owner node['graphite']['user']
-  group node['graphite']['group']
-  recursive true
-end
 
 
 graphite_web_config "#{base_dir}/webapp/graphite/local_settings.py" do

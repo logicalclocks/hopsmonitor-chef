@@ -1,5 +1,8 @@
 # Graphite/Grafana Wrapper Chef Cookbook (karamelized)
 
+graphite ports: 2003, 2004, 7002
+
+grafana ports: 3000
 
 
 Problematic dependencies:

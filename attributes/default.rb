@@ -1,5 +1,5 @@
-default.hopsmonitor.user                     = "hopsmonitor"
-default.hopsmonitor.group                    = "hopsmonitor"
+default.hopsmonitor.user                     = "graphite"
+default.hopsmonitor.group                    = "graphite"
 
 
 default.hopsmonitor.dir                      = "/srv"

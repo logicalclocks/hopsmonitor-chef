@@ -6,11 +6,10 @@ my_public_ip = my_public_ip()
 #node.override['graphite']['base_dir'] = "/srv"
 node.override['graphite']['install_type'] = "package"
 
-#node.override['graphite']['user'] = node.hopsmonitor.user
-#node.override['graphite']['group'] = node.hopsmonitor.group
+node.override['graphite']['user'] = node.hopsmonitor.user
+node.override['graphite']['group'] = node.hopsmonitor.group
 
 base_dir = "#{node['graphite']['base_dir']}"
-
 
 directory "#{base_dir}/conf" do
   owner node['graphite']['user']

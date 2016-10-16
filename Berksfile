@@ -12,7 +12,7 @@ cookbook 'graphite', '~> 1.0.4'
 
 #cookbook 'influxdb', '~> 5.0.2'
 
-#cookbook 'grafana', '~> 2.1.3'
+cookbook 'grafana', '~> 2.1.3'
 #cookbook 'nginx', '>= 2.5'
 #cookbook 'git'
 #cookbook 'build-essential'

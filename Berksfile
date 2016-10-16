@@ -1,7 +1,7 @@
 Encoding.default_external = "UTF-8"
 source 'https://supermarket.chef.io'
 
-metadata
+
 
 #cookbook 'ark'
 cookbook 'java'
@@ -21,3 +21,4 @@ cookbook 'chef-grafana', github: "chef-cookbooks/chef-grafana", branch: "master"
 #cookbook 'curl'
 #cookbook 'yum-epel'
 
+metadata

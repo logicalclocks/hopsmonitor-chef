@@ -14,7 +14,7 @@ end
 depends 'java'
 depends 'kagent'
 depends 'graphite'
-depends 'chef-grafana'
+#depends 'chef-grafana'
 depends 'simple-logstash'
 
 #depends 'runit'

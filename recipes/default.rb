@@ -159,10 +159,11 @@ rescue
   Chef::Log.warn "could not find the elastic server ip for HopsWorks!"
 end
 
-logstash_configfile = "#{node['logstash']['prefix_conf']}/spark-streaming.conf"
+#logstash_configfile = "#{node['logstash']['prefix_conf']}/spark-streaming.conf"
+logstash_configfile = "/etc/spark-streaming.conf"
 
 template logstash_configfile do
-  source "spark-streaming.conf.erb"
+  source "logstash/spark-streaming.conf.erb"
   owner node.logstash.user
   group node.logstash.group
   mode 0750
@@ -173,8 +174,9 @@ template logstash_configfile do
               })
 end 
 
-logstash_config "server" do
- config logstash_configfile
+logstash_config "spark-streaming" do
+# config logstash_configfile
+# prefix_conf "/etc"
  action :create
 end
 

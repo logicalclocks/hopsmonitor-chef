@@ -10,6 +10,8 @@ cookbook 'kagent', github: "karamelchef/kagent-chef", branch: "master"
 cookbook 'graphite', '~> 1.0.4'
 #cookbook 'runit'
 
+cookbook 'elastic', github: "hopshadoop/elasticsearch-chef", branch: "master"
+
 #cookbook 'influxdb', '~> 5.0.2'
 
 #cookbook 'chef-grafana', github: "chef-cookbooks/chef-grafana", branch: "master"

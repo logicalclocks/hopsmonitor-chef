@@ -16,6 +16,7 @@ depends 'kagent'
 depends 'graphite'
 #depends 'chef-grafana'
 depends 'simple-logstash'
+depends 'elastic'
 
 #depends 'runit'
 #depends 'grafana'

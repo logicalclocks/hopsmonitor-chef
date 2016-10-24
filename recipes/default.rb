@@ -152,6 +152,36 @@ storage_dir = node['graphite']['storage_dir']
 
 include_recipe "simple-logstash::default"
 
+begin
+  elastic_ip = private_recipe_ip("elastic","default")
+rescue 
+  elastic_ip = "10.0.2.15"
+  Chef::Log.warn "could not find the elastic server ip for HopsWorks!"
+end
+
+logstash_configfile = "#{node['logstash']['prefix_conf']}/spark-streaming.conf"
+
+template logstash_configfile do
+  source "spark-streaming.conf.erb"
+  owner node.logstash.user
+  group node.logstash.group
+  mode 0750
+  action :create
+  variables({
+                :my_private_ip => my_private_ip,
+                :elastic_endpoint => elastic_ip + ":" + node.elastic.port
+              })
+end 
+
+logstash_config "server" do
+ config logstash_configfile
+ action :create
+end
+
+
+logstash_service 'logstash' do
+  logstash_config_path logstash_configfile
+end
 
 if node.kagent.enabled == "true" 
    kagent_config "graphite" do

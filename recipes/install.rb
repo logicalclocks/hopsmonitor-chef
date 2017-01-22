@@ -1,3 +1,5 @@
+my_private_ip = my_private_ip()
+
 
 user node.hopsmonitor.user do
   home "/home/#{node.hopsmonitor.user}"
@@ -16,4 +18,5 @@ end
 
 
 include_recipe "java"
+
 

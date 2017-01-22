@@ -11,11 +11,11 @@ cookbook 'graphite', '~> 1.0.4'
 #cookbook 'runit'
 
 cookbook 'elastic', github: "hopshadoop/elasticsearch-chef", branch: "master"
+cookbook 'elasticsearch', '~> 2.4.0'
 
-#cookbook 'influxdb', '~> 5.0.2'
+
+cookbook 'influxdb', '~> 5.2.1'
 
 #cookbook 'chef-grafana', github: "chef-cookbooks/chef-grafana", branch: "master"
-
-cookbook 'simple-logstash', '~> 0.2.4'
 
 metadata

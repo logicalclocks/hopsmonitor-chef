@@ -13,28 +13,26 @@ end
 
 depends 'java'
 depends 'kagent'
-depends 'graphite'
 #depends 'chef-grafana'
-depends 'simple-logstash'
 depends 'elastic'
+depends 'influxdb'
 
 #depends 'runit'
 #depends 'grafana'
-#depends 'influxdb'
 #depends 'apt'
 #depends 'yum'
 #depends 'nginx'
 
-recipe "hopsmonitor::install", "Installs Kibana Server"
-recipe "hopsmonitor::default", "configures Kibana Server"
-recipe "hopsmonitor::purge", "Deletes the Kibana Server"
+recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
+recipe "hopsmonitor::default", "configures Influxdb/Grafana Server"
+recipe "hopsmonitor::purge", "Deletes the Influxdb/Grafana Server"
 
 attribute "hopsmonitor/user",
-          :description => "User to run Kibana server as",
+          :description => "User to run Influxdb/Grafana server as",
           :type => "string"
 
 attribute "hopsmonitor/group",
-          :description => "Group to run Kibana server as",
+          :description => "Group to run Influxdb/Grafana server as",
           :type => "string"
 
 

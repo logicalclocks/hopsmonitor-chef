@@ -129,7 +129,7 @@ bash 'add_grafan_index_for_influxdb' do
         user "root"
         code <<-EOH
             set -e
-curl --user #{node.grafana.admin_user}:#{node.grafana.admin_password} 'http://localhost:3000/api/datasources' -H "Content-Type: application/json" -X POST -d '{"Name":"influxdb","Type":"influxdb","url":"http://localhost:#{node.influxdb.http.port}","Access":"proxy","isDefault":true,"database":"grafana","user":"#{node.grafana.mysql_user}","password":"#{node.grafana.mysql_password}"}'
+curl --user #{node.grafana.admin_user}:#{node.grafana.admin_password} 'http://localhost:3000/api/datasources' -H \"Content-Type: application/json\" -X POST -d '{\"Name\":\"influxdb\",\"Type\":\"influxdb\",\"url\":\"http://localhost:#{node.influxdb.http.port}\",\"Access\":\"proxy\",\"isDefault\":true,\"database\":\"grafana\",\"user\":#{node.grafana.mysql_user},\"password\":#{node.grafana.mysql_password}}'
         EOH
 #     not_if { }
 end

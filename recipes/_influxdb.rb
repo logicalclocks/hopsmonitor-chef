@@ -11,8 +11,6 @@ template"#{node.influxdb.conf_dir}/influxdb.conf" do
            })
 end
 
-
-
 case node.platform
 when "ubuntu"
  if node.platform_version.to_f <= 14.04
@@ -188,8 +186,8 @@ end
 
 
 # Create a test user and give it access to the test database
-influxdb_user 'hopsworks' do
-  password 'hopsworks'
+influxdb_user node.influxdb.db_user do
+  password node.influxdb.db_password
   databases [dbname]
   api_hostname my_private_ip
   api_port 8086
@@ -199,8 +197,8 @@ influxdb_user 'hopsworks' do
 end
 
 # Create a test cluster admin
-influxdb_admin 'adminuser' do
-  password 'adminpw'
+influxdb_admin node.influxdb.admin_user do
+  password node.influxdb.admin_password
   action :create
 end
 
@@ -220,15 +218,6 @@ influxdb_retention_policy 'test_policy' do
   action :create
   notifies :restart, 'service[influxdb]'
 end
-
-# Create a test continuous query on the test database
-# influxdb_continuous_query 'test_cq' do
-#   database dbname
-#   query 'SELECT min(mouse) INTO min_mouse FROM zoo GROUP BY time(30m)'
-#   action :create
-# end
-
-
 
 
 if node.kagent.enabled == "true" 

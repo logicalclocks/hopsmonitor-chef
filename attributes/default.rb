@@ -1,4 +1,5 @@
 include_attribute "kagent"
+include_attribute "ndb"
 
 default.hopsmonitor.user                    = "graphite"
 default.hopsmonitor.group                   = "graphite"
@@ -25,12 +26,18 @@ default.influxdb.pid_file                   = "/tmp/influxdb.pid"
 default.influxdb.graphite.port              = "2003"
 
 
-default.grafana.version                     = ""
-default.grafana.url                         = "#{node.download_url}/grafana-#{node.grafana.version}_linux_amd64.tar.gz"
-default.grafana.port                        = "9999"
+default.grafana.version                     = "4.1.1-1484211277"
+default.grafana.url                         = "#{node.download_url}/grafana-#{node.grafana.version}.linux-x64.tar.gz"
+default.grafana.port                        = 3000
+
+default.grafana.admin_user                  = "adminuser"
+default.grafana.admin_password              = "adminpw"
+
+default.grafana.mysql_user                  = "grafana"
+default.grafana.mysql_password              = "grafana"
 
 default.grafana.systemd                     = "true"
-default.grafana.home                        = node.hopsmonitor.dir + "/grafana-" + "#{node.grafana.version}-1"
+default.grafana.home                        = node.hopsmonitor.dir + "/grafana-" + "#{node.grafana.version}"
 default.grafana.base_dir                    = node.hopsmonitor.dir + "/grafana"
 default.grafana.pid_file                    = "/tmp/grafana.pid"
 

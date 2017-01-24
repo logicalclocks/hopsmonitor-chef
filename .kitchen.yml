@@ -24,6 +24,10 @@ suites:
   - name: default
     run_list:
       - recipe[kagent::install]
+      - recipe[ndb::install]
+      - recipe[ndb::mgmd]
+      - recipe[ndb::ndbd]
+      - recipe[ndb::mysqld]
       - recipe[elastic::install]
       - recipe[elastic::default]
       - recipe[kagent::install]
@@ -36,6 +40,17 @@ suites:
             group: 'glassfish'
             default:
                 private_ips: ["10.0.2.15"]
+         ndb:
+            user: mysql
+            group: mysql
+            dir: "/srv/hops"
+            DataMemory: "111"
+            mgmd:
+               private_ips: ["10.0.2.15"]
+            ndbd:
+               private_ips: ["10.0.2.15"]
+            mysqld:
+               private_ips: ["10.0.2.15"]
          hopsmonitor:
             dir: '/srv/hops'
             user: 'glassfish'

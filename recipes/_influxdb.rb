@@ -71,14 +71,6 @@ else #sysv
 end
 
 
-if node.kagent.enabled == "true" 
-   kagent_config service_name do
-     service service_name
-     log_file "#{node.influxdb.base_dir}/influxdb.log"
-   end
-end
-
-
 #include_recipe 'influxdb::default'
 
 include_recipe 'influxdb::ruby_client'

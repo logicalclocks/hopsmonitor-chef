@@ -20,9 +20,9 @@ end
 include_recipe "java"
 
 
-
-
-
+#
+# InfluxDB installation
+#
 
 package_url = "#{node.influxdb.url}"
 base_package_filename = File.basename(package_url)
@@ -65,7 +65,6 @@ link node.influxdb.base_dir do
   to node.influxdb.home
 end
 
-
 directory "#{node.influxdb.base_dir}/log" do
   owner node.hopsmonitor.user
   group node.hopsmonitor.group
@@ -87,5 +86,58 @@ directory "/var/log/influxdb" do
   group node.hopsmonitor.group
   mode "750"
   action :create
+end
+
+
+
+#
+# Grafana installation
+#
+
+
+package_url = "#{node.grafana.url}"
+base_package_filename = File.basename(package_url)
+cached_package_filename = "/tmp/#{base_package_filename}"
+
+remote_file cached_package_filename do
+  source package_url
+  owner "root"
+  mode "0644"
+  action :create_if_missing
+end
+
+
+grafana_downloaded = "#{node.grafana.home}/.grafana.extracted_#{node.grafana.version}"
+# Extract grafana
+bash 'extract_grafana' do
+        user "root"
+        code <<-EOH
+                tar -xf #{cached_package_filename} -C #{node.hopsmonitor.dir}
+                chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.grafana.home}
+                touch #{grafana_downloaded}
+                chown #{node.hopsmonitor.user} #{grafana_downloaded}
+                
+        EOH
+     not_if { ::File.exists?( grafana_downloaded ) }
+end
+
+file node.grafana.base_dir do
+  action :delete
+  force_unlink true
+end
+
+link node.grafana.base_dir do
+  owner node.hopsmonitor.user
+  group node.hopsmonitor.group
+  to node.grafana.home
+end
+
+
+file "#{node.grafana.base_dir}/conf/defaults.ini" do
+  action :delete
+end
+
+file "#{node.grafana.base_dir}/conf/sample.ini" do
+  action :delete
 end
 

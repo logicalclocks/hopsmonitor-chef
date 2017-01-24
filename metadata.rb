@@ -16,6 +16,7 @@ depends 'kagent'
 #depends 'chef-grafana'
 depends 'elastic'
 depends 'influxdb'
+depends 'ndb'
 
 #depends 'runit'
 #depends 'grafana'
@@ -35,4 +36,21 @@ attribute "hopsmonitor/group",
           :description => "Group to run Influxdb/Grafana server as",
           :type => "string"
 
+
+attribute "grafana/admin_user",
+          :description => "username for grafana admin ",
+          :type => "string"
+
+attribute "grafana/admin_password",
+          :description => "Password for grafana admin user",
+          :type => "string"
+
+
+attribute "grafana/mysql_user",
+          :description => "username for grafana mysql user ",
+          :type => "string"
+
+attribute "grafana/mysql_password",
+          :description => "Password for grafana mysql user",
+          :type => "string"
 

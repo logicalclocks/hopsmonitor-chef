@@ -21,7 +21,7 @@ default.influxdb.admin_password             = "adminpw"
 
 # The default port is '8088' in influxdb (for backup/restore). This conflicts with yarn::rm, so we change it below
 default.influxdb.port                       = "9999"
-default.influxdb.admin.port                 = "8083"
+default.influxdb.admin.port                 = "8084"
 default.influxdb.http.port                  = "8086"
 
 default.influxdb.systemd                    = "true"

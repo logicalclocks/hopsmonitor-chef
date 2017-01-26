@@ -131,5 +131,112 @@ bash 'add_grafan_index_for_influxdb' do
             set -e
 curl --user #{node.grafana.admin_user}:#{node.grafana.admin_password} 'http://localhost:3000/api/datasources' -H \"Content-Type: application/json\" -X POST -d '{\"Name\":\"influxdb\",\"Type\":\"influxdb\",\"url\":\"http://localhost:#{node.influxdb.http.port}\",\"Access\":\"proxy\",\"isDefault\":true,\"database\":\"grafana\",\"user\":#{node.grafana.mysql_user},\"password\":#{node.grafana.mysql_password}}'
         EOH
+  retries 10
 #     not_if { }
 end
+
+
+
+# indexes_installed = "#{node.grafana.base_dir}/.indexes_installed"
+
+#  http_request 'elastic-install-indexes' do
+#    url "http://localhost:#{node.influxdb.http.port}/projects"
+#    message '
+#    {  
+#     "mappings":{  
+#         "proj":{  
+#             "dynamic":"strict",
+#             "properties":{  
+#                 "description":{  
+#                     "type":"string"
+#                 },
+#                 "name":{  
+#                     "type":"string"
+#                 },
+#                 "parent_id":{  
+#                     "type":"long"
+#                 },
+#                 "user":{  
+#                     "type":"string"
+#                 }
+#             }
+#         },
+#         "ds":{  
+#             "dynamic":"strict",
+#             "_parent":{  
+#                 "type":"proj"
+#             },
+#             "_routing":{  
+#                 "required":true
+#             },
+#             "properties":{  
+#                 "description":{  
+#                     "type":"string"
+#                 },
+#                 "name":{  
+#                     "type":"string"
+#                 },
+#                 "parent_id":{  
+#                     "type":"long"
+#                 },
+#                 "project_id":{  
+#                     "type":"long"
+#                 },
+#                 "public_ds":{  
+#                     "type":"boolean"
+#                 },
+#                 "xattr":{  
+#                     "type":"nested",
+#                     "dynamic":true
+#                 }
+#             }
+#         },
+#         "inode":{  
+#             "dynamic":"strict",
+#             "_parent":{  
+#                 "type":"ds"
+#             },
+#             "_routing":{  
+#                 "required":true
+#             },
+#             "properties":{  
+#                 "dataset_id":{  
+#                     "type":"long"
+#                 },
+#                 "group":{  
+#                     "type":"string"
+#                 },
+#                 "name":{  
+#                     "type":"string"
+#                 },
+#                 "operation":{  
+#                     "type":"long"
+#                 },
+#                 "parent_id":{  
+#                     "type":"long"
+#                 },
+#                 "project_id":{  
+#                     "type":"long"
+#                 },
+#                 "size":{  
+#                     "type":"long"
+#                 },
+#                 "timestamp":{  
+#                     "type":"long"
+#                 },
+#                 "user":{  
+#                     "type":"string"
+#                 },
+#                 "xattr":{  
+#                     "type":"nested",
+#                     "dynamic":true
+#                 }
+#             }
+#         }
+#       }
+#    }'
+#    action :put
+#    retries numRetries
+#    retry_delay retryDelay
+#    not_if { ::File.exists?( indexes_installed ) }       
+#  end

@@ -28,9 +28,7 @@ suites:
       - recipe[ndb::mgmd]
       - recipe[ndb::ndbd]
       - recipe[ndb::mysqld]
-      - recipe[elastic::install]
       - recipe[elastic::default]
-      - recipe[kagent::install]
       - recipe[hopsmonitor::install]
       - recipe[hopsmonitor::default]
     attributes:

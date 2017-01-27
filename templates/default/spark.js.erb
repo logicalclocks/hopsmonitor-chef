@@ -1,0 +1,462 @@
+/* global _ */
+
+'use strict';
+
+function makeYarnAppInfo(){
+    if(_.isUndefined(ARGS.app)) {
+	throw new Error("app URL parameter required");
+    }
+    var date = new Date();
+    date.setDate(date.getDate() - 3);
+    var from = date;
+    if(!_.isUndefined(ARGS.from)) {
+	from = new Date(ARGS.from);
+    }
+    var now = true;
+    var refresh = '5s';
+    var to;
+    if(!_.isUndefined(ARGS.to)) {
+        to = new Date(ARGS.to);
+	now = false;
+	refresh='';
+    } else {
+	to = 'now';
+    }
+       var app = {
+	   prefix:ARGS.app,
+	   now: now,
+	   from: from,
+	   to: to,
+	   refresh:refresh
+    };
+    return app;
+}
+
+//var app = makeYarnApplication();
+var app = makeYarnAppInfo();
+
+var prefixTemplateVar = {
+  type: "custom",
+  name: "prefix",
+  options: [
+    {
+      text: app.prefix,
+      value: app.prefix
+    }
+  ],
+  allFormat: "glob",
+  includeAll: true,
+  current: {
+    text: app.prefix,
+    value: app.prefix
+  },
+};
+
+var driverTemplateVar = {
+  type: "custom",
+  name: "driver",
+  query: "",
+  options: [
+    { text: "driver", value: "driver" },
+  ],
+  current: { text: "driver", value: "driver" }
+};
+
+var executorRangeTemplateVar = {
+  type: "custom",
+  name: "executor",
+  options: [
+    {
+      text: "1",
+      value: "1"
+    },
+    {
+      text: "2",
+      value: "2"
+    },
+    {
+      text: "*",
+      value: "*"
+    }
+  ],
+  includeAll: true,
+  allFormat: "glob",
+  current: {
+    text: "1",
+    value: "1"
+  }
+};
+
+// Dashboard boilerplate.
+var dashboard = {
+  title: app.prefix,
+  rows: [],
+  style: "light",
+  time: {
+    from: app.from,
+    to: app.to,
+    now: app.now,
+  },
+  refresh: app.refresh,
+  templating: {
+    enable: true,
+    list: [
+      prefixTemplateVar,
+      driverTemplateVar
+    ]
+  }
+};
+
+var activeTasks ={
+    title: "Active tasks per executor (stacked)",
+    type: "graphite",
+          datasource: 'influxdb',
+          span: 4,
+          stack: true,
+          steppedLine: true,
+          legend: {show: false},
+          targets:[
+          {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'max', 'params': []},
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.*.executor.threadpool.activeTasks/',
+	      alias:"$m"
+          }]
+
+};
+
+var completeTasksPerExec ={
+    title: "Completed tasks per executor (staked)",
+    type: "graphite",
+          datasource: 'influxdb',
+          span: 4,
+          legend: {show: false},
+          stack: true,
+          targets:[
+          {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'max', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.*.executor.threadpool.completeTasks/',
+	      alias:"$m"
+          }]
+
+};
+
+var completeTasks ={
+	  title: "complete tasks per minute per executor",
+	  type: "graphite",
+	  datasource: 'influxdb',
+	  span: 4,
+          legend: {show: false},
+	  targets:[
+          {
+	      select:[[
+		  {'type': 'field', 'params': ['value']},{'type': 'max', 'params': []},{'type': 'non_negative_derivative', 'params': ['1m']},
+	      ]],
+	      groupBy: [{type: 'time', params: ['1m']},{type: 'fill', params: ['null']}],
+      	      measurement: '/$prefix.*.executor.threadpool.completeTasks/',
+	      alias:"$m"
+	  }]
+      };
+
+var threadpool_row = {
+  title: "threadpool",
+  height: '300px',
+  collapse: false,
+  panels: [
+      activeTasks,
+      completeTasksPerExec,
+      completeTasks
+  ]
+};
+
+var executor_row={
+    title: "Executor JVMs",
+    height:"300px",
+    panels:[]
+}
+
+
+function getIntParam(i, def) {
+  if (_.isUndefined(i)) return def;
+  return parseInt(i);
+}
+
+var maxExecutorId = getIntParam(ARGS.maxExecutorId, 20);
+
+function executorJvmPanel(id) {
+    return {
+	title: "Executor " + id + " Memory usage",
+	type: "graphite",
+	datasource: 'influxdb',
+	span: 3,
+        legend: {show: false},
+	targets:[
+          {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.' + id + '.jvm.pools.Code-Cache.usage/',
+	      alias:"Code Cache"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.' + id + '.jvm.pools.Compressed-Class-Space.usage/',
+	      alias:"Compressed Class Space"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.' + id + '.jvm.pools.Metaspace.usage/',
+	      alias:"Metaspace"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.' + id + '.jvm.pools.PS-Eden-Space.usage/',
+	      alias:"Ps Eden Space"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.' + id + '.jvm.pools.PS-Old-Gen.usage/',
+	      alias:"Ps Old Gen"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.' + id + '.jvm.pools.PS-Survivor-Space.usage/',
+	      alias:"Ps Survivor Space"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.' + id + '.jvm.heap.usage/',
+	      alias:"Heap"
+          },
+	]
+
+    }
+}
+
+for (var executorId = 1; executorId <= maxExecutorId; ++executorId) {
+    executor_row.panels.push(executorJvmPanel(executorId));
+}
+
+var driver_row = {
+    title: "Driver JVM / GC",
+  height: "300px",
+  editable: true,
+  collapse: false,
+  panels: [
+      {
+	  title: "Driver scavenge GC",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  span: 4,
+	  targets:[
+	      {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.$driver.jvm.PS-Scavenge.count/',
+	      alias:"GC count",
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.$driver.jvm.PS-Scavenge.time/',
+	      alias:"GC time"
+          },
+	  ]
+      },
+      {
+	  title: "Driver JVM Memory",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  span: 4,
+	  targets:[
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.$driver.jvm.pools.Code-Cache.usage/',
+	      alias:"Code Cache"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.$driver.jvm.pools.Compressed-Class-Space.usage/',
+	      alias:"Compressed Class Space"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.$driver.jvm.pools.Metaspace.usage/',
+	      alias:"Metaspace"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.$driver.jvm.pools.PS-Eden-Space.usage/',
+	      alias:"Ps Eden Space"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.$driver.jvm.pools.PS-Old-Gen.usage/',
+	      alias:"Ps Old Gen"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.$driver.jvm.pools.PS-Survivor-Space.usage/',
+	      alias:"Ps Survivor Space"
+          },
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []}
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              measurement: '/$prefix.$driver.jvm.heap.usage/',
+	      alias:"Heap"
+          },
+
+	  ]
+      },
+      {
+	  title: "Driver GC Time per seconds",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  span: 4,
+	  targets:[
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []},{'type': 'non_negative_derivative', 'params': ['1s']},
+              ]],
+              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.$driver.jvm.PS-Scavenge.time/',
+	      alias:"GC time"
+          },
+	  ]
+      },
+
+  ]
+};
+
+var hdfs_row = {
+    title: "HDFS I/O",
+    height: "300px",
+    editable: true,
+    collapse: false,
+    panels: [
+	{
+	  title: "HDFS reads/s, 10s avgs",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  stack: true,
+	  span: 6,
+	  steppedLine: true,
+	  targets:[
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []},{'type': 'non_negative_derivative', 'params': ['10s']},
+              ]],
+              groupBy: [{type: 'time', params: ['10s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.*.filesystem.hdfs.read_ops/',
+	      alias:"$m"
+          },
+	  ]
+      },
+      {
+	  title: "HDFS reads/executor",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  span: 6,
+	  targets:[
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []},
+              ]],
+              groupBy: [{type: 'time', params: ['10s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.*.filesystem.hdfs.read_ops/',
+	      alias:"$m"
+          },
+	  ]
+      },
+	{
+	  title: "HDFS bytes reads/s, 10s avgs",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  stack: true,
+	  span: 6,
+	  targets:[
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []},{'type': 'non_negative_derivative', 'params': ['10s']},
+              ]],
+              groupBy: [{type: 'time', params: ['10s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.*.filesystem.hdfs.read_bytes/',
+	      alias:"$m"
+          },
+	  ]
+      },
+      {
+	  title: "HDFS byte reads/executor",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  span: 6,
+	  targets:[
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []},
+              ]],
+              groupBy: [{type: 'time', params: ['10s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.*.filesystem.hdfs.read_bytes/',
+	      alias:"$m"
+          },
+	  ]
+      },
+    ]
+};
+// The dashboard, with its rows.
+dashboard.rows = [
+    threadpool_row,
+    hdfs_row,
+    driver_row,
+    executor_row,
+];
+
+return dashboard;

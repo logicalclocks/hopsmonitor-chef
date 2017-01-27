@@ -44,7 +44,7 @@ directory "#{node.grafana.base_dir}/logs" do
 end
 
 
-template"#{node.grafana.base_dir}/conf/defaults.ini" do
+template "#{node.grafana.base_dir}/conf/defaults.ini" do
   source "grafana.ini.erb"
   owner node.hopsmonitor.user
   group node.hopsmonitor.group
@@ -54,7 +54,12 @@ template"#{node.grafana.base_dir}/conf/defaults.ini" do
            })
 end
 
-
+template "#{node.grafana.base_dir}/public/dashboards/spark.js" do
+  source "spark.js.erb"
+  owner node.hopsmonitor.user
+  group node.hopsmonitor.group
+  mode 0650
+end
 
 case node.platform
 when "ubuntu"

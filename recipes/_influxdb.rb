@@ -71,7 +71,24 @@ end
 
 #include_recipe 'influxdb::default'
 
-include_recipe 'influxdb::ruby_client'
+
+begin
+  include_recipe 'influxdb::ruby_client'
+
+rescue 
+  case node.platform_family
+  when "debian"
+    package "ruby-dev" do
+      action :install
+    end
+  when "rhel"
+    package "ruby-devel" do
+      action :install
+    end
+  end
+  include_recipe 'influxdb::ruby_client'
+end
+
 
 dbname = 'graphite'
 

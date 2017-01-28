@@ -69,12 +69,12 @@ else #sysv
 end
 
 
-case node.platform_family
-  when "debian"
-    package "ruby-dev"
-  when "rhel"
-    package "ruby-devel" 
-end
+# case node.platform_family
+#   when "debian"
+#     package "ruby-dev"
+#   when "rhel"
+#     package "ruby-devel" 
+# end
 
 include_recipe 'influxdb::ruby_client'
 

@@ -69,14 +69,7 @@ else #sysv
 end
 
 
-#include_recipe 'influxdb::default'
-
-
-begin
-  include_recipe 'influxdb::ruby_client'
-
-rescue 
-  case node.platform_family
+case node.platform_family
   when "debian"
     package "ruby-dev" do
       action :install
@@ -86,9 +79,9 @@ rescue
       action :install
     end
   end
-  include_recipe 'influxdb::ruby_client'
 end
 
+include_recipe 'influxdb::ruby_client'
 
 dbname = 'graphite'
 

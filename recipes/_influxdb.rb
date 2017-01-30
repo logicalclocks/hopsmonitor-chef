@@ -76,13 +76,12 @@ end
 #     package "ruby-devel" 
 # end
 
-include_recipe 'influxdb::ruby_client'
 
 dbname = 'graphite'
 
 # Create a test cluster admin
 execute 'create_adminuser' do
-  command "#{node.influxdb.base_dir}/bin/influx -execute \"CREATE USER #{node.influxdb.admin_user} WITH PASSWORD '#{node.influxdb.admin_password}'\""
+  command "#{node.influxdb.base_dir}/bin/influx -execute \"CREATE USER #{node.influxdb.admin_user} WITH PASSWORD '#{node.influxdb.admin_password}' WITH ALL PRIVILEGES\""
 end
 
 # Create a test database

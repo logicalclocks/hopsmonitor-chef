@@ -35,14 +35,14 @@ http_addr =
 http_port = <%= node.grafana.port %>
 
 # The public facing domain name used to access grafana from a browser
-domain = localhost
+domain = <%= @public_ip %>
 
 # Redirect to correct domain if host header does not match domain
 # Prevents DNS rebinding attacks
 enforce_domain = false
 
 # The full public facing url
-root_url = %(protocol)s://%(domain)s:%(http_port)s/
+root_url = http://<%= @public_ip %>/hopsworks-api/grafana
 
 # Log web requests
 router_logging = false

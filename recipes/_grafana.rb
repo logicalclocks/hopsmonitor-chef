@@ -1,5 +1,5 @@
 my_private_ip = my_private_ip()
-
+public_ip=my_public_ip()
 
 template "/tmp/grafana_tables.sql" do
   source "grafana_tables.sql.erb"
@@ -50,7 +50,7 @@ template "#{node.grafana.base_dir}/conf/defaults.ini" do
   group node.hopsmonitor.group
   mode 0650
   variables({ 
-     :my_ip => my_private_ip
+     :public_ip => public_ip
            })
 end
 
@@ -134,7 +134,7 @@ bash 'add_grafan_index_for_influxdb' do
         user "root"
         code <<-EOH
             set -e
-curl --user #{node.grafana.admin_user}:#{node.grafana.admin_password} 'http://localhost:3000/api/datasources' -H \"Content-Type: application/json\" -X POST -d '{\"Name\":\"influxdb\",\"Type\":\"influxdb\",\"url\":\"http://localhost:#{node.influxdb.http.port}\",\"Access\":\"proxy\",\"isDefault\":true,\"database\":\"grafana\",\"user\":#{node.grafana.mysql_user},\"password\":#{node.grafana.mysql_password}}'
+curl --user #{node.grafana.admin_user}:#{node.grafana.admin_password} 'http://localhost:3000/api/datasources' -H \"Content-Type: application/json\" -X POST -d '{\"Name\":\"influxdb\",\"Type\":\"influxdb\",\"url\":\"http://localhost:#{node.influxdb.http.port}\",\"Access\":\"proxy\",\"isDefault\":true,\"database\":\"graphite\",\"user\":#{node.influxdb.db_user},\"password\":#{node.influxdb.db_password}}'
         EOH
   retries 10
   retry_delay 4

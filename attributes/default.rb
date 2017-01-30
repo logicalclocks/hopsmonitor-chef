@@ -13,6 +13,12 @@ default.influxdb.version                    = "1.1.1"
 # https://dl.influxdata.com/influxdb/releases/influxdb-1.1.1_linux_amd64.tar.gz
 default.influxdb.url                        = "#{node.download_url}/influxdb-#{node.influxdb.version}_linux_amd64.tar.gz"
 
+default.influxdb.db_user                    = "hopsworks"
+default.influxdb.db_password                = "hopsworks"
+default.influxdb.admin_user                 = "adminuser"
+default.influxdb.admin_password             = "adminpw"
+
+
 # The default port is '8088' in influxdb (for backup/restore). This conflicts with yarn::rm, so we change it below
 default.influxdb.port                       = "9999"
 default.influxdb.admin.port                 = "8084"

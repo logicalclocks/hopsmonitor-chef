@@ -11,8 +11,6 @@ template"#{node.influxdb.conf_dir}/influxdb.conf" do
            })
 end
 
-
-
 case node.platform
 when "ubuntu"
  if node.platform_version.to_f <= 14.04
@@ -71,7 +69,12 @@ else #sysv
 end
 
 
-#include_recipe 'influxdb::default'
+# case node.platform_family
+#   when "debian"
+#     package "ruby-dev"
+#   when "rhel"
+#     package "ruby-devel" 
+# end
 
 include_recipe 'influxdb::ruby_client'
 
@@ -97,11 +100,9 @@ execute 'add_hopsworksuser_to_graphite' do
 end
 
 # Create a test retention policy on the test database
-execute 'add_hopsworksuser_to_graphite' do
+execute 'add_retention_policy_to_graphite' do
   command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_pw} -execute \"CREATE RETENTION POLICY one_week ON graphite DURATION 1w REPLICATIOn 1\""
 end
-
-
 
 if node.kagent.enabled == "true" 
    kagent_config "influxdb" do

@@ -37,6 +37,31 @@ attribute "hopsmonitor/group",
           :type => "string"
 
 
+#
+# InfluxDB
+#
+
+attribute "influxdb/db_user",
+          :description => "username for influxdb account used by hopsworks ",
+          :type => "string"
+
+attribute "influxdb/db_password",
+          :description => "Password for influxdb account used by hopsworks",
+          :type => "string"
+
+attribute "influxdb/admin_user",
+          :description => "username for influxdb admin ",
+          :type => "string"
+
+attribute "influxdb/admin_password",
+          :description => "Password for influxdb admin user",
+          :type => "string"
+
+#
+# Grafana
+#
+
+
 attribute "grafana/admin_user",
           :description => "username for grafana admin ",
           :type => "string"
@@ -53,4 +78,3 @@ attribute "grafana/mysql_user",
 attribute "grafana/mysql_password",
           :description => "Password for grafana mysql user",
           :type => "string"
-

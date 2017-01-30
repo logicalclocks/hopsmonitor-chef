@@ -80,46 +80,29 @@ include_recipe 'influxdb::ruby_client'
 
 dbname = 'graphite'
 
+# Create a test cluster admin
+execute 'create_adminuser' do
+  command "#{node.influxdb.base_dir}/bin/influx -execute \"CREATE USER #{node.influxdb.admin_user} WITH PASSWORD '#{node.influxdb.admin_pw}'\""
+end
+
 # Create a test database
-influxdb_database dbname do
-  action :create
+execute 'create_grahpitedb' do
+  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_pw} -execute \"CREATE DATABASE graphite\""
 end
 
 
 # Create a test user and give it access to the test database
-influxdb_user node.influxdb.db_user do
-  password node.influxdb.db_password
-  databases [dbname]
-  api_hostname my_private_ip
-  api_port 8086
-  use_ssl false
-  verify_ssl false
-  action :create
+execute 'create_hopsworksuser' do
+  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_pw} -execute \"CREATE USER hopsworks WITH PASSWORD 'hopsworks'\""
 end
-
-# Create a test cluster admin
-influxdb_admin node.influxdb.admin_user do
-  password node.influxdb.admin_password
-  action :create
+execute 'add_hopsworksuser_to_graphite' do
+  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_pw} -execute \"GRANT ALL ON graphite TO hopsworks\""
 end
-
 
 # Create a test retention policy on the test database
-influxdb_retention_policy 'test_policy' do
-  policy_name 'one_week'
-  database dbname
-  duration '1w'
-  replication 1
-  # by default in v1.0 there's a policy named autogen that is created for any
-  # db, when `meta.retention-autocreate`=true. We will make this test_policy
-  # the default policy.
-  # ref1: https://docs.influxdata.com/influxdb/v1.0/query_language/database_management/#retention-policy-management
-  # ref2: https://docs.influxdata.com/influxdb/v1.0/administration/config/#meta
-  default true
-  action :create
-  notifies :restart, 'service[influxdb]'
+execute 'add_retention_policy_to_graphite' do
+  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_pw} -execute \"CREATE RETENTION POLICY one_week ON graphite DURATION 1w REPLICATIOn 1\""
 end
-
 
 if node.kagent.enabled == "true" 
    kagent_config "influxdb" do

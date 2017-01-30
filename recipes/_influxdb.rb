@@ -76,7 +76,6 @@ end
 #     package "ruby-devel" 
 # end
 
-include_recipe 'influxdb::ruby_client'
 
 dbname = 'graphite'
 

@@ -82,26 +82,26 @@ dbname = 'graphite'
 
 # Create a test cluster admin
 execute 'create_adminuser' do
-  command "#{node.influxdb.base_dir}/bin/influx -execute \"CREATE USER #{node.influxdb.admin_user} WITH PASSWORD '#{node.influxdb.admin_pw}'\""
+  command "#{node.influxdb.base_dir}/bin/influx -execute \"CREATE USER #{node.influxdb.admin_user} WITH PASSWORD '#{node.influxdb.admin_password}'\""
 end
 
 # Create a test database
 execute 'create_grahpitedb' do
-  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_pw} -execute \"CREATE DATABASE graphite\""
+  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_password} -execute \"CREATE DATABASE graphite\""
 end
 
 
 # Create a test user and give it access to the test database
 execute 'create_hopsworksuser' do
-  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_pw} -execute \"CREATE USER hopsworks WITH PASSWORD 'hopsworks'\""
+  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_password} -execute \"CREATE USER hopsworks WITH PASSWORD 'hopsworks'\""
 end
 execute 'add_hopsworksuser_to_graphite' do
-  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_pw} -execute \"GRANT ALL ON graphite TO hopsworks\""
+  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_password} -execute \"GRANT ALL ON graphite TO hopsworks\""
 end
 
 # Create a test retention policy on the test database
 execute 'add_retention_policy_to_graphite' do
-  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_pw} -execute \"CREATE RETENTION POLICY one_week ON graphite DURATION 1w REPLICATIOn 1\""
+  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_password} -execute \"CREATE RETENTION POLICY one_week ON graphite DURATION 1w REPLICATIOn 1\""
 end
 
 if node.kagent.enabled == "true" 

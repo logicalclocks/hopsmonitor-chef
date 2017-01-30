@@ -69,38 +69,36 @@ else #sysv
 end
 
 
-# case node.platform_family
-#   when "debian"
-#     package "ruby-dev"
-#   when "rhel"
-#     package "ruby-devel" 
-# end
-
+#
+# Setup influxdb for use with Hopsworks
+#
 
 dbname = 'graphite'
+exec = "#{node.influxdb.base_dir}/bin/influx"
+exec_pwd = "#{exec} -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_password} -execute"
 
 # Create a test cluster admin
 execute 'create_adminuser' do
-  command "#{node.influxdb.base_dir}/bin/influx -execute \"CREATE USER #{node.influxdb.admin_user} WITH PASSWORD '#{node.influxdb.admin_password}' WITH ALL PRIVILEGES\""
+  command "#{exec} -execute \"CREATE USER #{node.influxdb.admin_user} WITH PASSWORD '#{node.influxdb.admin_password}' WITH ALL PRIVILEGES\""
 end
 
 # Create a test database
 execute 'create_grahpitedb' do
-  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_password} -execute \"CREATE DATABASE graphite\""
+  command "#{exec_pwd} \"CREATE DATABASE #{dbname}\""
 end
 
 
 # Create a test user and give it access to the test database
 execute 'create_hopsworksuser' do
-  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_password} -execute \"CREATE USER hopsworks WITH PASSWORD 'hopsworks'\""
+  command "#{exec_pwd} \"CREATE USER #{node.influxdb.db_user} WITH PASSWORD '#{node.influxdb.db_password}'\""
 end
 execute 'add_hopsworksuser_to_graphite' do
-  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_password} -execute \"GRANT ALL ON graphite TO hopsworks\""
+  command "#{exec_pwd} \"GRANT ALL ON #{dbname} TO #{node.influxdb.db_user}\""
 end
 
 # Create a test retention policy on the test database
 execute 'add_retention_policy_to_graphite' do
-  command "#{node.influxdb.base_dir}/bin/influx -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_password} -execute \"CREATE RETENTION POLICY one_week ON graphite DURATION 1w REPLICATIOn 1\""
+  command "#{exec_pwd} \"CREATE RETENTION POLICY one_week ON #{dbname} DURATION 1w REPLICATION 1\""
 end
 
 if node.kagent.enabled == "true" 

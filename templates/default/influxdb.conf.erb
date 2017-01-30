@@ -30,7 +30,7 @@ https-certificate = "<%= node.kagent.certs_dir %>/cert.pem"
 
 #bind-address = "<%= @my_ip %>:<%= node.influxdb.http.port %>"                 
 bind-address = ":<%= node.influxdb.http.port %>"
-
+auth-enabled = true
 ### [meta]                                                                                                                                                                                                                                                                                                       
 ###                                                                                                                                                                                                                                                                                                             
 ### Controls the parameters for the Raft consensus group that stores metadata                                                                                                                                                                                                                                    

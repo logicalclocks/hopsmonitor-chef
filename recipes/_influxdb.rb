@@ -80,27 +80,30 @@ exec_pwd = "#{exec} -username #{node.influxdb.admin_user} -password #{node.influ
 # Create a test cluster admin
 execute 'create_adminuser' do
   command "#{exec} -execute \"CREATE USER #{node.influxdb.admin_user} WITH PASSWORD '#{node.influxdb.admin_password}' WITH ALL PRIVILEGES\""
-#  not_if "#{exec_pwd} "
-#  not_if "#{exec_pwd} 'show users' | grep #{node.influxdb.admin_user}"
+  not_if "#{exec_pwd} 'show users' | grep #{node.influxdb.admin_user}"
 end
 
 # Create a test database
 execute 'create_grahpitedb' do
   command "#{exec_pwd} \"CREATE DATABASE #{dbname}\""
+  not_if "#{exec_pwd} 'show databases' | grep #{dbname}"
 end
 
 
 # Create a test user and give it access to the test database
 execute 'create_hopsworksuser' do
   command "#{exec_pwd} \"CREATE USER #{node.influxdb.db_user} WITH PASSWORD '#{node.influxdb.db_password}'\""
+  not_if "#{exec_pwd} 'show users' | grep #{node.influxdb.db_user}"
 end
 execute 'add_hopsworksuser_to_graphite' do
   command "#{exec_pwd} \"GRANT ALL ON #{dbname} TO #{node.influxdb.db_user}\""
+  not_if "#{exec_pwd} 'show grants for #{node.influxdb.db_user}' | grep #{dbname}"
 end
 
 # Create a test retention policy on the test database
 execute 'add_retention_policy_to_graphite' do
   command "#{exec_pwd} \"CREATE RETENTION POLICY one_week ON #{dbname} DURATION 1w REPLICATION 1\""
+  not_if "#{exec_pwd} 'show retention policies on grep #{dbname}' | grep one_week"
 end
 
 if node.kagent.enabled == "true" 

@@ -387,7 +387,7 @@ var hdfs_row = {
 	  type: "graphite",
           datasource: 'influxdb',
 	  stack: true,
-	  span: 6,
+	  span: 3,
 	  steppedLine: true,
 	  targets:[
 	  {
@@ -404,7 +404,7 @@ var hdfs_row = {
 	  title: "HDFS reads/executor",
 	  type: "graphite",
           datasource: 'influxdb',
-	  span: 6,
+	  span: 3,
 	  targets:[
 	  {
               select:[[
@@ -421,7 +421,7 @@ var hdfs_row = {
 	  type: "graphite",
           datasource: 'influxdb',
 	  stack: true,
-	  span: 6,
+	  span: 3,
 	  targets:[
 	  {
               select:[[
@@ -437,7 +437,7 @@ var hdfs_row = {
 	  title: "HDFS byte reads/executor",
 	  type: "graphite",
           datasource: 'influxdb',
-	  span: 6,
+	  span: 3,
 	  targets:[
 	  {
               select:[[
@@ -445,6 +445,73 @@ var hdfs_row = {
               ]],
               groupBy: [{type: 'time', params: ['10s']},{type: 'fill', params: ['null']}],
               measurement: '/$prefix.*.filesystem.hdfs.read_bytes/',
+	      alias:"$m"
+          },
+	  ]
+      },
+      {
+	  title: "HDFS writes/s, 10s avgs",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  stack: true,
+	  span: 3,
+	  steppedLine: true,
+	  targets:[
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []},{'type': 'non_negative_derivative', 'params': ['10s']},
+              ]],
+              groupBy: [{type: 'time', params: ['10s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.*.filesystem.hdfs.write_ops/',
+	      alias:"$m"
+          },
+	  ]
+      },
+      {
+	  title: "HDFS writes/executor",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  span: 3,
+	  targets:[
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []},
+              ]],
+              groupBy: [{type: 'time', params: ['10s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.*.filesystem.hdfs.write_ops/',
+	      alias:"$m"
+          },
+	  ]
+      },
+	{
+	  title: "HDFS bytes writes/s, 10s avgs",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  stack: true,
+	  span: 3,
+	  targets:[
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []},{'type': 'non_negative_derivative', 'params': ['10s']},
+              ]],
+              groupBy: [{type: 'time', params: ['10s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.*.filesystem.hdfs.write_bytes/',
+	      alias:"$m"
+          },
+	  ]
+      },
+      {
+	  title: "HDFS byte writess/executor",
+	  type: "graphite",
+          datasource: 'influxdb',
+	  span: 3,
+	  targets:[
+	  {
+              select:[[
+                  {'type': 'field', 'params': ['value']},{'type': 'mean', 'params': []},
+              ]],
+              groupBy: [{type: 'time', params: ['10s']},{type: 'fill', params: ['null']}],
+              measurement: '/$prefix.*.filesystem.hdfs.write_bytes/',
 	      alias:"$m"
           },
 	  ]

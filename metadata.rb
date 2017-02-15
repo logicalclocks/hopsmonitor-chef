@@ -36,6 +36,10 @@ attribute "hopsmonitor/group",
           :description => "Group to run Influxdb/Grafana server as",
           :type => "string"
 
+attribute "hopsmonitor/dir",
+          :description => "Base install directory for Influxdb/Grafana ",
+          :type => "string"
+
 
 #
 # InfluxDB
@@ -57,6 +61,25 @@ attribute "influxdb/admin_password",
           :description => "Password for influxdb admin user",
           :type => "string"
 
+
+attribute "influxdb/http/port",
+          :description => "Http port for influxdb",
+          :type => "string"
+
+attribute "influxdb/port",
+          :description => "Main port for influxdb",
+          :type => "string"
+
+attribute "influxdb/admin/port",
+          :description => "Admin port for influxdb",
+          :type => "string"
+
+attribute "influxdb/graphite/port",
+          :description => "Port for influxdb graphite connector",
+          :type => "string"
+
+
+
 #
 # Grafana
 #
@@ -77,4 +100,8 @@ attribute "grafana/mysql_user",
 
 attribute "grafana/mysql_password",
           :description => "Password for grafana mysql user",
+          :type => "string"
+
+attribute "grafana/port",
+          :description => "Port for grafana",
           :type => "string"

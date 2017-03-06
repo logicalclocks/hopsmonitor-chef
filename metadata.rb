@@ -106,3 +106,8 @@ attribute "grafana/mysql_password",
 attribute "grafana/port",
           :description => "Port for grafana",
           :type => "string"
+
+attribute "install/dir",
+          :description => "Set to a base directory under which we will install.",
+          :type => "string"
+

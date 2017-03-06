@@ -5,7 +5,7 @@ default.hopsmonitor.user                    = "graphite"
 default.hopsmonitor.group                   = "graphite"
 
 
-default.hopsmonitor.dir                     = node.install.dir.empty? ? node.install.dir : "/srv"
+default.hopsmonitor.dir                     = node.install.dir.empty? ? "/srv" : node.install.dir
 
 
 default.influxdb.version                    = "1.1.1"

@@ -1,8 +1,13 @@
 my_private_ip = my_private_ip()
 
+group node.hopsmonitor.group do
+  action :create
+  not_if "getent group #{node.hopsmonitor.group}"
+end
 
 user node.hopsmonitor.user do
   home "/home/#{node.hopsmonitor.user}"
+  gid node.hopsmonitor.group
   action :create
   system true
   shell "/bin/bash"

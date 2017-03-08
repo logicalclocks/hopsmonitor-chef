@@ -1,8 +1,8 @@
 include_attribute "kagent"
 include_attribute "ndb"
 
-default.hopsmonitor.user                    = "graphite"
-default.hopsmonitor.group                   = "graphite"
+default.hopsmonitor.user                    = node.install.user.empty? ? "graphite" : node.install.user
+default.hopsmonitor.group                   = node.install.user.empty? ? "graphite" : node.install.user
 
 
 default.hopsmonitor.dir                     = node.install.dir.empty? ? "/srv" : node.install.dir

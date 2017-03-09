@@ -83,7 +83,6 @@ directory "#{node.influxdb.conf_dir}" do
   group node.hopsmonitor.group
   mode "750"
   action :create
-  recursive true
 end
 
 directory "/var/log/influxdb" do

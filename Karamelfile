@@ -6,4 +6,5 @@ dependencies:
       - hopsworks::install
   - recipe: hopsmonitor::default
     global:  
+      - ndb::mysqld
       - hopsworks::default

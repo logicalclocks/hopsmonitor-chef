@@ -59,11 +59,6 @@ bash 'extract_influxdb' do
      not_if { ::File.exists?( influxdb_downloaded ) }
 end
 
-file node.influxdb.base_dir do
-  action :delete
-  force_unlink true
-end
-
 link node.influxdb.base_dir do
   owner node.hopsmonitor.user
   group node.hopsmonitor.group
@@ -123,11 +118,6 @@ bash 'extract_grafana' do
                 
         EOH
      not_if { ::File.exists?( grafana_downloaded ) }
-end
-
-file node.grafana.base_dir do
-  action :delete
-  force_unlink true
 end
 
 link node.grafana.base_dir do

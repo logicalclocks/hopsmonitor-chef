@@ -135,3 +135,81 @@ file "#{node.grafana.base_dir}/conf/sample.ini" do
   action :delete
 end
 
+
+
+
+#
+# Telegraf installation
+#
+
+
+package_url = "#{node.telegraf.url}"
+base_package_filename = File.basename(package_url)
+cached_package_filename = "/tmp/#{base_package_filename}"
+
+remote_file cached_package_filename do
+  source package_url
+  owner "root"
+  mode "0644"
+  action :create_if_missing
+end
+
+
+telegraf_downloaded = "#{node.telegraf.home}/.telegraf.extracted_#{node.telegraf.version}"
+# Extract telegraf
+bash 'extract_telegraf' do
+        user "root"
+        code <<-EOH
+                tar -xf #{cached_package_filename} -C #{node.hopsmonitor.dir}
+                chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.telegraf.home}
+                touch #{telegraf_downloaded}
+                chown #{node.hopsmonitor.user} #{telegraf_downloaded}
+                
+        EOH
+     not_if { ::File.exists?( telegraf_downloaded ) }
+end
+
+link node.telegraf.base_dir do
+  owner node.hopsmonitor.user
+  group node.hopsmonitor.group
+  to node.telegraf.home
+end
+
+
+#
+# Kapacitor installation
+#
+
+
+package_url = "#{node.kapacitor.url}"
+base_package_filename = File.basename(package_url)
+cached_package_filename = "/tmp/#{base_package_filename}"
+
+remote_file cached_package_filename do
+  source package_url
+  owner "root"
+  mode "0644"
+  action :create_if_missing
+end
+
+
+kapacitor_downloaded = "#{node.kapacitor.home}/.kapacitor.extracted_#{node.kapacitor.version}"
+# Extract kapacitor
+bash 'extract_kapacitor' do
+        user "root"
+        code <<-EOH
+                tar -xf #{cached_package_filename} -C #{node.hopsmonitor.dir}
+                chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.kapacitor.home}
+                touch #{kapacitor_downloaded}
+                chown #{node.hopsmonitor.user} #{kapacitor_downloaded}
+                
+        EOH
+     not_if { ::File.exists?( kapacitor_downloaded ) }
+end
+
+link node.kapacitor.base_dir do
+  owner node.hopsmonitor.user
+  group node.hopsmonitor.group
+  to node.kapacitor.home
+end
+

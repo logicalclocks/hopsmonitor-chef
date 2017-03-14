@@ -80,6 +80,8 @@ exec_pwd = "#{exec} -username #{node.influxdb.admin_user} -password #{node.influ
 # Create a test cluster admin
 execute 'create_adminuser' do
   command "#{exec} -execute \"CREATE USER #{node.influxdb.admin_user} WITH PASSWORD '#{node.influxdb.admin_password}' WITH ALL PRIVILEGES\""
+  retries 10
+  retry_delay 3
   not_if "#{exec_pwd} 'show users' | grep #{node.influxdb.admin_user}"
 end
 

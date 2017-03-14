@@ -1,0 +1,10 @@
+<%= node.telegraph.base_dir $>/log/telegraf.log 
+{
+    rotate 6
+    daily
+    missingok
+    dateext
+    copytruncate
+    notifempty
+    compress
+}

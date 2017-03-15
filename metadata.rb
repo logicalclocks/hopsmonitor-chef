@@ -17,7 +17,7 @@ depends 'kagent'
 depends 'elastic'
 depends 'influxdb'
 depends 'ndb'
-#depends 'hops'
+depends 'kzookeeper'
 
 #depends 'runit'
 #depends 'grafana'

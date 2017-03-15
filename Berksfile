@@ -11,6 +11,7 @@ cookbook 'ndb', github: "hopshadoop/ndb-chef", branch: "master"
 cookbook 'graphite', '~> 1.0.4'
 #cookbook 'runit'
 
+cookbook 'kzookeeper', github: "hopshadoop/kzookeeper", branch: "master"
 cookbook 'elastic', github: "hopshadoop/elasticsearch-chef", branch: "master"
 cookbook 'elasticsearch', '~> 2.4.0'
 

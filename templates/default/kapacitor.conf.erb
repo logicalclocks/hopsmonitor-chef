@@ -1,7 +1,7 @@
 # The hostname of this node.
 hostname = "<%= node['hostname'] %>"
 # Directory for storing a small amount of metadata about the server.
-data_dir = "<%= node.kapacitory.base_dir %>/data"
+data_dir = "<%= node.kapacitor.base_dir %>/data"
 
 # Do not apply configuration overrides during startup.
 # Useful if the configuration overrides cause Kapacitor to fail startup.
@@ -33,27 +33,27 @@ default-retention-policy = ""
 [logging]
     # Destination for logs
     # Can be a path to a file or 'STDOUT', 'STDERR'.
-    file = "<%= node.kapacitory.base_dir %>/log/kapacitor.log"
+    file = "<%= node.kapacitor.base_dir %>/log/kapacitor.log"
     # Logging level can be one of:
     # DEBUG, INFO, WARN, ERROR, or OFF
     level = "INFO"
 
 [replay]
   # Where to store replay files, aka recordings.
-  dir = "<%= node.kapacitory.base_dir %>/replay"
+  dir = "<%= node.kapacitor.base_dir %>/replay"
 
 [task]
   # Where to store the tasks database
   # DEPRECATED: This option is not needed for new installations.
   # It is only used to determine the location of the task.db file
   # for migrating to the new `storage` service.
-  dir = "<%= node.kapacitory.base_dir %>/tasks"
+  dir = "<%= node.kapacitor.base_dir %>/tasks"
   # How often to snapshot running task state.
   snapshot-interval = "60s"
 
 [storage]
   # Where to store the Kapacitor boltdb database
-  boltdb = "<%= node.kapacitory.base_dir %>/kapacitor.db"
+  boltdb = "<%= node.kapacitor.base_dir %>/kapacitor.db"
 
 [deadman]
   # Configure a deadman's switch

@@ -60,7 +60,7 @@ default.kapacitor.systemd                   = "true"
 default.kapacitor.home                      = node.hopsmonitor.dir + "/kapacitor-" + "#{node.kapacitor.version}"
 default.kapacitor.base_dir                  = node.hopsmonitor.dir + "/kapacitor"
 default.kapacitor.pid_file                  = "/tmp/kapacitor.pid"
-default.kapacitor.notify.email              = node.hopsworks.email
+default.kapacitor.notify.email              = ""
 default.kapacitor.slack_enabled             = "false"
 default.kapacitor.slack                     = node.kapacitor.slack_enabled == "true" ? true : false
 default.kapacitor.slack_url                 = ""

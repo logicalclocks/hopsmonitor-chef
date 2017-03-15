@@ -62,7 +62,7 @@ influx_ip = private_recipe_ip("hopsmonitor","default")
 
 # Query any local zookeeper broker
 found_zk = ""
-for zk in node.kzookeeper.default.private_ips
+for zk in node.kzookeeper[:default][:private_ips]
   if my_ip.eql? zk
     Chef::Log.info "Telegraf found matching zk IP address"
     found_zk = zk

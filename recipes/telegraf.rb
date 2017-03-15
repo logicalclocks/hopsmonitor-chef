@@ -58,7 +58,7 @@ end
 
 
 my_ip = my_private_ip()
-influx_ip = private_recipe_ip("influxdb","default")
+influx_ip = private_recipe_ip("hopsmonitor","default")
 
 # Query any local zookeeper broker
 found_zk = ""

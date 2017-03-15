@@ -18,7 +18,7 @@
 [global_tags]
   dc = "us-east-1" # will tag all metrics with dc=us-east-1
   rack = "1a"
-  Environment variables can be used as tags, and throughout the config file
+#  Environment variables can be used as tags, and throughout the config file
   user = "$USER"
 
 
@@ -67,10 +67,10 @@
   ## Run telegraf in quiet mode (error log messages only).
   quiet = false
   ## Specify the log file name. The empty string means to log to stderr.
-  logfile = <%= node.telegraf.base_dir %>/log/telegraf.log
+  logfile = "<%= node.telegraf.base_dir %>/log/telegraf.log"
 
   ## Override default hostname, if empty use os.Hostname()
-  #hostname = ""
+  hostname = "<%= node[:hostname] %>"
   ## If set to true, do no set the "host" tag in the telegraf agent.
   omit_hostname = false
 

@@ -8,3 +8,9 @@ dependencies:
     global:  
       - ndb::mysqld
       - hopsworks::default
+  - recipe: hopsmonitor::telegraf
+    global:  
+      - hopsworks::default
+  - recipe: hopsmonitor::kapacitor
+    global:  
+      - hopsmonitor::telegraf

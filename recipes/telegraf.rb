@@ -78,38 +78,19 @@ for es in node.elastic[:default][:private_ips]
   end
 end 
 
-# Query any local kafka broker
-found_kafka = ""
-for kafka in node.kkafka[:default][:private_ips]
-  if my_ip.eql? kafka
-    Chef::Log.info "Telegraf found matching kafka IP address"
-    found_kafka = kafka
-  end
-end 
-
-
-# Only query mysql from 1 telegraf agent. Pick the first mysql server.
-found_mysql = ""
-mysql = node.ndb.mysqld.private_ips[0]
-if my_ip.eql? mysql
-  Chef::Log.info "Telegraf found matching mysql IP address"
-  found_mysql = mysql
-end 
-
-
-template "#{node.kapacitor.base_dir}/conf/kapacitor.conf" do
-  source "kapacitor.conf.erb"
+template "#{node.telegraf.base_dir}/conf/telegraf.conf" do
+  source "telegraf.conf.erb"
   owner node.hopsmonitor.user
   group node.hopsmonitor.group
   mode 0750
   variables({ 
    :influx_ip => influx_ip,
    :zk_ip => found_zk,
-   :elastic_ip => found_es,
-   :kafka_ip => found_kafka,
-   :mysql_ip => found_mysql,   
+   :elastic_ip => found_es
   })
 end
+
+
 
 case node.platform
 when "ubuntu"

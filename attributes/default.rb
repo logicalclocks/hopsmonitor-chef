@@ -55,7 +55,7 @@ default.telegraf.base_dir                   = node.hopsmonitor.dir + "/telegraf"
 default.telegraf.pid_file                   = "/tmp/telegraf.pid"
 
 
-default.kapacitor.version                   = "1.2.0"
+default.kapacitor.version                   = "1.2.0-1"
 default.kapacitor.url                       = "#{node.download_url}/kapacitor-#{node.kapacitor.version}_linux_amd64.tar.gz"
 default.kapacitor.systemd                   = "true"
 default.kapacitor.home                      = node.hopsmonitor.dir + "/kapacitor-" + "#{node.kapacitor.version}"

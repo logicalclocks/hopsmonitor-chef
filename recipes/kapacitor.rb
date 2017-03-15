@@ -30,12 +30,15 @@ bash 'extract_kapacitor' do
         user "root"
         code <<-EOH
                 tar -xf #{cached_package_filename} -C #{node.hopsmonitor.dir}
+                cd #{node.kapacitor.home}
                 mkdir conf
                 cp etc/logrotate.d/kapacitor /etc/logrotate.d/kapacitor
                 mv usr/bin bin/
                 mv usr/lib/* /usr/lib
-                rm -rf usr
                 mv var/log log
+                rm -rf usr
+                rm -rf etc
+                rm -rf var
                 chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.kapacitor.home}
                 touch #{kapacitor_downloaded}
                 chown #{node.hopsmonitor.user} #{kapacitor_downloaded}

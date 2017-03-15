@@ -35,6 +35,8 @@ bash 'extract_telegraf' do
                 mv usr/bin bin/
                 mv usr/lib/* /usr/lib
                 rm -rf usr
+                rm -rf etc
+                rm -rf var
                 mv var/log log
                 chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.telegraf.home}
                 touch #{telegraf_downloaded}

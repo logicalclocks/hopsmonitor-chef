@@ -64,21 +64,21 @@ template "#{node.kapacitor.base_dir}/conf/kapacitor.conf" do
 end
 
 
-directory "#{node.kapacitory.base_dir}/replay" do
+directory "#{node.kapacitor.base_dir}/replay" do
   owner node.hopsmonitor.user
   group node.hopsmonitor.group
   mode "750"
   action :create
 end
 
-directory "#{node.kapacitory.base_dir}/log" do
+directory "#{node.kapacitor.base_dir}/log" do
   owner node.hopsmonitor.user
   group node.hopsmonitor.group
   mode "750"
   action :create
 end
 
-directory "#{node.kapacitory.base_dir}/tasks" do
+directory "#{node.kapacitor.base_dir}/tasks" do
   owner node.hopsmonitor.user
   group node.hopsmonitor.group
   mode "750"

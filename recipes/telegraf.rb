@@ -71,7 +71,7 @@ end
 
 # Query any local elasticsearch broker
 found_es = ""
-for es in node.elastic.default.private_ips
+for es in node.elastic[:default][:private_ips]
   if my_ip.eql? es
     Chef::Log.info "Telegraf found matching es IP address"
     found_es = es
@@ -80,7 +80,7 @@ end
 
 # Query any local kafka broker
 found_kafka = ""
-for kafka in node.kkafka.default.private_ips
+for kafka in node.kkafka[:default][:private_ips]
   if my_ip.eql? kafka
     Chef::Log.info "Telegraf found matching kafka IP address"
     found_kafka = kafka

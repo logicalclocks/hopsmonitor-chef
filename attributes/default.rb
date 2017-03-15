@@ -1,5 +1,6 @@
 include_attribute "kagent"
 include_attribute "ndb"
+include_attribute "kzookeeper"
 
 default.hopsmonitor.user                    = node.install.user.empty? ? "graphite" : node.install.user
 default.hopsmonitor.group                   = node.install.user.empty? ? "graphite" : node.install.user

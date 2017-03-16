@@ -11,6 +11,7 @@
 # Command-line options that can be set in ${KAPACITOR_HOME}/conf.  
 # These will override any config file values.
 DEFAULT=<%= node.kapacitor.base_dir %>/conf
+LOGFILE=<%= node.kapacitor.base_dir %>/log/kapacitor.log 
 
 # Daemon options
 KAPACITORD_OPTS=
@@ -126,7 +127,8 @@ function start() {
             --exec $DAEMON \
             -- \
             -pidfile $PIDFILE \
-            --config $CONFIG \
+            -log-file $LOGFILE \ 
+            -config $CONFIG \
             $KAPACITORD_OPTS >>$STDOUT 2>>$STDERR &
     else
         local CMD="$DAEMON -pidfile $PIDFILE --config $CONFIG $KAPACITORD_OPTS >>$STDOUT 2>>$STDERR &"

@@ -164,10 +164,10 @@ default-retention-policy = ""
   #enabled = false
   host = "<%= node.smtp.host %>"
   port = <%= node.smtp.ssl_port.to_i %>
-  username = "<%= node.stmp.email %>"
-  password = "<%= node.stmp.email_password %>"
+  username = "<%= node.smtp.email %>"
+  password = "<%= node.smtp.email_password %>"
   # From address for outgoing mail
-  from = "<%= node.stmp.email %>"
+  from = "<%= node.smtp.email %>"
   # List of default To addresses.
   # to = ["oncall@example.com"]
 

@@ -81,8 +81,8 @@ default-retention-policy = ""
   default = true
   name = "localhost"
   urls = ["http://<%= @influx_ip %>:8086"]
-  username = "<%= node.influx.admin_user %>"
-  password = "<%= node.influx.admin_password %>"
+  username = "<%= node.influxdb.admin_user %>"
+  password = "<%= node.influxdb.admin_password %>"
   timeout = 0
   # Absolute path to pem encoded CA file.
   # A CA can be provided without a key/cert pair

@@ -157,17 +157,17 @@ default-retention-policy = ""
     # Example:
     # my_database = [ "default", "longterm" ]
 
-#[smtp]
+[smtp]
   # Configure an SMTP email server
   # Will use TLS and authentication if possible
   # Only necessary for sending emails from alerts.
   #enabled = false
-  #host = "<%= node.hopsworks.smtp %>"
-  #port = <%= node.hopsworks.smtp_port.to_i %>
-  #username = "<%= node.hopsworks.email %>"
-  #password = "<%= node.hopsworks.email_password %>"
+  host = "<%= node.smtp.host %>"
+  port = <%= node.smtp.ssl_port.to_i %>
+  username = "<%= node.stmp.email %>"
+  password = "<%= node.stmp.email_password %>"
   # From address for outgoing mail
-  #from = "<%= node.hopsworks.email %>"
+  from = "<%= node.stmp.email %>"
   # List of default To addresses.
   # to = ["oncall@example.com"]
 

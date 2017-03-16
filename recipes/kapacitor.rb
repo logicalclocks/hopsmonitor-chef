@@ -99,7 +99,7 @@ if my_ip.eql? mysql
 end 
 
 
-template "#{node.telegraf.base_dir}/conf/kapacitor.conf" do
+template "#{node.kapacitor.base_dir}/conf/kapacitor.conf" do
   source "kapacitor.conf.erb"
   owner node.hopsmonitor.user
   group node.hopsmonitor.group

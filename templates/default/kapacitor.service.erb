@@ -8,7 +8,7 @@ User=<%= node.hopsmonitor.user %>
 Group=<%= node.hopsmonitor.group %>
 LimitNOFILE=65536
 EnvironmentFile=-<%= node.kapacitor.base_dir %>/conf/kapacitor
-ExecStart=<%= node.kapacitor.base_dir %>/bin/kapacitor -config <%= node.kapacitor.base_dir %>/conf/kapacitor.conf ${KAPACITORD_OPTS}
+ExecStart=<%= node.kapacitor.base_dir %>/bin/kapacitord -config <%= node.kapacitor.base_dir %>/conf/kapacitor.conf ${KAPACITORD_OPTS}
 KillMode=control-group
 Restart=on-failure
 

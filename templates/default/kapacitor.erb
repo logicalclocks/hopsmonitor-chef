@@ -16,7 +16,7 @@ DEFAULT=<%= node.kapacitor.base_dir %>/conf
 KAPACITORD_OPTS=
 
 # Process name ( For display )
-NAME=kapacitor
+NAME=kapacitord
 
 # User and group
 USER=<%= node.hopsmonitor.user %>
@@ -30,7 +30,7 @@ fi
 
 # Daemon name, where is the actual executable If the daemon is not
 # there, then exit.
-DAEMON=<%= node.kapacitor.base_dir %>/bin/kapacitor
+DAEMON=<%= node.kapacitor.base_dir %>/bin/kapacitord
 if [ ! -x $DAEMON ]; then
     echo "Executable $DAEMON does not exist!"
     exit 5

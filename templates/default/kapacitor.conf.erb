@@ -157,32 +157,32 @@ default-retention-policy = ""
     # Example:
     # my_database = [ "default", "longterm" ]
 
-[smtp]
+#[smtp]
   # Configure an SMTP email server
   # Will use TLS and authentication if possible
   # Only necessary for sending emails from alerts.
-  enabled = false
-  host = "<%= node.hopsworks.smtp %>"
-  port = <%= node.hopsworks.smtp_port.to_i %>
-  username = "<%= node.hopsworks.email %>"
-  password = "<%= node.hopsworks.email_password %>"
+  #enabled = false
+  #host = "<%= node.hopsworks.smtp %>"
+  #port = <%= node.hopsworks.smtp_port.to_i %>
+  #username = "<%= node.hopsworks.email %>"
+  #password = "<%= node.hopsworks.email_password %>"
   # From address for outgoing mail
-  from = "<%= node.hopsworks.email %>"
+  #from = "<%= node.hopsworks.email %>"
   # List of default To addresses.
   # to = ["oncall@example.com"]
 
   # Skip TLS certificate verify when connecting to SMTP server
-  no-verify = false
+  #no-verify = false
   # Close idle connections after timeout
-  idle-timeout = "30s"
+  #idle-timeout = "30s"
 
   # If true the all alerts will be sent via Email
   # without explicitly marking them in the TICKscript.
-  global = false
+  #global = false
   # Only applies if global is true.
   # Sets all alerts in state-changes-only mode,
   # meaning alerts will only be sent if the alert state changes.
-  state-changes-only = false
+  #state-changes-only = false
 
 
 [slack]

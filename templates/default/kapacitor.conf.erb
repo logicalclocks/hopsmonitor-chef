@@ -81,8 +81,8 @@ default-retention-policy = ""
   default = true
   name = "localhost"
   urls = ["http://<%= @influx_ip %>:8086"]
-  username = ""
-  password = ""
+  username = "<%= node.influx.admin_user %>"
+  password = "<%= node.influx.admin_password %>"
   timeout = 0
   # Absolute path to pem encoded CA file.
   # A CA can be provided without a key/cert pair
@@ -163,9 +163,9 @@ default-retention-policy = ""
   # Only necessary for sending emails from alerts.
   enabled = false
   host = "<%= node.hopsworks.smtp %>"
-  port = "<%= node.hopsworks.smtp_port %>"
+  port = <%= node.hopsworks.smtp_port.to_i %>
   username = "<%= node.hopsworks.email %>"
-  password = "<%= node.hopsworks.email_password %> "
+  password = "<%= node.hopsworks.email_password %>"
   # From address for outgoing mail
   from = "<%= node.hopsworks.email %>"
   # List of default To addresses.

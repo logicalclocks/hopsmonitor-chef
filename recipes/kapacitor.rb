@@ -32,10 +32,10 @@ bash 'extract_kapacitor' do
                 tar -xf #{cached_package_filename} -C #{node.hopsmonitor.dir}
                 cd #{node.kapacitor.home}
                 mkdir conf
+                mkdir log
                 cp etc/logrotate.d/kapacitor /etc/logrotate.d/kapacitor
                 mv usr/bin bin/
                 mv usr/lib/* /usr/lib
-                mv var/log log
                 rm -rf usr
                 rm -rf etc
                 rm -rf var

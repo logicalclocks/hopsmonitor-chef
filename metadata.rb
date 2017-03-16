@@ -17,7 +17,7 @@ depends 'kagent'
 depends 'elastic'
 depends 'influxdb'
 depends 'ndb'
-#depends 'hops'
+depends 'kzookeeper'
 
 #depends 'runit'
 #depends 'grafana'
@@ -27,6 +27,8 @@ depends 'ndb'
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
 recipe "hopsmonitor::default", "configures Influxdb/Grafana Server"
+recipe "hopsmonitor::kapacitor", "Configures/starts a kapacitor agent "
+recipe "hopsmonitor::telegraf", "Configures/starts a telegraf agent "
 recipe "hopsmonitor::purge", "Deletes the Influxdb/Grafana Server"
 
 attribute "hopsmonitor/user",
@@ -106,6 +108,41 @@ attribute "grafana/mysql_password",
 attribute "grafana/port",
           :description => "Port for grafana",
           :type => "string"
+
+#
+# Kapacitor
+#
+
+attribute "kapacitor/notify/email",
+          :description => "Send notification emails to this address",
+          :type => "string"
+
+attribute "kapacitor/slack_enabled",
+          :description => "Send notifications to slack",
+          :type => "string"
+
+attribute "kapacitor/slack_url",
+          :description => "Slack url hook.",
+          :type => "string"
+
+attribute "kapacitor/slack_channel",
+          :description => "Slack channel name",
+          :type => "string"
+
+
+#
+# Telegraf
+#
+
+attribute "telegraf/",
+          :description => "",
+          :type => "string"
+
+
+
+#
+# General
+#
 
 attribute "install/dir",
           :description => "Set to a base directory under which we will install.",

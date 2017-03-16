@@ -1,3 +1,58 @@
+case node.platform
+when "ubuntu"
+ if node.platform_version.to_f <= 14.04
+   node.override.grafana.systemd = "false"
+ end
+end
+
+
+#
+# Grafana installation
+#
+
+
+package_url = "#{node.grafana.url}"
+base_package_filename = File.basename(package_url)
+cached_package_filename = "#{Chef::Config[:file_cache_path]}/#{base_package_filename}"
+
+remote_file cached_package_filename do
+  source package_url
+  owner "root"
+  mode "0644"
+  action :create_if_missing
+end
+
+
+grafana_downloaded = "#{node.grafana.home}/.grafana.extracted_#{node.grafana.version}"
+# Extract grafana
+bash 'extract_grafana' do
+        user "root"
+        code <<-EOH
+                tar -xf #{cached_package_filename} -C #{node.hopsmonitor.dir}
+                chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.grafana.home}
+                touch #{grafana_downloaded}
+                chown #{node.hopsmonitor.user} #{grafana_downloaded}
+                
+        EOH
+     not_if { ::File.exists?( grafana_downloaded ) }
+end
+
+link node.grafana.base_dir do
+  owner node.hopsmonitor.user
+  group node.hopsmonitor.group
+  to node.grafana.home
+end
+
+
+file "#{node.grafana.base_dir}/conf/defaults.ini" do
+  action :delete
+end
+
+file "#{node.grafana.base_dir}/conf/sample.ini" do
+  action :delete
+end
+
+
 my_private_ip = my_private_ip()
 public_ip=my_public_ip()
 

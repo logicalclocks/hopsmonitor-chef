@@ -1,14 +1,15 @@
 include_attribute "kagent"
 include_attribute "ndb"
+include_attribute "kzookeeper"
 
-default.hopsmonitor.user                    = node.install.user.empty? ? "graphite" : node.install.user
-default.hopsmonitor.group                   = node.install.user.empty? ? "graphite" : node.install.user
+default.hopsmonitor.user                    = node.install.user.empty? ? "hopsmon" : node.install.user
+default.hopsmonitor.group                   = node.install.user.empty? ? "hopsmon" : node.install.user
 
 
 default.hopsmonitor.dir                     = node.install.dir.empty? ? "/srv" : node.install.dir
 
 
-default.influxdb.version                    = "1.1.1"
+default.influxdb.version                    = "1.2.1"
 # https://dl.influxdata.com/influxdb/releases/influxdb-1.1.1_linux_amd64.tar.gz
 default.influxdb.url                        = "#{node.download_url}/influxdb-#{node.influxdb.version}_linux_amd64.tar.gz"
 
@@ -46,3 +47,22 @@ default.grafana.home                        = node.hopsmonitor.dir + "/grafana-"
 default.grafana.base_dir                    = node.hopsmonitor.dir + "/grafana"
 default.grafana.pid_file                    = "/tmp/grafana.pid"
 
+default.telegraf.version                    = "1.2.1"
+default.telegraf.url                        = "#{node.download_url}/telegraf-#{node.telegraf.version}_linux_amd64.tar.gz"
+default.telegraf.systemd                    = "true"
+default.telegraf.home                       = node.hopsmonitor.dir + "/telegraf-" + "#{node.telegraf.version}"
+default.telegraf.base_dir                   = node.hopsmonitor.dir + "/telegraf"
+default.telegraf.pid_file                   = "/tmp/telegraf.pid"
+
+
+default.kapacitor.version                   = "1.2.0"
+default.kapacitor.url                       = "#{node.download_url}/kapacitor-#{node.kapacitor.version}_linux_amd64.tar.gz"
+default.kapacitor.systemd                   = "true"
+default.kapacitor.home                      = node.hopsmonitor.dir + "/kapacitor-" + "#{node.kapacitor.version}"
+default.kapacitor.base_dir                  = node.hopsmonitor.dir + "/kapacitor"
+default.kapacitor.pid_file                  = "/tmp/kapacitor.pid"
+default.kapacitor.notify.email              = ""
+default.kapacitor.slack_enabled             = "false"
+default.kapacitor.slack                     = node.kapacitor.slack_enabled == "true" ? true : false
+default.kapacitor.slack_url                 = ""
+default.kapacitor.slack_channel             = ""

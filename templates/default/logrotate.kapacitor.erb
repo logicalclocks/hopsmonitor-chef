@@ -1,0 +1,10 @@
+<%= node.kapacitor.base_dir $>/log/kapacitor.log 
+{
+    rotate 6
+    daily
+    missingok
+    dateext
+    copytruncate
+    notifempty
+    compress
+}

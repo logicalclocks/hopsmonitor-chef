@@ -10,7 +10,6 @@
 
 # Command-line options that can be set in ${KAPACITOR_HOME}/conf.  
 # These will override any config file values.
-DEFAULT=<%= node.kapacitor.base_dir %>/conf
 LOGFILE=<%= node.kapacitor.base_dir %>/log/kapacitor.log 
 
 # Daemon options
@@ -70,11 +69,6 @@ fi
 
 if [ ! -f "$STDERR" ]; then
     mkdir -p $(dirname $STDERR)
-fi
-
-# Override init script variables with DEFAULT values
-if [ -r $DEFAULT ]; then
-    source $DEFAULT
 fi
 
 function log_failure_msg() {

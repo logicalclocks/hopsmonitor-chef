@@ -77,9 +77,29 @@ auth-enabled = true
   # Flush if this many points get buffered           
    batch-size = 5000
 
+  # metrics separator
+  separator = "_" 
+
   # number of batches that may be pending in memory	 
    batch-pending = 10
 
   # Flush at least this often even if we haven't hit buffer limit
    batch-timeout = "1s"
 
+  templates = [
+     # Spark metrics: filter + template
+     # e.g. spark.application_1488980457743_0001.driver.jvm.pools.PS-Eden-Space.max
+     "spark.* measurement.appid.service.source.field*",
+     # YARN metrics: filter + template
+     # e.g. nodemanager.yarn.NodeManagerMetrics.Context=yarn.Hostname=vagrant.AvailableVCores
+     # e.g. resourcemanager.metricssystem.MetricsSystem.Context=metricssystem.Hostname=vagrant.DroppedPubAll
+     #"nodemanager.* measurement.context.source.*.field",
+     #"resourcemanager.* measurement.context.source.*.field",
+     # HDFS metrics: filter + template
+     # e.g. datanode.dfs.datanode.Context=dfs.Hostname=vagrant.vm.BlockChecksumOpNumOps
+     #"datanode.* measurement.context.source.*.field",
+     # e.g. namenode.dfs.namenode.ProcessName=NameNode.Context=dfs.Hostname=vagrant.vm.FilesCreated
+     #"namenode.* measurement.context.source.*.field",
+     # Default
+     "measurement*"
+   ]

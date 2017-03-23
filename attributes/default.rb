@@ -18,6 +18,7 @@ default.influxdb.db_password                = "hopsworks"
 default.influxdb.admin_user                 = "adminuser"
 default.influxdb.admin_password             = "adminpw"
 
+default.influxdb.databases                  = %w{ graphite telegraf }
 
 # The default port is '8088' in influxdb (for backup/restore). This conflicts with yarn::rm, so we change it below
 default.influxdb.port                       = "9999"

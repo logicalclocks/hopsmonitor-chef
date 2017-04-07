@@ -52,6 +52,15 @@ directory "#{node.influxdb.base_dir}/log" do
   action :create
 end
 
+directory "#{node.influxdb.base_dir}/etc" do
+  owner node.hopsmonitor.user
+  group node.hopsmonitor.group
+  mode "750"
+  action :delete
+  recursive true
+end
+
+
 
 directory "#{node.influxdb.conf_dir}" do
   owner node.hopsmonitor.user

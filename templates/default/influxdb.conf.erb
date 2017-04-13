@@ -14,14 +14,16 @@
 # that isn't resolvable by other servers in the cluster, use this option to                                                                                                                                                                                                                                      
 # manually set the hostname                                                                                                                                                                                                                                                                                      
 # hostname = "localhost"                                                                                                                                                                                                                                                                                         
-bind-address = "<%= @my_ip %>:<%= node.influxdb.port %>"
+#bind-address = "<%= @my_ip %>:<%= node.influxdb.port %>"
+bind-address = ":<%= node.influxdb.port %>"
 ###      
 
 
 
 [admin]
 
-bind-address = "<%= @my_ip %>:<%= node.influxdb.admin.port %>"                 
+#bind-address = "<%= @my_ip %>:<%= node.influxdb.admin.port %>"
+bind-address = ":<%= node.influxdb.admin.port %>"                 
 enabled = true
 https-enabled = false
 https-certificate = "<%= node.kagent.certs_dir %>/cert.pem"

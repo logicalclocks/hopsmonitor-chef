@@ -1,12 +1,10 @@
 dependencies: 
   - recipe: hopsmonitor::install
-    local:  
+    global:  
       - kagent::install
-    global:
       - hopsworks::install
   - recipe: hopsmonitor::default
     global:  
-      - ndb::mysqld
       - hopsworks::default
   - recipe: hopsmonitor::telegraf
     global:  

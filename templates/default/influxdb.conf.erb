@@ -58,7 +58,7 @@ auth-enabled = true
   dir = "<%= node.influxdb.base_dir %>/data"
   # The directory where the TSM storage engine stores WAL files.                                                                                                                                                                                                                                                
   wal-dir = "<%= node.influxdb.base_dir %>/wal"
-
+  max-series-per-database = "<%= node.influxdb.series.max %>"
 ###	   
 ### [[graphite]]
 ###                 

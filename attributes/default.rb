@@ -31,7 +31,7 @@ default.influxdb.base_dir                   = node.hopsmonitor.dir + "/influxdb"
 default.influxdb.conf_dir                   = node.influxdb.base_dir + "/conf"
 default.influxdb.pid_file                   = "/tmp/influxdb.pid"
 default.influxdb.graphite.port              = "2003"
-
+default.influxdb.series.max                 = 0
 
 default.grafana.version                     = "4.1.1-1484211277"
 default.grafana.url                         = "#{node.download_url}/grafana-#{node.grafana.version}.linux-x64.tar.gz"

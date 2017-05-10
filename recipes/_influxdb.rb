@@ -187,7 +187,7 @@ for dbname in node.influxdb.databases do
 
   # Create a test retention policy on the test database
   execute 'add_retention_policy_to_graphite' do
-    command "#{exec_pwd} \"CREATE RETENTION POLICY one_week ON #{dbname} DURATION 1w REPLICATION 1\""
+    command "#{exec_pwd} \"CREATE RETENTION POLICY one_week ON #{dbname} DURATION 1w REPLICATION 1 DEFAULT\""
     not_if "#{exec_pwd} 'show retention policies on grep #{dbname}' | grep one_week"
   end
 

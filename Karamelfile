@@ -2,7 +2,6 @@ dependencies:
   - recipe: hopsmonitor::install
     global:  
       - kagent::install
-      - hopsworks::install
   - recipe: hopsmonitor::default
     global:  
       - hopsworks::default

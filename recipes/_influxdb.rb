@@ -181,7 +181,7 @@ for dbname in node.influxdb.databases do
   end
 
   execute 'add_hopsworksuser_to_graphite' do
-    command "#{exec_pwd} \"GRANT ALL ON #{dbname} TO #{node.influxdb.db_user}\""
+    command "#{exec_pwd} \"GRANT READ ON #{dbname} TO #{node.influxdb.db_user}\""
     not_if "#{exec_pwd} 'show grants for #{node.influxdb.db_user}' | grep #{dbname}"
   end
 

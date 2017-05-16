@@ -181,13 +181,13 @@ for dbname in node.influxdb.databases do
   end
 
   execute 'add_hopsworksuser_to_graphite' do
-    command "#{exec_pwd} \"GRANT ALL ON #{dbname} TO #{node.influxdb.db_user}\""
+    command "#{exec_pwd} \"GRANT READ ON #{dbname} TO #{node.influxdb.db_user}\""
     not_if "#{exec_pwd} 'show grants for #{node.influxdb.db_user}' | grep #{dbname}"
   end
 
   # Create a test retention policy on the test database
   execute 'add_retention_policy_to_graphite' do
-    command "#{exec_pwd} \"CREATE RETENTION POLICY one_week ON #{dbname} DURATION 1w REPLICATION 1\""
+    command "#{exec_pwd} \"CREATE RETENTION POLICY one_week ON #{dbname} DURATION 1w REPLICATION 1 DEFAULT\""
     not_if "#{exec_pwd} 'show retention policies on grep #{dbname}' | grep one_week"
   end
 

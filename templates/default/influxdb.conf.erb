@@ -58,7 +58,7 @@ auth-enabled = true
   dir = "<%= node.influxdb.base_dir %>/data"
   # The directory where the TSM storage engine stores WAL files.                                                                                                                                                                                                                                                
   wal-dir = "<%= node.influxdb.base_dir %>/wal"
-
+  max-series-per-database = "<%= node.influxdb.series.max %>"
 ###	   
 ### [[graphite]]
 ###                 
@@ -79,9 +79,31 @@ auth-enabled = true
   # Flush if this many points get buffered           
    batch-size = 5000
 
+  # metrics separator, replace . with _
+  separator = "_" 
+
   # number of batches that may be pending in memory	 
    batch-pending = 10
 
   # Flush at least this often even if we haven't hit buffer limit
    batch-timeout = "1s"
 
+  templates = [
+     "spark.* measurement.appid.service.source.field*",
+     "resourcemanager.* measurement.service.source.details.context.hostname.field*",
+     # Graphite isn't really dynamic... Handle 8 fields in a measurement A.B.C. etc
+     "nodemanager.container.* measurement.service.source....hostname.field",
+     # Handle 7 length measurements
+     "nodemanager.jvm.* measurement.service.source...hostname.field",
+     "nodemanager.rpc.* measurement.service.source...hostname.field",
+     "nodemanager.rpcdetailed.* measurement.service.source...hostname.field",
+     # Handle 6 length ...
+     "nodemanager.mapred.* measurement.service.source..hostname.field",
+     "nodemanager.metricssystem.* measurement.service.source..hostname.field",
+     "nodemanager.ugi.* measurement.service.source..hostname.field",
+     "nodemanager.yarn.* measurement.service.source..hostname.field",
+
+     "datanode.* measurement.service.source.details.context.hostname.field*",
+     "namenode.* measurement.service.source.details.context.hostname.field*",
+     "measurement*"
+   ]

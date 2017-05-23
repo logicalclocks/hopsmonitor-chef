@@ -1,0 +1,510 @@
+/* global _ */
+
+'use strict';
+
+var dashboard = {
+    title: "admin",
+    rows: [],
+    style: "light",
+    time: {
+	from: "now-1h",
+	to:"now"
+    },
+    refresh: "5s",
+};
+
+
+var nodemanagers = {
+  title:"Yarn nodemanagerss status",
+    type: "graphite",
+    datasource: 'influxdb',
+    span: 4,
+    steppedLine: true,
+    "yaxes": [
+	{
+	    "format": "short",
+	    "label": null,
+	    "logBase": 1,
+	    "max": null,
+	    "min": 0,
+	    "show": true
+	},{}
+    ],
+    targets:[
+	{
+	    select:[[
+		{'type':'field','params':['NumActiveNMs']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "Active"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['NumUnhealthyNMs']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "Unhealthy"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['NumLostNMs']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "Lost"
+	}]
+};  
+
+var memory = {
+    title:"Yarn cluster memory usage (MB)",
+    type: "graphite",
+    datasource: 'influxdb',
+    span: 6,
+    steppedLine: true,
+    "yaxes": [
+	{
+	    "format": "short",
+	    "label": null,
+	    "logBase": 1,
+	    "max": null,
+	    "min": 0,
+	    "show": true
+	},{}
+    ],
+    targets:[
+	{
+	    select:[[
+		{'type':'field','params':['AvailableMB']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "available"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['AllocatedMB']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "allocated"
+	}]
+};
+
+var cores = {
+    title:"Yarn cluster vcores usage",
+    type: "graphite",
+    datasource: 'influxdb',
+    span: 6,
+    steppedLine: true,
+    "yaxes": [
+	{
+	    "format": "short",
+	    "label": null,
+	    "logBase": 1,
+	    "max": null,
+	    "min": 0,
+	    "show": true
+	},{}
+    ],
+    targets:[
+	{
+	    select:[[
+		{'type':'field','params':['AvailableVCores']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "available"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['AllocatedVCores']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "allocated"
+	}]
+};
+
+var containers = {
+    title:"Yarn containers status",
+    type: "graphite",
+    datasource: 'influxdb',
+    span: 4,
+    steppedLine: true,
+    "yaxes": [
+	{
+	    "format": "short",
+	    "label": null,
+	    "logBase": 1,
+	    "max": null,
+	    "min": 0,
+	    "show": true
+	},{}
+    ],
+    targets:[
+	{
+	    select:[[
+		{'type':'field','params':['AllocatedContainers']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "Allocated"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['PendingContainers']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "Pending"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['ReservedContainers']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "Reserved"
+	}]
+};
+
+var apps = {
+    title:"Yarn applications status",
+    type: "graphite",
+    datasource: 'influxdb',
+    span: 4,
+    steppedLine: true,
+    "yaxes": [
+	{
+	    "format": "short",
+	    "label": null,
+	    "logBase": 1,
+	    "max": null,
+	    "min": 0,
+	    "show": true
+	},{}
+    ],
+    targets:[
+	{
+	    select:[[
+		{'type':'field','params':['AppsRunning']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "Running"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['AppsPending']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'resourcemanager',
+	    alias: "Pending"
+	}]
+};
+
+
+var yarn_row = {
+    title: "Yarn",
+    height: '300px',
+    panels:[
+	memory,
+	cores,
+	nodemanagers,
+	containers,
+	apps
+    ]
+};
+
+var capacity = {
+    title:"HDFS Capacity (GB)",
+    type: "graphite",
+    datasource: 'influxdb',
+    span: 3,
+    steppedLine: true,
+    "yaxes": [
+	{
+	    "format": "short",
+	    "label": null,
+	    "logBase": 1,
+	    "max": null,
+	    "min": 0,
+	    "show": true
+	},{}
+    ],
+    targets:[
+	{
+	    select:[[
+		{'type':'field','params':['CapacityRemainingGB']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'namenode',
+	    alias: "Availlable"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['CapacityTotalGB']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'namenode',
+	    alias: "Total"
+	}]
+};
+
+var blocks = {
+    title:"Unhealthy HDFS blocks",
+    type: "graphite",
+    datasource: 'influxdb',
+    span: 3,
+    steppedLine: true,
+    "yaxes": [
+	{
+	    "format": "short",
+	    "label": null,
+	    "logBase": 1,
+	    "max": null,
+	    "min": 0,
+	    "show": true
+	},{}
+    ],
+    targets:[
+	{
+	    select:[[
+		{'type':'field','params':['UnderReplicatedBlocks']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'namenode',
+	    alias: "UnderReplicated"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['MissingBlocks']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'namenode',
+	    alias: "Missing"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['ExcessBlocks']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'namenode',
+	    alias: "Excess"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['CorruptBlocks']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'namenode',
+	    alias: "Corrupt"
+	}]
+};
+
+var load = {
+    title:"HDFS Load",
+    type: "graphite",
+    datasource: 'influxdb',
+    span: 3,
+    steppedLine: true,
+    legend: {show: false},
+    "yaxes": [
+	{
+	    "format": "short",
+	    "label": null,
+	    "logBase": 1,
+	    "max": null,
+	    "min": 0,
+	    "show": true
+	},{}
+    ],
+    targets:[
+	{
+	    select:[[
+		{'type':'field','params':['TotalLoad']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'namenode',
+	    alias: "Total load"
+	}]
+};
+
+var datanodes = {
+    title:"Datanodes state",
+    type: "graphite",
+    datasource: 'influxdb',
+    span: 3,
+    steppedLine: true,
+    "yaxes": [
+	{
+	    "format": "short",
+	    "label": null,
+	    "logBase": 1,
+	    "max": null,
+	    "min": 0,
+	    "show": true
+	},{}
+    ],
+    targets:[
+	{
+	    select:[[
+		{'type':'field','params':['LiveDataNodes']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'namenode',
+	    alias: "Live Datanodes"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['StaleDataNodes']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'namenode',
+	    alias: "Stale Datanodes"
+	},
+	{
+	    select:[[
+		{'type':'field','params':['DeadDataNodes']}
+	    ]],
+	    groupBy: [],
+	    measurement: 'namenode',
+	    alias: "Dead Datanodes"
+	}]
+};
+
+function namenodeJvmPanel(id, size) {
+    var host = "Hostname=".concat(id);
+    return {
+	title: "Namenode " + id + " Memory usage",
+	type: "graphite",
+	datasource: 'influxdb',
+	legend: {show: false},
+	span: size,
+	"yaxes": [
+	    {
+	    "format": "short",
+	    "label": null,
+	    "logBase": 1,
+	    "max": null,
+	    "min": 0,
+	    "show": true
+	    },{}
+	],
+	targets:[
+	    {
+		select:[[
+		    {'type': 'field', 'params':['MemHeapCommittedM']},
+		]],
+		"tags":[
+		    {"key":"hostname", "operator":"=", "value": host}
+		],
+		groupBy : [],
+		measurement: 'namenode'
+	    },
+	    {
+		select:[[
+		    {'type': 'field', 'params':['MemHeapMaxM']},
+		]],
+		"tags":[
+		    {"key":"hostname", "operator":"=", "value": host}
+		],
+		groupBy : [],
+		measurement: 'namenode'
+	    },
+	    {
+		select:[[
+		    {'type': 'field', 'params':['MemHeapUsedM']},
+		]],
+		"tags":[
+		    {"key":"hostname", "operator":"=", "value": host}
+		],
+		groupBy : [],
+		measurement: 'namenode'
+	    },
+	    {
+		select:[[
+		    {'type': 'field', 'params':['MemMaxM']},
+		]],
+		"tags":[
+		    {"key":"hostname", "operator":"=", "value": host}
+		],
+		groupBy : [],
+		measurement: 'namenode'
+	    },
+	    {
+		select:[[
+		    {'type': 'field', 'params':['MemNonHeapCommittedM']},
+		]],
+		"tags":[
+		    {"key":"hostname", "operator":"=", "value": host}
+		],
+		groupBy : [],
+		measurement: 'namenode'
+	    },
+	    {
+		select:[[
+		    {'type': 'field', 'params':['MemNonHeapMaxM']},
+		]],
+		"tags":[
+		    {"key":"hostname", "operator":"=", "value": host}
+		],
+		groupBy : [],
+		measurement: 'namenode'
+	    },
+	    {
+		select:[[
+		    {'type': 'field', 'params':['MemNonHeapUsedM']},
+		]],
+		"tags":[
+		    {"key":"hostname", "operator":"=", "value": host}
+		],
+		groupBy : [],
+		measurement: 'namenode'
+	    }
+	]
+    }
+}
+		
+var hdfs_row = {
+    title: "HDFS",
+    height: '300px',
+    panels:[
+	capacity,
+	blocks,
+	load,
+	datanodes,
+    ]
+};
+
+function getArrayParam(i, def) {
+    if(_.isUndefined(i)) return def;
+    return i.split(",");
+}
+var nns=getArrayParam(ARGS.hostname,[]);
+
+for(var i = 0; i < nns.length; i++){
+    var size = 3;
+    if (nns.length -i < 5 && nns.length%4!=0){
+	size = 12/(nns.length%4);
+    }
+    hdfs_row.panels.push(namenodeJvmPanel(nns[i], size));
+}
+
+var services = getArrayParam(ARGS.services,[]);
+
+// The dashboard, with its rows
+dashboard.rows = [];
+
+if(services.indexOf("YARN") > -1){
+    dashboard.rows.push(yarn_row);
+}
+
+if(services.indexOf("HDFS") > -1){
+    dashboard.rows.push(hdfs_row);
+}
+
+
+return dashboard;

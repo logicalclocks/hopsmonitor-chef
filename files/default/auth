@@ -1,0 +1,12 @@
+/var/log/auth.log
+{
+	rotate 4
+	size 2M
+	missingok
+	notifempty
+	delaycompress
+	compress
+	postrotate
+		invoke-rc.d rsyslog rotate > /dev/null
+	endscript
+}

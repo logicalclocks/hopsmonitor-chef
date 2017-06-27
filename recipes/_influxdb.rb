@@ -185,6 +185,12 @@ for dbname in node.influxdb.databases do
     not_if "#{exec_pwd} 'show grants for #{node.influxdb.db_user}' | grep #{dbname}"
   end
 
+  execute 'add_telegrafuser_to_graphite' do
+    command "#{exec_pwd} \"GRANT ALL ON #{dbname} TO #{node.influxdb.telegraf_user}\""
+    not_if "#{exec_pwd} 'show grants for #{node.influxdb.telegraf_user}' | grep #{dbname}"
+  end
+
+
   # Create a test retention policy on the test database
   execute 'add_retention_policy_to_graphite' do
     command "#{exec_pwd} \"CREATE RETENTION POLICY one_week ON #{dbname} DURATION 1w REPLICATION 1 DEFAULT\""

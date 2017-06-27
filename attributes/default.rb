@@ -15,6 +15,8 @@ default["influxdb"]["url"]                        = "#{node["download_url"]}/inf
 
 default["influxdb"]["db_user"]                    = "hopsworks"
 default["influxdb"]["db_password"]                = "hopsworks"
+default["influxdb"]["telegraf_user"]              = "telegraf"
+default["influxdb"]["telegraf_password"]          = "telegraf"
 default["influxdb"]["admin_user"]                 = "adminuser"
 default["influxdb"]["admin_password"]             = "adminpw"
 

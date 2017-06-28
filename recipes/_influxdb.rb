@@ -170,6 +170,11 @@ end
     not_if "#{exec_pwd} 'show users' | grep #{node.influxdb.db_user}"
   end
 
+    # Create telegraf user
+  execute 'create_telegrafuser' do
+    command "#{exec_pwd} \"CREATE USER #{node.influxdb.telegraf_user} WITH PASSWORD '#{node.influxdb.telegraf_password}'\""
+    not_if "#{exec_pwd} 'show users' | grep #{node.influxdb.telegraf_user}"
+  end
 #dbname = 'graphite'
   
 for dbname in node.influxdb.databases do

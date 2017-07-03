@@ -125,7 +125,7 @@ var activeTasks ={
                   {'key':'appid','operator':'=~','value':'/^$prefix$/'},
                   {'key':'service','operator':'=~','value':'/[0-9]+/', 'condition':'AND'},
               ],
-              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['previous']}],
               measurement: 'spark',
               alias:"$m"
           }]
@@ -149,7 +149,7 @@ var completeTasksPerExec ={
                   {'key':'appid','operator':'=~','value':'/^$prefix$/'},
                   {'key':'service','operator':'=~','value':'/[0-9]+/', 'condition':'AND'},
               ],
-              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
               measurement: 'spark',
               alias:"$m"
           }]
@@ -220,7 +220,7 @@ function executorJvmPanel(id) {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "key":"service","operator":"=","value":id.toString()}
             ],
-              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
               measurement: 'spark',
           alias:"Code Cache"
           },
@@ -233,7 +233,7 @@ function executorJvmPanel(id) {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "key":"service","operator":"=","value":id.toString()}
             ],
-              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
               measurement: 'spark',
           alias:"Compressed Class Space"
           },
@@ -245,7 +245,7 @@ function executorJvmPanel(id) {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "key":"service","operator":"=","value":id.toString()}
             ],
-              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
               measurement: 'spark',
           alias:"Metaspace"
           },
@@ -257,7 +257,7 @@ function executorJvmPanel(id) {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "key":"service","operator":"=","value":id.toString()}
             ],
-              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
               measurement: 'spark',
           alias:"Ps Eden Space"
           },
@@ -269,7 +269,7 @@ function executorJvmPanel(id) {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "key":"service","operator":"=","value":id.toString()}
             ],
-              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
               measurement: 'spark',
           alias:"Ps Old Gen"
           },
@@ -281,7 +281,7 @@ function executorJvmPanel(id) {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "key":"service","operator":"=","value":id.toString()}
             ],
-              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
               measurement: 'spark',
           alias:"Ps Survivor Space"
           },
@@ -293,7 +293,7 @@ function executorJvmPanel(id) {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "key":"service","operator":"=","value":id.toString()}
             ],
-              groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['none']}],
+              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
               measurement: 'spark',
           alias:"Heap"
           },
@@ -327,7 +327,7 @@ var driver_row = {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "condition":"AND","key":"service","operator":"=~","value":"/^$driver$/"  }
             ],
-            groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+            groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
             alias:"GC count",
           },
@@ -340,7 +340,7 @@ var driver_row = {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "condition":"AND","key":"service","operator":"=~","value":"/^$driver$/" }
             ],
-            groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+            groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
             alias:"GC time",
           },
@@ -361,7 +361,7 @@ var driver_row = {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "condition":"AND","key":"service","operator":"=~","value":"/^$driver$/" }
             ],
-            groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+            groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
             alias:"Code Cache"
       },
@@ -374,7 +374,7 @@ var driver_row = {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "condition":"AND","key":"service","operator":"=~","value":"/^$driver$/" }
             ],
-            groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+            groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
           alias:"Compressed Class Space"
           },
@@ -387,7 +387,7 @@ var driver_row = {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "condition":"AND","key":"service","operator":"=~","value":"/^$driver$/" }
             ],
-            groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+            groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
             alias:"Metaspace"
           },
@@ -400,7 +400,7 @@ var driver_row = {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "condition":"AND","key":"service","operator":"=~","value":"/^$driver$/" }
             ],
-            groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+            groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
             alias:"Ps Eden Space"
           },
@@ -413,7 +413,7 @@ var driver_row = {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "condition":"AND","key":"service","operator":"=~","value":"/^$driver$/" }
             ],
-            groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+            groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
             alias:"Ps Old Gen"
           },
@@ -426,7 +426,7 @@ var driver_row = {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "condition":"AND","key":"service","operator":"=~","value":"/^$driver$/" }
             ],
-            groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+            groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
           alias:"Ps Survivor Space"
           },
@@ -439,7 +439,7 @@ var driver_row = {
               { "key":"appid","operator":"=~","value":"/^$prefix$/" },
               { "condition":"AND","key":"service","operator":"=~","value":"/^$driver$/" }
             ],
-            groupBy: [{type: 'time', params: ['1s']},{type: 'fill', params: ['null']}],
+            groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
             alias:"Heap"
           },

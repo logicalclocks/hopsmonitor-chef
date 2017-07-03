@@ -33,25 +33,28 @@ var nodemanagers = {
     targets:[
 	{
 	    select:[[
-		{'type':'field','params':['NumActiveNMs']}
+		{'type':'field','params':['NumActiveNMs']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "Active"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['NumUnhealthyNMs']}
+		{'type':'field','params':['NumUnhealthyNMs']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "Unhealthy"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['NumLostNMs']}
+		{'type':'field','params':['NumLostNMs']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "Lost"
 	}]
@@ -76,17 +79,19 @@ var memory = {
     targets:[
 	{
 	    select:[[
-		{'type':'field','params':['AvailableMB']}
+		{'type':'field','params':['AvailableMB']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "available"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['AllocatedMB']}
+		{'type':'field','params':['AllocatedMB']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "allocated"
 	}]
@@ -111,17 +116,19 @@ var cores = {
     targets:[
 	{
 	    select:[[
-		{'type':'field','params':['AvailableVCores']}
+		{'type':'field','params':['AvailableVCores']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "available"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['AllocatedVCores']}
+		{'type':'field','params':['AllocatedVCores']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "allocated"
 	}]
@@ -146,25 +153,28 @@ var containers = {
     targets:[
 	{
 	    select:[[
-		{'type':'field','params':['AllocatedContainers']}
+		{'type':'field','params':['AllocatedContainers']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "Allocated"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['PendingContainers']}
+		{'type':'field','params':['PendingContainers']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "Pending"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['ReservedContainers']}
+		{'type':'field','params':['ReservedContainers']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "Reserved"
 	}]
@@ -189,17 +199,19 @@ var apps = {
     targets:[
 	{
 	    select:[[
-		{'type':'field','params':['AppsRunning']}
+		{'type':'field','params':['AppsRunning']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "Running"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['AppsPending']}
+		{'type':'field','params':['AppsPending']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'resourcemanager',
 	    alias: "Pending"
 	}]
@@ -237,17 +249,19 @@ var capacity = {
     targets:[
 	{
 	    select:[[
-		{'type':'field','params':['CapacityRemainingGB']}
+		{'type':'field','params':['CapacityRemainingGB']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
 	    alias: "Availlable"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['CapacityTotalGB']}
+		{'type':'field','params':['CapacityTotalGB']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
 	    alias: "Total"
 	}]
@@ -272,33 +286,37 @@ var blocks = {
     targets:[
 	{
 	    select:[[
-		{'type':'field','params':['UnderReplicatedBlocks']}
+		{'type':'field','params':['UnderReplicatedBlocks']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
 	    alias: "UnderReplicated"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['MissingBlocks']}
+		{'type':'field','params':['MissingBlocks']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
 	    alias: "Missing"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['ExcessBlocks']}
+		{'type':'field','params':['ExcessBlocks']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
 	    alias: "Excess"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['CorruptBlocks']}
+		{'type':'field','params':['CorruptBlocks']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
 	    alias: "Corrupt"
 	}]
@@ -324,9 +342,10 @@ var load = {
     targets:[
 	{
 	    select:[[
-		{'type':'field','params':['TotalLoad']}
+		{'type':'field','params':['TotalLoad']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
 	    alias: "Total load"
 	}]
@@ -351,25 +370,28 @@ var datanodes = {
     targets:[
 	{
 	    select:[[
-		{'type':'field','params':['LiveDataNodes']}
+		{'type':'field','params':['LiveDataNodes']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
 	    alias: "Live Datanodes"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['StaleDataNodes']}
+		{'type':'field','params':['StaleDataNodes']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
 	    alias: "Stale Datanodes"
 	},
 	{
 	    select:[[
-		{'type':'field','params':['DeadDataNodes']}
+		{'type':'field','params':['DeadDataNodes']},
+		{'type': 'median', 'params': []},
 	    ]],
-	    groupBy: [],
+	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
 	    alias: "Dead Datanodes"
 	}]
@@ -397,71 +419,78 @@ function namenodeJvmPanel(id, size) {
 	    {
 		select:[[
 		    {'type': 'field', 'params':['MemHeapCommittedM']},
+		    {'type': 'median', 'params': []},
 		]],
 		"tags":[
 		    {"key":"hostname", "operator":"=", "value": host}
 		],
-		groupBy : [],
+		groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 		measurement: 'namenode'
 	    },
 	    {
 		select:[[
 		    {'type': 'field', 'params':['MemHeapMaxM']},
+		    {'type': 'median', 'params': []},
 		]],
 		"tags":[
 		    {"key":"hostname", "operator":"=", "value": host}
 		],
-		groupBy : [],
+		groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 		measurement: 'namenode'
 	    },
 	    {
 		select:[[
 		    {'type': 'field', 'params':['MemHeapUsedM']},
+		    {'type': 'median', 'params': []},
 		]],
 		"tags":[
 		    {"key":"hostname", "operator":"=", "value": host}
 		],
-		groupBy : [],
+		groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 		measurement: 'namenode'
 	    },
 	    {
 		select:[[
 		    {'type': 'field', 'params':['MemMaxM']},
+		    {'type': 'median', 'params': []},
 		]],
 		"tags":[
 		    {"key":"hostname", "operator":"=", "value": host}
 		],
-		groupBy : [],
+		groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 		measurement: 'namenode'
 	    },
 	    {
 		select:[[
 		    {'type': 'field', 'params':['MemNonHeapCommittedM']},
+		    {'type': 'median', 'params': []},
 		]],
 		"tags":[
 		    {"key":"hostname", "operator":"=", "value": host}
 		],
-		groupBy : [],
+		groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 		measurement: 'namenode'
 	    },
 	    {
 		select:[[
 		    {'type': 'field', 'params':['MemNonHeapMaxM']},
+		    {'type': 'median', 'params': []},
 		]],
 		"tags":[
 		    {"key":"hostname", "operator":"=", "value": host}
 		],
-		groupBy : [],
+		groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 		measurement: 'namenode'
 	    },
 	    {
 		select:[[
 		    {'type': 'field', 'params':['MemNonHeapUsedM']},
+		    {'type': 'median', 'params': []},
 		]],
 		"tags":[
 		    {"key":"hostname", "operator":"=", "value": host}
 		],
-		groupBy : [],
+		groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 		measurement: 'namenode'
 	    }
 	]

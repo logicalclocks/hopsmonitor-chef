@@ -172,4 +172,14 @@ if node.kagent.enabled == "true"
    end
 end
 
+template "#{node.hops.base_dir}/etc/hadoop/hadoop-metrics2.properties" do
+  source "hadoop-metrics2.properties.erb"
+  owner node.hops.hdfs.user
+  group node.hops.group
+  mode "755"
+  variables({
+              :influx_ip => influx_ip,
+            })
+  only_if { ::File.exist?("#{node.hops.base_dir}/etc/hadoop/hadoop-metrics2.properties") }
+end
 

@@ -1,6 +1,7 @@
 include_attribute "kagent"
 include_attribute "ndb"
 include_attribute "kzookeeper"
+include_attribute "hops"
 
 default["hopsmonitor"]["user"]                    = node["install"]["user"].empty? ? "hopsmon" : node["install"]["user"]
 default["hopsmonitor"]["group"]                   = node["install"]["user"].empty? ? "hopsmon" : node["install"]["user"]
@@ -15,6 +16,8 @@ default["influxdb"]["url"]                        = "#{node["download_url"]}/inf
 
 default["influxdb"]["db_user"]                    = "hopsworks"
 default["influxdb"]["db_password"]                = "hopsworks"
+default["influxdb"]["telegraf_user"]              = "telegraf"
+default["influxdb"]["telegraf_password"]          = "telegraf"
 default["influxdb"]["admin_user"]                 = "adminuser"
 default["influxdb"]["admin_password"]             = "adminpw"
 

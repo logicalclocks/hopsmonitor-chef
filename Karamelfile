@@ -4,10 +4,10 @@ dependencies:
       - kagent::install
   - recipe: hopsmonitor::default
     global:  
-      - hopsworks::default
+      - kagent::default
   - recipe: hopsmonitor::telegraf
     global:  
-      - hopsworks::default
+      - kagent::default
   - recipe: hopsmonitor::kapacitor
     global:  
       - hopsmonitor::telegraf

@@ -25,7 +25,7 @@
 # Configuration for telegraf agent
 [agent]
   ## Default data collection interval for all inputs
-  interval = "2s"
+  interval = "10s"
   ## Rounds collection interval to 'interval'
   ## ie, if interval="10s" then always collect on :00, :10, :20, etc.
   round_interval = true
@@ -97,8 +97,8 @@
   ## Write timeout (for the InfluxDB client), formatted as a string.
   ## If not provided, will default to 5s. 0s means no timeout (not recommended).
   timeout = "5s"
-  username = "<%= node.influxdb.db_user %>"
-  password = "<%= node.influxdb.db_password %>"
+  username = "<%= node.influxdb.telegraf_user %>"
+  password = "<%= node.influxdb.telegraf_password %>"
   ## Set the user agent for HTTP POSTs (can be useful for log differentiation)
   # user_agent = "telegraf"
   ## Set UDP payload size, defaults to InfluxDB UDP Client default (512 bytes)

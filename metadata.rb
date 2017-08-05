@@ -18,6 +18,7 @@ depends 'elastic'
 depends 'influxdb'
 depends 'ndb'
 depends 'kzookeeper'
+depends 'hops'
 
 #depends 'runit'
 #depends 'grafana'

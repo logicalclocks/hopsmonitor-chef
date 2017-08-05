@@ -116,6 +116,13 @@ template "#{node.grafana.base_dir}/public/dashboards/spark.js" do
   mode 0650
 end
 
+template "#{node.grafana.base_dir}/public/dashboards/admin.js" do
+  source "admin.js.erb"
+  owner node.hopsmonitor.user
+  group node.hopsmonitor.group
+  mode 0650
+end
+
 case node.platform
 when "ubuntu"
  if node.platform_version.to_f <= 14.04

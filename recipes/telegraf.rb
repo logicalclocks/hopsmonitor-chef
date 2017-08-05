@@ -51,6 +51,22 @@ link node.telegraf.base_dir do
   to node.telegraf.home
 end
 
+bash 'remove_auth.log_policy' do
+  user 'root'
+  group 'root'
+  code <<-EOH
+       sed -i '/\\/var\\/log\\/auth.log/d' /etc/logrotate.d/rsyslog
+  EOH
+  only_if { ::File.exist?('/etc/logrotate.d/rsyslog') }
+end
+
+cookbook_file '/etc/logrotate.d/auth' do
+  source 'auth'
+  owner 'root'
+  group 'root'
+  mode '0644'
+end
+
 template "/etc/logrotate.d/telegraf" do
   source "logrotate.telegraf.erb"
   owner "root"
@@ -156,4 +172,14 @@ if node.kagent.enabled == "true"
    end
 end
 
+template "#{node.hops.base_dir}/etc/hadoop/hadoop-metrics2.properties" do
+  source "hadoop-metrics2.properties.erb"
+  owner node.hops.hdfs.user
+  group node.hops.group
+  mode "755"
+  variables({
+              :influx_ip => influx_ip,
+            })
+  only_if { ::File.exist?("#{node.hops.base_dir}/etc/hadoop/hadoop-metrics2.properties") }
+end
 

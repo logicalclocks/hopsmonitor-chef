@@ -122,7 +122,7 @@ if node.influxdb.systemd == "true"
     notifies :restart, resources(:service => service_name), :immediately
   end
 
-  kagent_config "reload_influxdb_daemon" do
+  kagent_config "#{service_name}" do
     action :systemd_reload
   end  
 

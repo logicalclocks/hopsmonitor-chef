@@ -142,7 +142,7 @@ if node.telegraf.systemd == "true"
     notifies :start, resources(:service => service_name), :immediately
   end
 
-  kagent_config "reload_telegraf_daemon" do
+  kagent_config "#{service_name}" do
     action :systemd_reload
   end  
 

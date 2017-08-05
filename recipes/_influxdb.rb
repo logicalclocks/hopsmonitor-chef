@@ -119,7 +119,7 @@ if node.influxdb.systemd == "true"
     group "root"
     mode 0754
     notifies :enable, resources(:service => service_name)
-    notifies :start, resources(:service => service_name), :immediately
+    notifies :restart, resources(:service => service_name), :immediately
   end
 
   kagent_config "reload_influxdb_daemon" do
@@ -150,6 +150,12 @@ end
 # Setup influxdb for use with Hopsworks
 #
 
+ruby_block 'wait_until_influx_started' do
+  block do
+     sleep(15)
+  end
+  action :run
+end
 
 
 

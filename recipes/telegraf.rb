@@ -167,7 +167,7 @@ end
 
 if node.kagent.enabled == "true" 
    kagent_config "telegraf" do
-     service "telegraf"
+     service "Monitoring"
      log_file "#{node.telegraf.base_dir}/log/telegraf.log"
    end
 end

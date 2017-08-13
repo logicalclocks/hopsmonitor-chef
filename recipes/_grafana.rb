@@ -183,7 +183,7 @@ end
 
 if node.kagent.enabled == "true" 
    kagent_config service_name do
-     service service_name
+     service "Monitoring"
      log_file "#{node.grafana.base_dir}/logs/grafana.log"
    end
 end

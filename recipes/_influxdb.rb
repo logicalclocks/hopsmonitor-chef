@@ -212,7 +212,7 @@ end
 
 if node.kagent.enabled == "true" 
    kagent_config "influxdb" do
-     service "influxdb"
+     service "Monitoring"
      log_file "/var/log/influxdb.log"
    end
 end

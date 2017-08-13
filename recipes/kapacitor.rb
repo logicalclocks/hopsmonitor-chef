@@ -188,7 +188,7 @@ end
 
 if node.kagent.enabled == "true" 
    kagent_config "kapacitor" do
-     service "kapacitor"
+     service "Monitoring"
      log_file "#{node.kapacitor.base_dir}/log/kapacitor.log"
    end
 end

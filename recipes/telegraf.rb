@@ -39,6 +39,7 @@ bash 'extract_telegraf' do
                 rm -rf var
                 mv var/log log
                 chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.telegraf.home}
+                chmod 750 #{node.telegraf.home}
                 touch #{telegraf_downloaded}
                 chown #{node.hopsmonitor.user} #{telegraf_downloaded}
         EOH

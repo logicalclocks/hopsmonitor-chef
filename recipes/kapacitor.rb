@@ -40,6 +40,7 @@ bash 'extract_kapacitor' do
                 rm -rf etc
                 rm -rf var
                 chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.kapacitor.home}
+                chmod 750 #{node.kapacitor.home}
                 touch #{kapacitor_downloaded}
                 chown #{node.hopsmonitor.user} #{kapacitor_downloaded}
         EOH

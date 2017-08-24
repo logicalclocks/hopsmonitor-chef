@@ -32,6 +32,7 @@ bash 'extract_influxdb' do
                 mv usr/bin/* bin/
                              
                 chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.influxdb.home}
+                chmod 750 #{node.influxdb.home}
                 touch #{influxdb_downloaded}
                 chown #{node.hopsmonitor.user} #{influxdb_downloaded}
                 

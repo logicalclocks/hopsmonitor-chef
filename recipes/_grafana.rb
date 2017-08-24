@@ -30,6 +30,7 @@ bash 'extract_grafana' do
         code <<-EOH
                 tar -xf #{cached_package_filename} -C #{node.hopsmonitor.dir}
                 chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.grafana.home}
+                chmod 750 #{node.grafana.home}
                 touch #{grafana_downloaded}
                 chown #{node.hopsmonitor.user} #{grafana_downloaded}
                 

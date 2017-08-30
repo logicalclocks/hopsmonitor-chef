@@ -89,6 +89,26 @@ template"#{node.influxdb.conf_dir}/influxdb.conf" do
            })
 end
 
+
+template "#{Chef::Config["file_cache_path"]}/metrics.properties" do
+  source "metrics.properties.erb"
+  owner node[:hopsmonitor][:user]
+  mode 0750
+  action :create
+  variables({
+              :private_ip => my_private_ip
+            })
+end
+
+hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/metrics.properties" do
+  action :put_as_superuser
+  owner node["hadoop_spark"]["user"]
+  group node["hops"]["group"]
+  mode "1775"
+  dest "/user/#{node["hadoop_spark"]["user"]}/metrics.properties"
+end
+
+
 case node.platform
 when "ubuntu"
  if node.platform_version.to_f <= 14.04

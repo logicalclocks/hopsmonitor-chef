@@ -19,6 +19,7 @@ depends 'influxdb'
 depends 'ndb'
 depends 'kzookeeper'
 depends 'hops'
+depends 'hadoop_spark'
 
 #depends 'runit'
 #depends 'grafana'

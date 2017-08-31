@@ -4,8 +4,7 @@ dependencies:
       - kagent::install
   - recipe: hopsmonitor::default
     global:  
-      - kagent::default
-      - hops::dn
+      - hadoop_spark::yarn
   - recipe: hopsmonitor::telegraf
     global:  
       - kagent::default

@@ -46,6 +46,14 @@ attribute "hopsmonitor/dir",
           :type => "string"
 
 
+attribute "hopsmonitor/private_ips",
+          :description => "Set ip addresses",
+          :type => "array"
+
+attribute "hopsmonitor/public_ips",
+          :description => "Set ip addresses",
+          :type => "array"
+
 #
 # InfluxDB
 #

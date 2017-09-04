@@ -10,6 +10,7 @@ default["hopsmonitor"]["group"]                   = node["install"]["user"].empt
 default["hopsmonitor"]["dir"]                     = node["install"]["dir"].empty? ? "/srv" : node["install"]["dir"]
 
 
+
 default["influxdb"]["version"]                    = "1.2.1"
 # https://dl.influxdata.com/influxdb/releases/influxdb-1.1.1_linux_amd64.tar.gz
 default["influxdb"]["url"]                        = "#{node["download_url"]}/influxdb-#{node["influxdb"]["version"]}_linux_amd64.tar.gz"
@@ -25,8 +26,8 @@ default["influxdb"]["databases"]                  = %w{ graphite telegraf }
 
 # The default port is '8088' in influxdb (for backup/restore). This conflicts with yarn::rm, so we change it below
 default["influxdb"]["port"]                       = "9999"
-default["influxdb"]["admin"]["port"]                 = "8084"
-default["influxdb"]["http"]["port"]                  = "8086"
+default["influxdb"]["admin"]["port"]              = "8084"
+default["influxdb"]["http"]["port"]               = "8086"
 
 default["influxdb"]["systemd"]                    = "true"
 default["influxdb"]["home"]                       = node["hopsmonitor"]["dir"] + "/influxdb-" + "#{node["influxdb"]["version"]}-1"
@@ -70,3 +71,6 @@ default["kapacitor"]["slack_enabled"]             = "false"
 default["kapacitor"]["slack"]                     = node["kapacitor"]["slack_enabled"] == "true" ? true : false
 default["kapacitor"]["slack_url"]                 = ""
 default["kapacitor"]["slack_channel"]             = ""
+
+default['hopsmonitor']['private_ips']             = ['10.0.2.15']
+default['hopsmonitor']['public_ips']              = ['10.0.2.15']

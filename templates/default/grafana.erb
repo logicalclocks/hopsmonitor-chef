@@ -18,8 +18,8 @@ DEFAULT=/etc/default/grafana
 NAME=grafana
 
 # User and group
-USER=<%= node.hopsmonitor.user %>
-GROUP=<%= node.hopsmonitor.group %>
+USER=<%= node['hopsmonitor']['user'] %>
+GROUP=<%= node['hopsmonitor']['group'] %>
 
 # Check for sudo or root privileges before continuing
 if [ "$UID" != "0" ]; then
@@ -29,14 +29,14 @@ fi
 
 # Daemon name, where is the actual executable If the daemon is not
 # there, then exit.
-DAEMON=<%= node.grafana.base_dir %>/bin/grafana-server
+DAEMON=<%= node['grafana']['base_dir'] %>/bin/grafana-server
 if [ ! -x $DAEMON ]; then
     echo "Executable $DAEMON does not exist!"
     exit 5
 fi
 
 # Configuration file
-CONFIG=<%= node.grafana.base_dir %>/conf/defaults.ini
+CONFIG=<%= node['grafana']['base_dir'] %>/conf/defaults.ini
 
 # PID file for the daemon
 
@@ -60,7 +60,7 @@ if [ ! -f "$STDOUT" ]; then
 fi
 
 if [ -z "$STDERR" ]; then
-    STDERR=<%= node.grafana.base_dir %>/grafana.log
+    STDERR=<%= node['grafana']['base_dir'] %>/grafana.log
 fi
 
 if [ ! -f "$STDERR" ]; then
@@ -119,7 +119,7 @@ function start() {
             --start \
             --exec $DAEMON \
             -- \
-            -config $CONFIG -homepath <%= node.grafana.base_dir %> -pidfile $PID_FILE \
+            -config $CONFIG -homepath <%= node['grafana']['base_dir'] %> -pidfile $PID_FILE \
             >>$STDOUT 2>>$STDERR &
     else
         local CMD="$DAEMON -config $CONFIG >>$STDOUT 2>>$STDERR &"

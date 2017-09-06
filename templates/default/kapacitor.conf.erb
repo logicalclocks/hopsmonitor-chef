@@ -1,7 +1,7 @@
 # The hostname of this node.
 hostname = "<%= node['hostname'] %>"
 # Directory for storing a small amount of metadata about the server.
-data_dir = "<%= node.kapacitor.base_dir %>/data"
+data_dir = "<%= node['kapacitor']['base_dir'] %>/data"
 
 # Do not apply configuration overrides during startup.
 # Useful if the configuration overrides cause Kapacitor to fail startup.
@@ -33,27 +33,27 @@ default-retention-policy = ""
 [logging]
     # Destination for logs
     # Can be a path to a file or 'STDOUT', 'STDERR'.
-    file = "<%= node.kapacitor.base_dir %>/log/kapacitor.log"
+    file = "<%= node['kapacitor']['base_dir'] %>/log/kapacitor.log"
     # Logging level can be one of:
     # DEBUG, INFO, WARN, ERROR, or OFF
     level = "INFO"
 
 [replay]
   # Where to store replay files, aka recordings.
-  dir = "<%= node.kapacitor.base_dir %>/replay"
+  dir = "<%= node['kapacitor']['base_dir'] %>/replay"
 
 [task]
   # Where to store the tasks database
   # DEPRECATED: This option is not needed for new installations.
   # It is only used to determine the location of the task.db file
   # for migrating to the new `storage` service.
-  dir = "<%= node.kapacitor.base_dir %>/tasks"
+  dir = "<%= node['kapacitor']['base_dir'] %>/tasks"
   # How often to snapshot running task state.
   snapshot-interval = "60s"
 
 [storage]
   # Where to store the Kapacitor boltdb database
-  boltdb = "<%= node.kapacitor.base_dir %>/kapacitor.db"
+  boltdb = "<%= node['kapacitor']['base_dir'] %>/kapacitor.db"
 
 [deadman]
   # Configure a deadman's switch
@@ -81,8 +81,8 @@ default-retention-policy = ""
   default = true
   name = "localhost"
   urls = ["http://<%= @influx_ip %>:8086"]
-  username = "<%= node.influxdb.admin_user %>"
-  password = "<%= node.influxdb.admin_password %>"
+  username = "<%= node['influxdb']['admin_user'] %>"
+  password = "<%= node['influxdb']['admin_password'] %>"
   timeout = 0
   # Absolute path to pem encoded CA file.
   # A CA can be provided without a key/cert pair
@@ -162,12 +162,12 @@ default-retention-policy = ""
   # Will use TLS and authentication if possible
   # Only necessary for sending emails from alerts.
   #enabled = false
-  host = "<%= node.smtp.host %>"
-  port = <%= node.smtp.ssl_port.to_i %>
-  username = "<%= node.smtp.email %>"
-  password = "<%= node.smtp.email_password %>"
+  host = "<%= node['smtp']['host'] %>"
+  port = <%= node['smtp']['ssl_port'].to_i %>
+  username = "<%= node['smtp']['email'] %>"
+  password = "<%= node['smtp']['email_password'] %>"
   # From address for outgoing mail
-  from = "<%= node.smtp.email %>"
+  from = "<%= node['smtp']['email'] %>"
   # List of default To addresses.
   # to = ["oncall@example.com"]
 
@@ -187,7 +187,7 @@ default-retention-policy = ""
 
 [slack]
   # Configure Slack.
-  enabled = <%= node.kapacitor.slack %>
+  enabled = <%= node['kapacitor']['slack'] %>
   # The Slack webhook URL, can be obtained by adding
   # an Incoming Webhook integration.
   # Visit https://slack.com/services/new/incoming-webhook

@@ -24,13 +24,13 @@ for s in services
     ignore_failure true
   end
 
-  directory node["#{s}"][:home] do
+  directory node["#{s}"]['home'] do
     recursive true
     action :delete
     ignore_failure true
   end
 
-  link node["#{s}"][:base_dir] do
+  link node["#{s}"]['base_dir'] do
     action :delete
     ignore_failure true
   end  

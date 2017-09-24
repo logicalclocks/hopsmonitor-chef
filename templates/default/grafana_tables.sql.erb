@@ -1,6 +1,6 @@
 
 
-GRANT ALL PRIVILEGES ON grafana.* to '<%= node.grafana.mysql_user %>'@'localhost' identified by '<%= node.grafana.mysql_password %>';
+GRANT ALL PRIVILEGES ON grafana.* to '<%= node['grafana']['mysql_user'] %>'@'localhost' identified by '<%= node['grafana']['mysql_password'] %>';
 
 
 CREATE TABLE `session` (

@@ -4,11 +4,11 @@ Documentation=https://docs.influxdata.com/kapacitor
 After=network-online.target
 
 [Service]
-User=<%= node.hopsmonitor.user %>
-Group=<%= node.hopsmonitor.group %>
+User=<%= node['hopsmonitor']['user'] %>
+Group=<%= node['hopsmonitor']['group'] %>
 LimitNOFILE=65536
-EnvironmentFile=-<%= node.kapacitor.base_dir %>/conf/kapacitor
-ExecStart=<%= node.kapacitor.base_dir %>/bin/kapacitord -config <%= node.kapacitor.base_dir %>/conf/kapacitor.conf -log-file <%= node.kapacitor.base_dir %>/log/kapacitor.log ${KAPACITORD_OPTS}
+EnvironmentFile=-<%= node['kapacitor']['base_dir'] %>/conf/kapacitor
+ExecStart=<%= node['kapacitor']['base_dir'] %>/bin/kapacitord -config <%= node['kapacitor']['base_dir'] %>/conf/kapacitor.conf -log-file <%= node['kapacitor']['base_dir'] %>/log/kapacitor.log ${KAPACITORD_OPTS}
 KillMode=control-group
 Restart=on-failure
 

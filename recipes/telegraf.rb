@@ -1,16 +1,16 @@
-case node.platform
+case node['platform']
 when "ubuntu"
- if node.platform_version.to_f <= 14.04
-   node.override.telegraf.systemd = "false"
+ if node['platform_version'].to_f <= 14.04
+   node.override['telegraf']['systemd'] = "false"
  end
 end
 
 #
 # Telegraf installation
 #
-package_url = "#{node.telegraf.url}"
+package_url = "#{node['telegraf']['url']}"
 base_package_filename = File.basename(package_url)
-cached_package_filename = "#{Chef::Config[:file_cache_path]}/#{base_package_filename}"
+cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
 
 remote_file cached_package_filename do
   source package_url
@@ -21,14 +21,14 @@ end
 
 package "logrotate"
 
-telegraf_downloaded = "#{node.telegraf.home}/.telegraf.extracted_#{node.telegraf.version}"
+telegraf_downloaded = "#{node['telegraf']['home']}/.telegraf.extracted_#{node['telegraf']['version']}"
 # Extract telegraf
 bash 'extract_telegraf' do
         user "root"
         code <<-EOH
-                tar -xf #{cached_package_filename} -C #{node.hopsmonitor.dir}
-                mv #{node.hopsmonitor.dir}/telegraf #{node.telegraf.home}
-                cd #{node.telegraf.home}
+                tar -xf #{cached_package_filename} -C #{node['hopsmonitor']['dir']}
+                mv #{node['hopsmonitor']['dir']}/telegraf #{node['telegraf']['home']}
+                cd #{node['telegraf']['home']}
                 mkdir conf
                 cp etc/logrotate.d/telegraf /etc/logrotate.d/telegraf
                 mv etc/telegraf conf
@@ -38,18 +38,18 @@ bash 'extract_telegraf' do
                 rm -rf etc
                 rm -rf var
                 mv var/log log
-                chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.telegraf.home}
-                chmod 750 #{node.telegraf.home}
+                chown -R #{node['hopsmonitor']['user']}:#{node['hopsmonitor']['group']} #{node['telegraf']['home']}
+                chmod 750 #{node['telegraf']['home']}
                 touch #{telegraf_downloaded}
-                chown #{node.hopsmonitor.user} #{telegraf_downloaded}
+                chown #{node['hopsmonitor']['user']} #{telegraf_downloaded}
         EOH
      not_if { ::File.exists?( telegraf_downloaded ) }
 end
 
-link node.telegraf.base_dir do
-  owner node.hopsmonitor.user
-  group node.hopsmonitor.group
-  to node.telegraf.home
+link node['telegraf']['base_dir'] do
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  to node['telegraf']['home']
 end
 
 bash 'remove_auth.log_policy' do
@@ -81,7 +81,7 @@ influx_ip = private_recipe_ip("hopsmonitor","default")
 
 # Query any local zookeeper broker
 found_zk = ""
-for zk in node.kzookeeper[:default][:private_ips]
+for zk in node['kzookeeper']['default']['private_ips']
   if my_ip.eql? zk
     Chef::Log.info "Telegraf found matching zk IP address"
     found_zk = zk
@@ -90,17 +90,17 @@ end
 
 # Query any local elasticsearch broker
 found_es = ""
-for es in node.elastic[:default][:private_ips]
+for es in node['elastic']['default']['private_ips']
   if my_ip.eql? es
     Chef::Log.info "Telegraf found matching es IP address"
     found_es = es
   end
 end 
 
-template "#{node.telegraf.base_dir}/conf/telegraf.conf" do
+template "#{node['telegraf']['base_dir']}/conf/telegraf.conf" do
   source "telegraf.conf.erb"
-  owner node.hopsmonitor.user
-  group node.hopsmonitor.group
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
   mode 0750
   variables({ 
    :influx_ip => influx_ip,
@@ -111,15 +111,15 @@ end
 
 
 
-case node.platform
+case node['platform']
 when "ubuntu"
- if node.platform_version.to_f <= 14.04
-   node.override.influxdb.systemd = "false"
+ if node['platform_version'].to_f <= 14.04
+   node.override['influxdb']['systemd'] = "false"
  end
 end
 
 service_name="telegraf"
-if node.telegraf.systemd == "true"
+if node['telegraf']['systemd'] == "true"
 
   service service_name do
     provider Chef::Provider::Service::Systemd
@@ -127,7 +127,7 @@ if node.telegraf.systemd == "true"
     action :nothing
   end
 
-  case node.platform_family
+  case node['platform_family']
   when "rhel"
     systemd_script = "/usr/lib/systemd/system/#{service_name}.service" 
   when "debian"
@@ -139,7 +139,7 @@ if node.telegraf.systemd == "true"
     owner "root"
     group "root"
     mode 0754
-if node.services.enabled == "true"
+if node['services']['enabled'] == "true"
     notifies :enable, resources(:service => service_name)
 end
     notifies :restart, resources(:service => service_name)
@@ -159,8 +159,8 @@ else #sysv
 
   template "/etc/init.d/#{service_name}" do
     source "#{service_name}.erb"
-    owner node.hopsmonitor.user
-    group node.hopsmonitor.group
+    owner node['hopsmonitor']['user']
+    group node['hopsmonitor']['group']
     mode 0754
     notifies :enable, resources(:service => service_name)
     notifies :restart, resources(:service => service_name), :immediately
@@ -168,21 +168,21 @@ else #sysv
 
 end
 
-if node.kagent.enabled == "true" 
+if node['kagent']['enabled'] == "true" 
    kagent_config "telegraf" do
      service "Monitoring"
-     log_file "#{node.telegraf.base_dir}/log/telegraf.log"
+     log_file "#{node['telegraf']['base_dir']}/log/telegraf.log"
    end
 end
 
-template "#{node.hops.base_dir}/etc/hadoop/hadoop-metrics2.properties" do
+template "#{node['hops']['base_dir']}/etc/hadoop/hadoop-metrics2.properties" do
   source "hadoop-metrics2.properties.erb"
-  owner node.hops.hdfs.user
-  group node.hops.group
+  owner node['hops']['hdfs']['user']
+  group node['hops']['group']
   mode "755"
   variables({
               :influx_ip => influx_ip,
             })
-  only_if { ::File.exist?("#{node.hops.base_dir}/etc/hadoop/hadoop-metrics2.properties") }
+  only_if { ::File.exist?("#{node['hops']['base_dir']}/etc/hadoop/hadoop-metrics2.properties") }
 end
 

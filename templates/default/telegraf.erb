@@ -10,7 +10,7 @@
 
 # Command-line options that can be set in ${TELEGRAF_HOME}/conf.  
 # These will override any config file values.
-DEFAULT=<%= node.telegraf.base_dir %>/conf
+DEFAULT=<%= node['telegraf']['base_dir'] %>/conf
 
 # Daemon options
 TELEGRAFD_OPTS=
@@ -19,8 +19,8 @@ TELEGRAFD_OPTS=
 NAME=telegraf
 
 # User and group
-USER=<%= node.hopsmonitor.user %>
-GROUP=<%= node.hopsmonitor.group %>
+USER=<%= node['hopsmonitor']['user'] %>
+GROUP=<%= node['hopsmonitor']['group'] %>
 
 # Check for sudo or root privileges before continuing
 if [ "$UID" != "0" ]; then
@@ -30,17 +30,17 @@ fi
 
 # Daemon name, where is the actual executable If the daemon is not
 # there, then exit.
-DAEMON=<%= node.telegraf.base_dir %>/bin/telegraf
+DAEMON=<%= node['telegraf']['base_dir'] %>/bin/telegraf
 if [ ! -x $DAEMON ]; then
     echo "Executable $DAEMON does not exist!"
     exit 5
 fi
 
 # Configuration file
-CONFIG=<%= node.telegraf.base_dir %>/conf/telegraf.conf
+CONFIG=<%= node['telegraf']['base_dir'] %>/conf/telegraf.conf
 
 # PID file for the daemon
-PIDFILE=<%= node.telegraf.pid_file %>
+PIDFILE=<%= node['telegraf']['pid_file'] %>
 PIDDIR=`dirname $PIDFILE`
 if [ ! -d "$PIDDIR" ]; then
     mkdir -p $PIDDIR
@@ -64,7 +64,7 @@ if [ ! -f "$STDOUT" ]; then
 fi
 
 if [ -z "$STDERR" ]; then
-    STDERR=<%= node.telegraf.base_dir %>/log/telegraf.log
+    STDERR=<%= node['telegraf']['base_dir'] %>/log/telegraf.log
 fi
 
 if [ ! -f "$STDERR" ]; then

@@ -4,11 +4,11 @@ Documentation=https://docs.influxdata.com/influxdb/
 After=network-online.target
 
 [Service]
-User=<%= node.hopsmonitor.user %>
-Group=<%= node.hopsmonitor.group %>
+User=<%= node['hopsmonitor']['user'] %>
+Group=<%= node['hopsmonitor']['group'] %>
 LimitNOFILE=65536
 EnvironmentFile=-/etc/default/influxdb
-ExecStart=<%= node.influxdb.base_dir %>/bin/influxd -config <%= node.influxdb.conf_dir %>/influxdb.conf ${INFLUXD_OPTS}
+ExecStart=<%= node['influxdb']['base_dir'] %>/bin/influxd -config <%= node['influxdb']['conf_dir'] %>/influxdb.conf ${INFLUXD_OPTS}
 KillMode=control-group
 Restart=on-failure
 

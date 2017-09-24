@@ -1,7 +1,7 @@
-case node.platform
+case node['platform']
 when "ubuntu"
- if node.platform_version.to_f <= 14.04
-   node.override.influxdb.systemd = "false"
+ if node['platform_version'].to_f <= 14.04
+   node.override['influxdb']['systemd'] = "false"
  end
 end
 
@@ -10,9 +10,9 @@ end
 # InfluxDB installation
 #
 
-package_url = "#{node.influxdb.url}"
+package_url = "#{node['influxdb']['url']}"
 base_package_filename = File.basename(package_url)
-cached_package_filename = "#{Chef::Config[:file_cache_path]}/#{base_package_filename}"
+cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
 
 remote_file cached_package_filename do
   source package_url
@@ -21,41 +21,41 @@ remote_file cached_package_filename do
   action :create_if_missing
 end
 
-influxdb_downloaded = "#{node.influxdb.home}/.influxdb.extracted_#{node.influxdb.version}"
+influxdb_downloaded = "#{node['influxdb']['home']}/.influxdb.extracted_#{node['influxdb']['version']}"
 # Extract influxdb
 bash 'extract_influxdb' do
         user "root"
         code <<-EOH
-                tar -xf #{cached_package_filename} -C #{node.hopsmonitor.dir}
-                cd #{node.influxdb.home}
+                tar -xf #{cached_package_filename} -C #{node['hopsmonitor']['dir']}
+                cd #{node['influxdb']['home']}
                 mkdir bin
                 mv usr/bin/* bin/
                              
-                chown -R #{node.hopsmonitor.user}:#{node.hopsmonitor.group} #{node.influxdb.home}
-                chmod 750 #{node.influxdb.home}
+                chown -R #{node['hopsmonitor']['user']}:#{node['hopsmonitor']['group']} #{node['influxdb']['home']}
+                chmod 750 #{node['influxdb']['home']}
                 touch #{influxdb_downloaded}
-                chown #{node.hopsmonitor.user} #{influxdb_downloaded}
+                chown #{node['hopsmonitor']['user']} #{influxdb_downloaded}
                 
         EOH
      not_if { ::File.exists?( influxdb_downloaded ) }
 end
 
-link node.influxdb.base_dir do
-  owner node.hopsmonitor.user
-  group node.hopsmonitor.group
-  to node.influxdb.home
+link node['influxdb']['base_dir'] do
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  to node['influxdb']['home']
 end
 
-directory "#{node.influxdb.base_dir}/log" do
-  owner node.hopsmonitor.user
-  group node.hopsmonitor.group
+directory "#{node['influxdb']['base_dir']}/log" do
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
   mode "750"
   action :create
 end
 
-directory "#{node.influxdb.base_dir}/etc" do
-  owner node.hopsmonitor.user
-  group node.hopsmonitor.group
+directory "#{node['influxdb']['base_dir']}/etc" do
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
   mode "750"
   action :delete
   recursive true
@@ -63,26 +63,26 @@ end
 
 
 
-directory "#{node.influxdb.conf_dir}" do
-  owner node.hopsmonitor.user
-  group node.hopsmonitor.group
+directory "#{node['influxdb']['conf_dir']}" do
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
   mode "750"
   action :create
 end
 
 directory "/var/log/influxdb" do
-  owner node.hopsmonitor.user
-  group node.hopsmonitor.group
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
   mode "750"
   action :create
 end
 
 my_private_ip = my_private_ip()
 
-template"#{node.influxdb.conf_dir}/influxdb.conf" do
+template"#{node['influxdb']['conf_dir']}/influxdb.conf" do
   source "influxdb.conf.erb"
-  owner node.hopsmonitor.user
-  group node.hopsmonitor.group
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
   mode 0650
   variables({ 
      :my_ip => my_private_ip
@@ -90,9 +90,9 @@ template"#{node.influxdb.conf_dir}/influxdb.conf" do
 end
 
 
-template "#{Chef::Config["file_cache_path"]}/metrics.properties" do
+template "#{Chef::Config['file_cache_path']}/metrics.properties" do
   source "metrics.properties.erb"
-  owner node[:hopsmonitor][:user]
+  owner node['hopsmonitor']['user']
   mode 0750
   action :create
   variables({
@@ -100,26 +100,26 @@ template "#{Chef::Config["file_cache_path"]}/metrics.properties" do
             })
 end
 
-hops_hdfs_directory "#{Chef::Config["file_cache_path"]}/metrics.properties" do
+hops_hdfs_directory "#{Chef::Config['file_cache_path']}/metrics.properties" do
   action :put_as_superuser
-  owner node["hadoop_spark"]["user"]
-  group node["hops"]["group"]
+  owner node['hadoop_spark']['user']
+  group node['hops']['group']
   mode "1775"
-  dest "/user/#{node["hadoop_spark"]["user"]}/metrics.properties"
+  dest "/user/#{node['hadoop_spark']['user']}/metrics.properties"
 end
 
 
-case node.platform
+case node['platform']
 when "ubuntu"
- if node.platform_version.to_f <= 14.04
-   node.override.influxdb.systemd = "false"
+ if node['platform_version'].to_f <= 14.04
+   node.override['influxdb']['systemd'] = "false"
  end
 end
 
 
 service_name="influxdb"
 
-if node.influxdb.systemd == "true"
+if node['influxdb']['systemd'] == "true"
 
   service service_name do
     provider Chef::Provider::Service::Systemd
@@ -127,7 +127,7 @@ if node.influxdb.systemd == "true"
     action :nothing
   end
 
-  case node.platform_family
+  case node['platform_family']
   when "rhel"
     systemd_script = "/usr/lib/systemd/system/#{service_name}.service" 
   when "debian"
@@ -139,7 +139,7 @@ if node.influxdb.systemd == "true"
     owner "root"
     group "root"
     mode 0754
-if node.services.enabled == "true"
+if node['services']['enabled'] == "true"
     notifies :enable, resources(:service => service_name)
 end
     notifies :restart, resources(:service => service_name)
@@ -159,8 +159,8 @@ else #sysv
 
   template "/etc/init.d/#{service_name}" do
     source "#{service_name}.erb"
-    owner node.hopsmonitor.user
-    group node.hopsmonitor.group
+    owner node['hopsmonitor']['user']
+    group node['hopsmonitor']['group']
     mode 0754
     notifies :enable, resources(:service => service_name)
     notifies :restart, resources(:service => service_name), :immediately
@@ -182,31 +182,31 @@ end
 
 
 
-  exec = "#{node.influxdb.base_dir}/bin/influx"
-  exec_pwd = "#{exec} -username #{node.influxdb.admin_user} -password #{node.influxdb.admin_password} -execute"
+  exec = "#{node['influxdb']['base_dir']}/bin/influx"
+  exec_pwd = "#{exec} -username #{node['influxdb']['admin_user']} -password #{node['influxdb']['admin_password']} -execute"
 
   # Create a test cluster admin
   execute 'create_adminuser' do
-    command "#{exec} -execute \"CREATE USER #{node.influxdb.admin_user} WITH PASSWORD '#{node.influxdb.admin_password}' WITH ALL PRIVILEGES\""
+    command "#{exec} -execute \"CREATE USER #{node['influxdb']['admin_user']} WITH PASSWORD '#{node['influxdb']['admin_password']}' WITH ALL PRIVILEGES\""
     retries 10
     retry_delay 3
-    not_if "#{exec_pwd} 'show users' | grep #{node.influxdb.admin_user}"
+    not_if "#{exec_pwd} 'show users' | grep #{node['influxdb']['admin_user']}"
   end
 
   # Create a test user and give it access to the test database
   execute 'create_hopsworksuser' do
-    command "#{exec_pwd} \"CREATE USER #{node.influxdb.db_user} WITH PASSWORD '#{node.influxdb.db_password}'\""
-    not_if "#{exec_pwd} 'show users' | grep #{node.influxdb.db_user}"
+    command "#{exec_pwd} \"CREATE USER #{node['influxdb']['db_user']} WITH PASSWORD '#{node['influxdb']['db_password']}'\""
+    not_if "#{exec_pwd} 'show users' | grep #{node['influxdb']['db_user']}"
   end
 
     # Create telegraf user
   execute 'create_telegrafuser' do
-    command "#{exec_pwd} \"CREATE USER #{node.influxdb.telegraf_user} WITH PASSWORD '#{node.influxdb.telegraf_password}'\""
-    not_if "#{exec_pwd} 'show users' | grep #{node.influxdb.telegraf_user}"
+    command "#{exec_pwd} \"CREATE USER #{node['influxdb']['telegraf_user']} WITH PASSWORD '#{node['influxdb']['telegraf_password']}'\""
+    not_if "#{exec_pwd} 'show users' | grep #{node['influxdb']['telegraf_user']}"
   end
 #dbname = 'graphite'
   
-for dbname in node.influxdb.databases do
+for dbname in node['influxdb']['databases'] do
     
   # Create a test database
   execute 'create_grahpitedb' do
@@ -215,13 +215,13 @@ for dbname in node.influxdb.databases do
   end
 
   execute 'add_hopsworksuser_to_graphite' do
-    command "#{exec_pwd} \"GRANT READ ON #{dbname} TO #{node.influxdb.db_user}\""
-    not_if "#{exec_pwd} 'show grants for #{node.influxdb.db_user}' | grep #{dbname}"
+    command "#{exec_pwd} \"GRANT READ ON #{dbname} TO #{node['influxdb']['db_user']}\""
+    not_if "#{exec_pwd} 'show grants for #{node['influxdb']['db_user']}' | grep #{dbname}"
   end
 
   execute 'add_telegrafuser_to_graphite' do
-    command "#{exec_pwd} \"GRANT ALL ON #{dbname} TO #{node.influxdb.telegraf_user}\""
-    not_if "#{exec_pwd} 'show grants for #{node.influxdb.telegraf_user}' | grep #{dbname}"
+    command "#{exec_pwd} \"GRANT ALL ON #{dbname} TO #{node['influxdb']['telegraf_user']}\""
+    not_if "#{exec_pwd} 'show grants for #{node['influxdb']['telegraf_user']}' | grep #{dbname}"
   end
 
 
@@ -233,7 +233,7 @@ for dbname in node.influxdb.databases do
 
 end
 
-if node.kagent.enabled == "true" 
+if node['kagent']['enabled'] == "true" 
    kagent_config "influxdb" do
      service "Monitoring"
      log_file "/var/log/influxdb.log"

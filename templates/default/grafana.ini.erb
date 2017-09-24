@@ -32,7 +32,7 @@ protocol = http
 http_addr =
 
 # The http port  to use
-http_port = <%= node.grafana.port %>
+http_port = <%= node['grafana']['port'] %>
 
 # The public facing domain name used to access grafana from a browser
 domain = <%= @public_ip %>
@@ -66,12 +66,12 @@ cert_key =
 #type = mysql
 #host = 127.0.0.1:3306
 #name = grafana
-#user = <%= node.grafana.mysql_user %>
+#user = <%= node['grafana']['mysql_user'] %>
 # If the password contains # or ; you have to wrap it with trippel quotes. Ex """#password;"""
-#password = <%= node.grafana.mysql_password %>
+#password = <%= node['grafana']['mysql_password'] %>
 # Use either URL or the previous fields to configure the database
 # Example: mysql://user:secret@host:port/database
-# url = mysql://<%= node.mysql.user %>:<%= node.mysql.password %>@localhost:3306/hopsworks
+# url = mysql://<%= node['mysql']['user'] %>:<%= node['mysql']['password'] %>@localhost:3306/hopsworks
 
  type = sqlite3
  host = 127.0.0.1:3308
@@ -145,10 +145,10 @@ google_tag_manager_id =
 #################################### Security ############################
 [security]
 # default admin user, created on startup
-admin_user = <%= node.grafana.admin_user %>
+admin_user = <%= node['grafana']['admin_user'] %>
 
 # default admin password, can be changed before first start of grafana,  or in profile settings
-admin_password = <%= node.grafana.admin_password %>
+admin_password = <%= node['grafana']['admin_password'] %>
 
 # used for signing
 # secret_key = SW2YcwTIb9zpOOhoPsMm
@@ -365,7 +365,7 @@ exchange = grafana_events
 #################################### Dashboard JSON files ################
 [dashboards.json]
 enabled = true
-path = <%= node.grafana.base_dir %>/dashboards
+path = <%= node['grafana']['base_dir'] %>/dashboards
 
 #################################### Usage Quotas ########################
 [quota]
@@ -438,5 +438,5 @@ username =
 password =
 
 [paths]
-data = <%= node.grafana.base_dir %>/data
-logs = <%= node.grafana.base_dir %>/logs
+data = <%= node['grafana']['base_dir'] %>/data
+logs = <%= node['grafana']['base_dir'] %>/logs

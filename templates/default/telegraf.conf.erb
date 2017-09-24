@@ -67,10 +67,10 @@
   ## Run telegraf in quiet mode (error log messages only).
   quiet = true
   ## Specify the log file name. The empty string means to log to stderr.
-  logfile = "<%= node.telegraf.base_dir %>/log/telegraf.log"
+  logfile = "<%= node['telegraf']['base_dir'] %>/log/telegraf.log"
 
   ## Override default hostname, if empty use os.Hostname()
-  hostname = "<%= node[:hostname] %>"
+  hostname = "<%= node['hostname'] %>"
   ## If set to true, do no set the "host" tag in the telegraf agent.
   omit_hostname = false
 
@@ -97,8 +97,8 @@
   ## Write timeout (for the InfluxDB client), formatted as a string.
   ## If not provided, will default to 5s. 0s means no timeout (not recommended).
   timeout = "5s"
-  username = "<%= node.influxdb.telegraf_user %>"
-  password = "<%= node.influxdb.telegraf_password %>"
+  username = "<%= node['influxdb']['telegraf_user'] %>"
+  password = "<%= node['influxdb']['telegraf_password'] %>"
   ## Set the user agent for HTTP POSTs (can be useful for log differentiation)
   # user_agent = "telegraf"
   ## Set UDP payload size, defaults to InfluxDB UDP Client default (512 bytes)
@@ -434,7 +434,7 @@
 # # Read metrics from one or many bare metal servers
 # [[inputs.ipmi_sensor]]
 #   ## specify servers via a url matching:
-#   ##  [username[:password]@][protocol[(address)]]
+#   ##  [username['password']@][protocol[(address)]]
 #   ##  e.g.
 #   ##    root:passwd@lan(127.0.0.1)
 #   ##
@@ -501,7 +501,7 @@
 # # Read metrics from one or many mysql servers
 # [[inputs.mysql]]
 #   ## specify servers via a url matching:
-#   ##  [username[:password]@][protocol[(address)]]/[?tls=[true|false|skip-verify]]
+#   ##  [username['password']@][protocol[(address)]]/[?tls=[true|false|skip-verify]]
 #   ##  see https://github.com/go-sql-driver/mysql#dsn-data-source-name
 #   ##  e.g.
 #   ##    servers = ["user:passwd@tcp(127.0.0.1:3306)/?tls=false"]
@@ -560,7 +560,7 @@
   ## Setting interfaces will tell it to gather these explicit interfaces,
   ## regardless of status.
   ##
-  interfaces = ["<%= node.kagent.network.interface %>"]
+  interfaces = ["<%= node['kagent']['network']['interface'] %>"]
 
 
 # # TCP or UDP 'ping' given url and collect response time in seconds
@@ -677,7 +677,7 @@
 # # Read metrics from Kafka topic(s)
 # [[inputs.kafka_consumer]]
 #   ## topic(s) to consume
-#   topics = ["telegraf"]
+#   topics = ['telegraf']
 #   ## an array of Zookeeper connection strings
 #   zookeeper_peers = ["localhost:2181"]
 #   ## Zookeeper Chroot

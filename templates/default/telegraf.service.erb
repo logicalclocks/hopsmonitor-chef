@@ -4,11 +4,11 @@ Documentation=https://docs.influxdata.com/telegraf
 After=network-online.target
 
 [Service]
-User=<%= node.hopsmonitor.user %>
-Group=<%= node.hopsmonitor.group %>
+User=<%= node['hopsmonitor']['user'] %>
+Group=<%= node['hopsmonitor']['group'] %>
 LimitNOFILE=65536
-EnvironmentFile=-<%= node.telegraf.base_dir %>/conf/telegraf
-ExecStart=<%= node.telegraf.base_dir %>/bin/telegraf -config <%= node.telegraf.base_dir %>/conf/telegraf.conf ${TELEGRAFD_OPTS}
+EnvironmentFile=-<%= node['telegraf']['base_dir'] %>/conf/telegraf
+ExecStart=<%= node['telegraf']['base_dir'] %>/bin/telegraf -config <%= node['telegraf']['base_dir'] %>/conf/telegraf.conf ${TELEGRAFD_OPTS}
 KillMode=control-group
 Restart=on-failure
 

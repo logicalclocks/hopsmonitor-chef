@@ -14,23 +14,23 @@
 # that isn't resolvable by other servers in the cluster, use this option to                                                                                                                                                                                                                                      
 # manually set the hostname                                                                                                                                                                                                                                                                                      
 # hostname = "localhost"                                                                                                                                                                                                                                                                                         
-#bind-address = "<%= @my_ip %>:<%= node["influxdb"]["port"] %>"
-bind-address = ":<%= node["influxdb"]["port"] %>"
+#bind-address = "<%= @my_ip %>:<%= node['influxdb']['port'] %>"
+bind-address = ":<%= node['influxdb']['port'] %>"
 ###      
 
 
 
 [admin]
 
-bind-address = ":<%= node["influxdb"]["admin"]["port"] %>"                 
+bind-address = ":<%= node['influxdb']['admin']['port'] %>"                 
 enabled = true
 https-enabled = false
-https-certificate = "<%= node["kagent"]["certs_dir"] %>/cert.pem"
+https-certificate = "<%= node['kagent']['certs_dir'] %>/cert.pem"
 
 [http]
 
 
-bind-address = ":<%= node["influxdb"]["http"]["port"] %>"
+bind-address = ":<%= node['influxdb']['http']['port'] %>"
 auth-enabled = true
 ### [meta]                                                                                                                                                                                                                                                                                                       
 ###                                                                                                                                                                                                                                                                                                             
@@ -41,7 +41,7 @@ auth-enabled = true
 [meta]
   # Where the metadata/raft database is stored                                                                                                                                                                                                                                                                   
 #  dir = "/var/lib/influxdb/meta"
-  dir = "<%= node["influxdb"]["base_dir"] %>/meta"
+  dir = "<%= node['influxdb']['base_dir'] %>/meta"
 
 ###    
 ### [data]
@@ -54,10 +54,10 @@ auth-enabled = true
 
 [data]
   # The directory where the TSM storage engine stores TSM files.                                                                                                                                                                                                                                                
-  dir = "<%= node["influxdb"]["base_dir"] %>/data"
+  dir = "<%= node['influxdb']['base_dir'] %>/data"
   # The directory where the TSM storage engine stores WAL files.                                                                                                                                                                                                                                                
-  wal-dir = "<%= node["influxdb"]["base_dir"] %>/wal"
-  max-series-per-database = <%= node["influxdb"]["series"]["max"] %>
+  wal-dir = "<%= node['influxdb']['base_dir'] %>/wal"
+  max-series-per-database = <%= node['influxdb']['series']['max'] %>
 ###	   
 ### [[graphite]]
 ###                 
@@ -68,7 +68,7 @@ auth-enabled = true
    enabled = true
    database = "graphite"                                                                                                                                                                                                                                                                                       
   # retention-policy = ""                                                                                                                                                                                                                                                                                       
-   bind-address = "<%= @my_ip %>:<%= node["influxdb"]["graphite"]["port"] %>"
+   bind-address = "<%= @my_ip %>:<%= node['influxdb']['graphite']['port'] %>"
    conprotocol = "tcp"
   # consistency-level = "one"                                                                                                                                                                                                                                                                                     
   # These next lines control how batching works. You should have this enabled                                                                                                                                                                                                                                     

@@ -75,6 +75,11 @@ template "/etc/logrotate.d/telegraf" do
   mode 0655
 end
 
+directory "#{node['telegraf']['base_dir']}/log" do
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  mode '0750'
+end
 
 my_ip = my_private_ip()
 influx_ip = private_recipe_ip("hopsmonitor","default")

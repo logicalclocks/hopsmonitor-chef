@@ -257,26 +257,35 @@
 
 
 # Read stats from one or more Elasticsearch servers or clusters
+<% if !@elastic_ip.empty? -%>
 [[inputs.elasticsearch]]
+  servers = ["http://<%= @elastic_ip %>:9200"]
+  http_timeout = "5s"
+  local = true
+  cluster_health = false
+  cluster_stats = false
+<% end -%>
+
+#[[inputs.elasticsearch]]
   ## specify a list of one or more Elasticsearch servers
   # you can add username and password to your url to use basic authentication:
   # servers = ["http://user:pass@localhost:9200"]
-  servers = ["http://<%= @elastic_ip %>:9200"]
+  #servers = ["http://<%= @elastic_ip %>:9200"]
 
   ## Timeout for HTTP requests to the elastic search server(s)
-  http_timeout = "5s"
+  #http_timeout = "5s"
 
   ## When local is true (the default), the node will read only its own stats.
   ## Set local to false when you want to read the node stats from all nodes
   ## of the cluster.
-  local = true
+  #local = true
 
   ## Set cluster_health to true when you want to also obtain cluster health stats
-  cluster_health = false
+  #cluster_health = false
 
   ## Set cluster_stats to true when you want to also obtain cluster stats from the
   ## Master node.
-  cluster_stats = false
+  #cluster_stats = false
 
   ## Optional SSL Config
   # ssl_ca = "/etc/telegraf/ca.pem"
@@ -604,10 +613,10 @@
 
 
 # # Monitor process cpu and memory usage
-[[inputs.procstat]]
+#[[inputs.procstat]]
   ## Must specify one of: pid_file, exe, or pattern
   ## PID file to monitor process
-  pid_file = "/var/run/nginx.pid"
+  #pid_file = "/var/run/nginx.pid"
   ## executable name (ie, pgrep <exe>)
   # exe = "nginx"
   ## pattern as argument for pgrep (ie, pgrep -f <pattern>)
@@ -619,11 +628,11 @@
   ## This is optional; default is sourced from /proc/<pid>/status
   # process_name = "bar"
   ## Field name prefix
-  prefix = ""
+  #prefix = ""
   ## comment this out if you want raw cpu_time stats
-  fielddrop = ["cpu_time_*"]
+  #fielddrop = ["cpu_time_*"]
   ## This is optional; moves pid into a tag instead of a field
-  pid_tag = false
+  #pid_tag = false
 
 
 # # Read metrics of ZFS from arcstats, zfetchstats, vdev_cache_stats, and pools
@@ -641,13 +650,18 @@
 
 
 # # Reads 'mntr' stats from one or many zookeeper servers
+<% if !@zk_ip.empty? -%>
 [[inputs.zookeeper]]
+  servers = ["<%= @zk_ip %>:2181"]
+<% end -%>
+
+#[[inputs.zookeeper]]
   ## An array of address to gather stats about. Specify an ip or hostname
   ## with port. ie localhost:2181, 10.0.0.1:2181, etc.
 
   ## If no servers are specified, then localhost is used as the host.
   ## If no port is specified, 2181 is used
-  servers = ["<%= @zk_ip %>:2181"]
+  #servers = ["<%= @zk_ip %>:2181"]
 
 
 

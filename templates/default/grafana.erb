@@ -40,7 +40,7 @@ CONFIG=<%= node['grafana']['base_dir'] %>/conf/defaults.ini
 
 # PID file for the daemon
 
-export PID_FILE="/tmp/grafana.pid"
+export PID_FILE="<%= node['grafana']['base_dir'] %>/grafana.pid"
 PIDDIR=`dirname $PID_FILE`
 if [ ! -d "$PIDDIR" ]; then
     mkdir -p $PIDDIR

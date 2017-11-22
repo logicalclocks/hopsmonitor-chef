@@ -42,7 +42,7 @@ fi
 CONFIG=<%= node['influxdb']['conf_dir'] %>/influxdb.conf
 
 # PID file for the daemon
-PIDFILE=/tmp/influxd.pid
+PIDFILE=<%= node['influxdb']['base_dir'] %>/influxd.pid
 PIDDIR=`dirname $PIDFILE`
 if [ ! -d "$PIDDIR" ]; then
     mkdir -p $PIDDIR

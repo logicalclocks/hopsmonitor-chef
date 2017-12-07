@@ -1,5 +1,6 @@
 Encoding.default_external = "UTF-8"
 source 'https://supermarket.chef.io'
+metadata
 
 cookbook 'java'
 cookbook 'conda', github: "hopshadoop/conda-chef", branch: "master"
@@ -12,4 +13,3 @@ cookbook 'hadoop_spark', github: "hopshadoop/spark-chef", branch: "master"
 cookbook 'elasticsearch', '~> 2.4.0'
 cookbook 'influxdb', '~> 5.2.1'
 
-metadata

@@ -72,7 +72,9 @@ default['kapacitor']['slack']                     = node['kapacitor']['slack_ena
 default['kapacitor']['slack_url']                 = ""
 default['kapacitor']['slack_channel']             = ""
 
-default['hopsmonitor']['default']['private_ips']             = ['10.0.2.15']
-default['hopsmonitor']['default']['public_ips']              = ['10.0.2.15']
+default['hopsmonitor']['default']['private_ips']  = ['10.0.2.15']
+default['hopsmonitor']['default']['public_ips']   = ['10.0.2.15']
 default['hopsmonitor']['public_ips']              = ['10.0.2.15']
 default['hopsmonitor']['private_ips']             = ['10.0.2.15']
+
+default['elastic']['default']['private_ips']      = ['10.0.2.15']

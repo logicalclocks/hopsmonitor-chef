@@ -210,3 +210,8 @@ attribute "smtp/email_password",
           :description => "Password for email account. ",
           :required => "required",
           :type => 'string'
+
+
+attribute "elastic/default/private_ips",
+          :description => "Set ip addresses",
+          :type => "array"

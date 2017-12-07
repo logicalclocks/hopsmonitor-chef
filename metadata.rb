@@ -11,15 +11,15 @@ source_url       "https://github.com/hopshadoop/hopsmonitor-chef"
   supports os
 end
 
-#depends 'conda'
-#depends 'java'
-#depends 'kagent'
-#depends 'elastic'
-#depends 'influxdb'
-#depends 'ndb'
-#depends 'kzookeeper'
-#depends 'hops'
-#depends 'hadoop_spark'
+depends 'conda'
+depends 'java'
+depends 'kagent'
+depends 'elastic'
+depends 'influxdb'
+depends 'ndb'
+depends 'kzookeeper'
+depends 'hops'
+depends 'hadoop_spark'
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
 recipe "hopsmonitor::default", "configures Influxdb/Grafana Server"

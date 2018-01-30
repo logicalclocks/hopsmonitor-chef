@@ -91,7 +91,7 @@ for zk in node['kzookeeper']['default']['private_ips']
     Chef::Log.info "Telegraf found matching zk IP address"
     found_zk = zk
   end
-end 
+end
 
 # Query any local elasticsearch broker
 found_es = ""
@@ -100,14 +100,14 @@ for es in node['elastic']['default']['private_ips']
     Chef::Log.info "Telegraf found matching es IP address"
     found_es = es
   end
-end 
+end
 
 template "#{node['telegraf']['base_dir']}/conf/telegraf.conf" do
   source "telegraf.conf.erb"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0750
-  variables({ 
+  variables({
    :influx_ip => influx_ip,
    :zk_ip => found_zk,
    :elastic_ip => found_es
@@ -134,7 +134,7 @@ if node['telegraf']['systemd'] == "true"
 
   case node['platform_family']
   when "rhel"
-    systemd_script = "/usr/lib/systemd/system/#{service_name}.service" 
+    systemd_script = "/usr/lib/systemd/system/#{service_name}.service"
   when "debian"
     systemd_script = "/lib/systemd/system/#{service_name}.service"
   end
@@ -152,7 +152,7 @@ end
 
   kagent_config "#{service_name}" do
     action :systemd_reload
-  end  
+  end
 
 else #sysv
 
@@ -173,21 +173,9 @@ else #sysv
 
 end
 
-if node['kagent']['enabled'] == "true" 
+if node['kagent']['enabled'] == "true"
    kagent_config "telegraf" do
      service "Monitoring"
      log_file "#{node['telegraf']['base_dir']}/log/telegraf.log"
    end
 end
-
-template "#{node['hops']['base_dir']}/etc/hadoop/hadoop-metrics2.properties" do
-  source "hadoop-metrics2.properties.erb"
-  owner node['hops']['hdfs']['user']
-  group node['hops']['group']
-  mode "755"
-  variables({
-              :influx_ip => influx_ip,
-            })
-  only_if { ::File.exist?("#{node['hops']['base_dir']}/etc/hadoop/hadoop-metrics2.properties") }
-end
-

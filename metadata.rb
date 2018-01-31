@@ -19,7 +19,6 @@ depends 'influxdb'
 depends 'ndb'
 depends 'kzookeeper'
 depends 'hops'
-depends 'hadoop_spark'
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
 recipe "hopsmonitor::default", "configures Influxdb/Grafana Server"

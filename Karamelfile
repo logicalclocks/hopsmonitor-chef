@@ -1,13 +1,13 @@
-dependencies: 
+dependencies:
   - recipe: hopsmonitor::install
-    global:  
+    global:
       - kagent::install
   - recipe: hopsmonitor::default
-    global:  
-      - hadoop_spark::yarn
+    global:
+      - kagent::default
   - recipe: hopsmonitor::telegraf
-    global:  
+    global:
       - kagent::default
   - recipe: hopsmonitor::kapacitor
-    global:  
+    global:
       - hopsmonitor::telegraf

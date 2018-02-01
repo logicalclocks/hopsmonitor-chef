@@ -30,12 +30,12 @@ bash 'extract_influxdb' do
                 cd #{node['influxdb']['home']}
                 mkdir bin
                 mv usr/bin/* bin/
-                             
+
                 chown -R #{node['hopsmonitor']['user']}:#{node['hopsmonitor']['group']} #{node['influxdb']['home']}
                 chmod 750 #{node['influxdb']['home']}
                 touch #{influxdb_downloaded}
                 chown #{node['hopsmonitor']['user']} #{influxdb_downloaded}
-                
+
         EOH
      not_if { ::File.exists?( influxdb_downloaded ) }
 end
@@ -84,28 +84,9 @@ template"#{node['influxdb']['conf_dir']}/influxdb.conf" do
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0650
-  variables({ 
+  variables({
      :my_ip => my_private_ip
            })
-end
-
-
-template "#{Chef::Config['file_cache_path']}/metrics.properties" do
-  source "metrics.properties.erb"
-  owner node['hopsmonitor']['user']
-  mode 0750
-  action :create
-  variables({
-              :private_ip => my_private_ip
-            })
-end
-
-hops_hdfs_directory "#{Chef::Config['file_cache_path']}/metrics.properties" do
-  action :put_as_superuser
-  owner node['hadoop_spark']['user']
-  group node['hops']['group']
-  mode "1775"
-  dest "/user/#{node['hadoop_spark']['user']}/metrics.properties"
 end
 
 
@@ -129,7 +110,7 @@ if node['influxdb']['systemd'] == "true"
 
   case node['platform_family']
   when "rhel"
-    systemd_script = "/usr/lib/systemd/system/#{service_name}.service" 
+    systemd_script = "/usr/lib/systemd/system/#{service_name}.service"
   when "debian"
     systemd_script = "/lib/systemd/system/#{service_name}.service"
   end
@@ -147,7 +128,7 @@ end
 
   kagent_config "#{service_name}" do
     action :systemd_reload
-  end  
+  end
 
 else #sysv
 
@@ -205,9 +186,9 @@ end
     not_if "#{exec_pwd} 'show users' | grep #{node['influxdb']['telegraf_user']}"
   end
 #dbname = 'graphite'
-  
+
 for dbname in node['influxdb']['databases'] do
-    
+
   # Create a test database
   execute 'create_grahpitedb' do
     command "#{exec_pwd} \"CREATE DATABASE #{dbname}\""
@@ -233,7 +214,7 @@ for dbname in node['influxdb']['databases'] do
 
 end
 
-if node['kagent']['enabled'] == "true" 
+if node['kagent']['enabled'] == "true"
    kagent_config "influxdb" do
      service "Monitoring"
      log_file "/var/log/influxdb.log"

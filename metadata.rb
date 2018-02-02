@@ -4,7 +4,7 @@ name             "hopsmonitor"
 license          "Apache v2.0"
 description      "Installs/Configures a HopsFS to ElasticSearch connector"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.3.0"
+version          "0.4.0"
 source_url       "https://github.com/hopshadoop/hopsmonitor-chef"
 
 %w{ ubuntu debian centos }.each do |os|

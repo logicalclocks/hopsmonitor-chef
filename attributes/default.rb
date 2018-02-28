@@ -1,7 +1,6 @@
 include_attribute "kagent"
-include_attribute "ndb"
 include_attribute "kzookeeper"
-include_attribute "hops"
+include_attribute "ndb"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['group']                   = node['install']['user'].empty? ? "hopsmon" : node['install']['user']

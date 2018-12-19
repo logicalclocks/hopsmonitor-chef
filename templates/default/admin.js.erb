@@ -250,7 +250,7 @@ var capacity = {
 	{
 	    select:[[
 		{'type':'field','params':['CapacityRemainingGB']},
-		{'type': 'median', 'params': []},
+		{'type': 'min', 'params': []},
 	    ]],
 	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
@@ -259,7 +259,7 @@ var capacity = {
 	{
 	    select:[[
 		{'type':'field','params':['CapacityTotalGB']},
-		{'type': 'median', 'params': []},
+		{'type': 'min', 'params': []},
 	    ]],
 	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
@@ -344,7 +344,7 @@ var load = {
 	{
 	    select:[[
 		{'type':'field','params':['TotalLoad']},
-		{'type': 'median', 'params': []},
+		{'type': 'max', 'params': []},
 	    ]],
 	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
@@ -372,7 +372,7 @@ var datanodes = {
 	{
 	    select:[[
 		{'type':'field','params':['LiveDataNodes']},
-		{'type': 'median', 'params': []},
+		{'type': 'min', 'params': []},
 	    ]],
 	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
@@ -381,7 +381,7 @@ var datanodes = {
 	{
 	    select:[[
 		{'type':'field','params':['StaleDataNodes']},
-		{'type': 'median', 'params': []},
+		{'type': 'max', 'params': []},
 	    ]],
 	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',
@@ -390,7 +390,7 @@ var datanodes = {
 	{
 	    select:[[
 		{'type':'field','params':['DeadDataNodes']},
-		{'type': 'median', 'params': []},
+		{'type': 'max', 'params': []},
 	    ]],
 	    groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
 	    measurement: 'namenode',

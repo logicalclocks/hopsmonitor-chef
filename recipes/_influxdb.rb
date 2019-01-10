@@ -1,11 +1,3 @@
-case node['platform']
-when "ubuntu"
- if node['platform_version'].to_f <= 14.04
-   node.override['influxdb']['systemd'] = "false"
- end
-end
-
-
 #
 # InfluxDB installation
 #
@@ -96,7 +88,6 @@ when "ubuntu"
    node.override['influxdb']['systemd'] = "false"
  end
 end
-
 
 service_name="influxdb"
 

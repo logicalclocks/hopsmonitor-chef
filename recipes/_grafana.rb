@@ -1,11 +1,3 @@
-case node['platform']
-when "ubuntu"
- if node['platform_version'].to_f <= 14.04
-   node.override['grafana']['systemd'] = "false"
- end
-end
-
-
 #
 # Grafana installation
 #
@@ -33,7 +25,7 @@ bash 'extract_grafana' do
                 chmod 750 #{node['grafana']['home']}
                 touch #{grafana_downloaded}
                 chown #{node['hopsmonitor']['user']} #{grafana_downloaded}
-                
+
         EOH
      not_if { ::File.exists?( grafana_downloaded ) }
 end
@@ -105,7 +97,7 @@ template "#{node['grafana']['base_dir']}/conf/defaults.ini" do
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0650
-  variables({ 
+  variables({
      :public_ip => public_ip
            })
 end
@@ -131,7 +123,6 @@ when "ubuntu"
  end
 end
 
-
 service_name="grafana"
 
 if node['grafana']['systemd'] == "true"
@@ -144,7 +135,7 @@ if node['grafana']['systemd'] == "true"
 
   case node['platform_family']
   when "rhel"
-    systemd_script = "/usr/lib/systemd/system/#{service_name}.service" 
+    systemd_script = "/usr/lib/systemd/system/#{service_name}.service"
   when "debian"
     systemd_script = "/lib/systemd/system/#{service_name}.service"
   end
@@ -162,7 +153,7 @@ end
 
   kagent_config "#{service_name}" do
     action :systemd_reload
-  end  
+  end
 
 else #sysv
 
@@ -184,7 +175,7 @@ else #sysv
 end
 
 
-if node['kagent']['enabled'] == "true" 
+if node['kagent']['enabled'] == "true"
    kagent_config service_name do
      service "Monitoring"
      log_file "#{node['grafana']['base_dir']}/logs/grafana.log"

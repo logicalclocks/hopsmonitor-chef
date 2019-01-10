@@ -1,10 +1,3 @@
-case node['platform']
-when "ubuntu"
- if node['platform_version'].to_f <= 14.04
-   node.override['telegraf']['systemd'] = "false"
- end
-end
-
 #
 # Telegraf installation
 #
@@ -114,12 +107,10 @@ template "#{node['telegraf']['base_dir']}/conf/telegraf.conf" do
   })
 end
 
-
-
 case node['platform']
 when "ubuntu"
  if node['platform_version'].to_f <= 14.04
-   node.override['influxdb']['systemd'] = "false"
+   node.override['telegraf']['systemd'] = "false"
  end
 end
 

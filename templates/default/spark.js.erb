@@ -118,7 +118,7 @@ var activeTasks ={
           targets:[
           {
               select:[[
-                  {'type': 'field', 'params': ['threadpool_activeTasks']},
+                  {'type': 'field', 'params': ['threadpool.activeTasks']},
                   {'type': 'max', 'params': []},
               ]],
               tags: [
@@ -142,7 +142,7 @@ var completeTasksPerExec ={
           targets:[
           {
               select:[[
-                  {'type': 'field', 'params': ['threadpool_completeTasks']},
+                  {'type': 'field', 'params': ['threadpool.completeTasks']},
                   {'type': 'max', 'params': []},
               ]],
               tags: [
@@ -165,7 +165,7 @@ var completeTasks ={
       targets:[
           {
           select:[[
-              {'type': 'field', 'params': ['threadpool_completeTasks']},
+              {'type': 'field', 'params': ['threadpool.completeTasks']},
               {'type': 'max', 'params': []},
               {'type': 'non_negative_derivative', 'params': ['1m']},
           ]],
@@ -206,99 +206,98 @@ var maxExecutorId = getIntParam(ARGS.maxExecutorId, 20);
 
 function executorJvmPanel(id) {
     return {
-	title: "Executor " + id + " Memory usage",
-	type: "graphite",
-	datasource: 'influxdb',
-	span: 3,
-        legend: {show: false},
-	targets:[
-          {
-              select:[[
-                  {'type': 'field', 'params': ['pools_Code-Cache_usage']},{'type': 'mean', 'params': []}
-              ]],
-            "tags":[
-              { "key":"appid","operator":"=~","value":"/^$prefix$/" },
-              { "key":"service","operator":"=","value":id.toString()}
-            ],
-              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
-              measurement: 'spark',
-          alias:"Code Cache"
-          },
-      {
-              select:[[
-                  {'type': 'field', 'params': ['pools_Compressed-Class-Space_usage']},
-                  {'type': 'mean', 'params': []}
-              ]],
-            "tags":[
-              { "key":"appid","operator":"=~","value":"/^$prefix$/" },
-              { "key":"service","operator":"=","value":id.toString()}
-            ],
-              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
-              measurement: 'spark',
-          alias:"Compressed Class Space"
-          },
-      {
-              select:[[
-                  {'type': 'field', 'params': ['pools_Metaspace_usage']},{'type': 'mean', 'params': []}
-              ]],
-            "tags":[
-              { "key":"appid","operator":"=~","value":"/^$prefix$/" },
-              { "key":"service","operator":"=","value":id.toString()}
-            ],
-              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
-              measurement: 'spark',
-          alias:"Metaspace"
-          },
-	        {
-              select:[[
-                  {'type': 'field', 'params': ['pools_PS-Eden-Space_usage']},{'type': 'mean', 'params': []}
-              ]],
-            "tags":[
-              { "key":"appid","operator":"=~","value":"/^$prefix$/" },
-              { "key":"service","operator":"=","value":id.toString()}
-            ],
-              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
-              measurement: 'spark',
-          alias:"Ps Eden Space"
-          },
-      {
-              select:[[
-                  {'type': 'field', 'params': ['pools_PS-Old-Gen_usage']},{'type': 'mean', 'params': []}
-              ]],
-            "tags":[
-              { "key":"appid","operator":"=~","value":"/^$prefix$/" },
-              { "key":"service","operator":"=","value":id.toString()}
-            ],
-              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
-              measurement: 'spark',
-          alias:"Ps Old Gen"
-          },
-      {
-              select:[[
-                  {'type': 'field', 'params': ['pools_PS-Survivor-Space_usage']},{'type': 'mean', 'params': []}
-              ]],
-            "tags":[
-              { "key":"appid","operator":"=~","value":"/^$prefix$/" },
-              { "key":"service","operator":"=","value":id.toString()}
-            ],
-              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
-              measurement: 'spark',
-          alias:"Ps Survivor Space"
-          },
-	  {
-              select:[[
-                  {'type': 'field', 'params': ['heap_usage']},{'type': 'mean', 'params': []}
-              ]],
-            "tags":[
-              { "key":"appid","operator":"=~","value":"/^$prefix$/" },
-              { "key":"service","operator":"=","value":id.toString()}
-            ],
-              groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
-              measurement: 'spark',
-          alias:"Heap"
-          },
-	]
-
+	    title: "Executor " + id + " Memory usage",
+	    type: "graphite",
+	    datasource: 'influxdb',
+	    span: 3,
+      legend: {show: false},
+	    targets:[
+       {
+         select:[[
+               {'type': 'field', 'params': ['pools.Code-Cache.usage']},{'type': 'mean', 'params': []}
+         ]],
+         "tags":[
+           { "key":"appid","operator":"=~","value":"/^$prefix$/" },
+           { "key":"service","operator":"=","value":id.toString()}
+         ],
+         groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
+         measurement: 'spark',
+         alias:"Code Cache"
+       },
+       {
+         select:[[
+               {'type': 'field', 'params': ['pools.Compressed-Class-Space.usage']},
+               {'type': 'mean', 'params': []}
+           ]],
+         "tags":[
+           { "key":"appid","operator":"=~","value":"/^$prefix$/" },
+           { "key":"service","operator":"=","value":id.toString()}
+         ],
+         groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
+         measurement: 'spark',
+         alias:"Compressed Class Space"
+       },
+       {
+         select:[[
+               {'type': 'field', 'params': ['pools.Metaspace.usage']},{'type': 'mean', 'params': []}
+         ]],
+         "tags":[
+           { "key":"appid","operator":"=~","value":"/^$prefix$/" },
+           { "key":"service","operator":"=","value":id.toString()}
+         ],
+         groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
+         measurement: 'spark',
+         alias:"Metaspace"
+       },
+	      {
+         select:[[
+               {'type': 'field', 'params': ['pools.PS-Eden-Space.usage']},{'type': 'mean', 'params': []}
+         ]],
+         "tags":[
+           { "key":"appid","operator":"=~","value":"/^$prefix$/" },
+           { "key":"service","operator":"=","value":id.toString()}
+         ],
+         groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
+         measurement: 'spark',
+         alias:"PS Eden Space"
+       },
+       {
+         select:[[
+               {'type': 'field', 'params': ['pools.PS-Old-Gen.usage']},{'type': 'mean', 'params': []}
+         ]],
+         "tags":[
+           { "key":"appid","operator":"=~","value":"/^$prefix$/" },
+           { "key":"service","operator":"=","value":id.toString()}
+         ],
+         groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
+         measurement: 'spark',
+         alias:"PS Old gen Space"
+       },
+       {
+         select:[[
+               {'type': 'field', 'params': ['pools.PS-Survivor-Space.usage']},{'type': 'mean', 'params': []}
+         ]],
+         "tags":[
+           { "key":"appid","operator":"=~","value":"/^$prefix$/" },
+           { "key":"service","operator":"=","value":id.toString()}
+         ],
+         groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
+         measurement: 'spark',
+         alias:"PS Survivor Space"
+       },
+	      {
+         select:[[
+               {'type': 'field', 'params': ['heap.usage']},{'type': 'mean', 'params': []}
+         ]],
+         "tags":[
+           { "key":"appid","operator":"=~","value":"/^$prefix$/" },
+           { "key":"service","operator":"=","value":id.toString()}
+         ],
+         groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
+         measurement: 'spark',
+         alias:"Heap"
+       },
+	    ]
     }
 }
 
@@ -320,7 +319,7 @@ var driver_row = {
       targets:[
           {
             "select":[[
-                {'type':'field','params':['PS-Scavenge_count']},
+                {'type':'field','params':['PS-Scavenge.count']},
                 {'type':'mean','params':[]}
             ]],
             "tags":[
@@ -333,7 +332,7 @@ var driver_row = {
           },
           {
             "select":[[
-                {'type':'field','params':['PS-Scavenge_time']},
+                {'type':'field','params':['PS-Scavenge.time']},
                 {'type':'mean','params':[]}
             ]],
             "tags":[
@@ -354,7 +353,7 @@ var driver_row = {
 	  targets:[
 	  {
             "select":[[
-                {'type':'field','params':['pools_Code-Cache_usage']},
+                {'type':'field','params':['pools.Code-Cache.usage']},
                 {'type':'mean','params':[]}
             ]],
             "tags":[
@@ -367,7 +366,7 @@ var driver_row = {
       },
       {
             "select":[[
-                {'type':'field','params':['pools_Compressed-Class-Space_usage']},
+                {'type':'field','params':['pools.Compressed-Class-Space.usage']},
                 {'type':'mean','params':[]}
             ]],
             "tags":[
@@ -380,7 +379,7 @@ var driver_row = {
           },
 	  {
             "select":[[
-                {'type':'field','params':['pools_Metaspace_usage']},
+                {'type':'field','params':['pools.Metaspace.usage']},
                 {'type':'mean','params':[]}
             ]],
             "tags":[
@@ -393,7 +392,7 @@ var driver_row = {
           },
       {
             "select":[[
-                {'type':'field','params':['pools_PS-Eden-Gen_usage']},
+                {'type':'field','params':['pools.PS-Eden-Space.usage']},
                 {'type':'mean','params':[]}
             ]],
             "tags":[
@@ -402,11 +401,11 @@ var driver_row = {
             ],
             groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
-            alias:"Ps Eden Space"
+            alias:"PS Eden Space"
           },
       {
             "select":[[
-                {'type':'field','params':['pools_PS-Old-Gen_usage']},
+                {'type':'field','params':['pools.PS-Old-Gen.usage']},
                 {'type':'mean','params':[]}
             ]],
             "tags":[
@@ -415,11 +414,11 @@ var driver_row = {
             ],
             groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
-            alias:"Ps Old Gen"
+            alias:"PS Old Gen Space"
           },
 	  {
             "select":[[
-                {'type':'field','params':['pools_PS-Survivor-Space_usage']},
+                {'type':'field','params':['pools.PS-Survivor-Space.usage']},
                 {'type':'mean','params':[]}
             ]],
             "tags":[
@@ -428,11 +427,11 @@ var driver_row = {
             ],
             groupBy: [{type: 'time', params: ['$interval']},{type: 'fill', params: ['none']}],
             measurement: 'spark',
-          alias:"Ps Survivor Space"
+          alias:"PS Survivor Space"
           },
       {
             "select":[[
-                {'type':'field','params':['heap_usage']},
+                {'type':'field','params':['heap.usage']},
                 {'type':'mean','params':[]}
             ]],
             "tags":[
@@ -454,7 +453,7 @@ var driver_row = {
 	  targets:[
 	   {
               select:[[
-                  {'type':'field','params':['PS-Scavenge_time']},
+                  {'type':'field','params':['PS-Scavenge.time']},
                   {'type':'mean','params':[]},
                   {'type': 'non_negative_derivative', 'params': ['1s']},
               ]],
@@ -488,7 +487,7 @@ var hdfs_row = {
 	  targets:[
 	  {
               select:[[
-                  {'type': 'field', 'params': ['filesystem_hdfs_read_ops']},
+                  {'type': 'field', 'params': ['filesystem.hdfs.read_ops']},
                   {'type': 'mean', 'params': []},
                   {'type': 'non_negative_derivative', 'params': ['10s']},
               ]],
@@ -509,7 +508,7 @@ var hdfs_row = {
 	  targets:[
 	  {
               select:[[
-                  {'type': 'field', 'params': ['filesystem_hdfs_read_ops']},
+                  {'type': 'field', 'params': ['filesystem.hdfs.read_ops']},
                   {'type': 'mean', 'params': []},
               ]],
             "tags":[
@@ -531,7 +530,7 @@ var hdfs_row = {
 	  targets:[
 	  {
               select:[[
-                  {'type': 'field', 'params': ['filesystem_hdfs_read_bytes']},
+                  {'type': 'field', 'params': ['filesystem.hdfs.read_bytes']},
                   {'type': 'mean', 'params': []},
                   {'type': 'non_negative_derivative', 'params': ['10s']},
               ]],
@@ -552,7 +551,7 @@ var hdfs_row = {
 	  targets:[
 	  {
               select:[[
-                  {'type': 'field', 'params': ['filesystem_hdfs_read_bytes']},
+                  {'type': 'field', 'params': ['filesystem.hdfs.read_bytes']},
                   {'type': 'mean', 'params': []},
               ]],
             "tags":[
@@ -575,7 +574,7 @@ var hdfs_row = {
 	  targets:[
 	  {
               select:[[
-                  {'type': 'field', 'params': ['filesystem_hdfs_write_ops']},
+                  {'type': 'field', 'params': ['filesystem.hdfs.write_ops']},
                   {'type': 'mean', 'params': []},
                   {'type': 'non_negative_derivative', 'params': ['10s']},
               ]],
@@ -596,7 +595,7 @@ var hdfs_row = {
 	  targets:[
 	  {
               select:[[
-                  {'type': 'field', 'params': ['filesystem_hdfs_write_ops']},
+                  {'type': 'field', 'params': ['filesystem.hdfs.write_ops']},
                   {'type': 'mean', 'params': []},
               ]],
             "tags":[
@@ -618,7 +617,7 @@ var hdfs_row = {
 	  targets:[
 	  {
               select:[[
-                  {'type': 'field', 'params': ['filesystem_hdfs_write_bytes']},
+                  {'type': 'field', 'params': ['filesystem.hdfs.write_bytes']},
                   {'type': 'mean', 'params': []},
                   {'type': 'non_negative_derivative', 'params': ['10s']},
               ]],
@@ -639,7 +638,7 @@ var hdfs_row = {
 	  targets:[
 	  {
               select:[[
-                  {'type': 'field', 'params': ['filesystem_hdfs_write_bytes']},
+                  {'type': 'field', 'params': ['filesystem.hdfs.write_bytes']},
                   {'type': 'mean', 'params': []},
               ]],
             "tags":[
@@ -654,6 +653,7 @@ var hdfs_row = {
       },
     ]
 };
+
 // The dashboard, with its rows.
 dashboard.rows = [
     threadpool_row,

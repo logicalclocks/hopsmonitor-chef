@@ -77,8 +77,9 @@ template"#{node['influxdb']['conf_dir']}/influxdb.conf" do
   group node['hopsmonitor']['group']
   mode 0650
   variables({
-     :my_ip => my_private_ip
-           })
+     :my_ip => my_private_ip,
+     :hostnamepattern => node['fqdn'].gsub(/\w+/, "hostname")
+  })
 end
 
 

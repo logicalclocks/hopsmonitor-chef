@@ -46,6 +46,14 @@ attribute "hopsmonitor/default/public_ips",
           :description => "Set ip addresses",
           :type => "array"
 
+attribute "hopsmonitor/grafana/private_ips",
+          :description => "Set ip addresses",
+          :type => "array"
+
+attribute "hopsmonitor/grafana/public_ips",
+          :description => "Set ip addresses",
+          :type => "array"
+
 attribute "hopsmonitor/private_ips",
           :description => "Set ip addresses",
           :type => "array"

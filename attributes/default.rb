@@ -71,9 +71,12 @@ default['kapacitor']['slack']                     = node['kapacitor']['slack_ena
 default['kapacitor']['slack_url']                 = ""
 default['kapacitor']['slack_channel']             = ""
 
-default['hopsmonitor']['default']['private_ips']  = ['10.0.2.15']
-default['hopsmonitor']['default']['public_ips']   = ['10.0.2.15']
-default['hopsmonitor']['public_ips']              = ['10.0.2.15']
-default['hopsmonitor']['private_ips']             = ['10.0.2.15']
+default['hopsmonitor']['default']['private_ips']  = node["install"]["private_ips"].empty? ? node['hopsmonitor']['default']['private_ips'] : node["install"]["private_ips"]
+default['hopsmonitor']['default']['public_ips']   = node["install"]["public_ips"].empty? ? node['hopsmonitor']['default']['public_ips'] : node["install"]["public_ips"]
+default['hopsmonitor']['grafana']['private_ips']  = node["install"]["private_ips"].empty? ? node['hopsmonitor']['default']['private_ips'] : node["install"]["private_ips"]
+default['hopsmonitor']['grafana']['public_ips']   = node["install"]["public_ips"].empty? ? node['hopsmonitor']['default']['public_ips'] : node["install"]["public_ips"]
+default['hopsmonitor']['private_ips']             = node["install"]["private_ips"].empty? ? node['hopsmonitor']['default']['private_ips'] : node["install"]["private_ips"]
+default['hopsmonitor']['public_ips']              = node["install"]["public_ips"].empty? ? node['hopsmonitor']['default']['public_ips'] : node["install"]["public_ips"]
 
-default['elastic']['default']['private_ips']      = ['10.0.2.15']
+
+default['elastic']['default']['private_ips']      = node["install"]["private_ips"].empty? ? ['10.0.2.15'] : node["install"]["private_ips"]

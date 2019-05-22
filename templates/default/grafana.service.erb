@@ -1,6 +1,6 @@
 [Unit]
 Description=Grafana Server is a visualization tool for time-series data
-After=network-online.target
+After=network-online.target <%= @deps %>
 
 [Service]
 User=<%= node['hopsmonitor']['user'] %>

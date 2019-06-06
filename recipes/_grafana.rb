@@ -123,6 +123,11 @@ when "ubuntu"
  end
 end
 
+
+deps = ""
+if exists_local("hopsmonitor", "default") 
+  deps = "influxdb.service"
+end  
 service_name="grafana"
 
 if node['grafana']['systemd'] == "true"
@@ -145,6 +150,9 @@ if node['grafana']['systemd'] == "true"
     owner "root"
     group "root"
     mode 0754
+    variables({
+              :deps => deps
+              })        
 if node['services']['enabled'] == "true"
     notifies :enable, resources(:service => service_name)
 end

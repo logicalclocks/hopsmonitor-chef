@@ -1,7 +1,7 @@
 [Unit]
 Description=Kapacitor is an open-source, distributed, time series collection agent
 Documentation=https://docs.influxdata.com/kapacitor
-After=network-online.target
+After=network-online.target <%= @deps %>
 
 [Service]
 User=<%= node['hopsmonitor']['user'] %>

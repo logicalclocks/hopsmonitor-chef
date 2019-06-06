@@ -137,7 +137,10 @@ directory "#{node['kapacitor']['base_dir']}/tasks" do
 end
 
 
-
+deps = ""
+if exists_local("hopsmonitor", "default") 
+  deps = "influxdb.service"
+end  
 service_name="kapacitor"
 
 if node['kapacitor']['systemd'] == "true"
@@ -160,6 +163,9 @@ if node['kapacitor']['systemd'] == "true"
     owner "root"
     group "root"
     mode 0754
+    variables({
+              :deps => deps
+              })        
     notifies :enable, resources(:service => service_name)
     notifies :restart, resources(:service => service_name)
   end

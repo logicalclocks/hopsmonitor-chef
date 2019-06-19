@@ -1,11 +1,11 @@
 maintainer       "Jim Dowling"
 maintainer_email "jdowling@kth.se"
 name             "hopsmonitor"
-license          "Apache v2.0"
-description      "Installs/Configures a HopsFS to ElasticSearch connector"
+license          "AGPLv3"
+description      "Deploy monitoring infrastructure for the Hopsworks platform"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.0.0"
-source_url       "https://github.com/hopshadoop/hopsmonitor-chef"
+source_url       "https://github.com/logicalclocks/hopsmonitor-chef"
 
 %w{ ubuntu debian centos }.each do |os|
   supports os
@@ -14,9 +14,7 @@ end
 depends 'conda'
 depends 'java'
 depends 'kagent'
-depends 'elastic'
 depends 'influxdb'
-depends 'kzookeeper'
 depends 'ndb'
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
@@ -119,90 +117,3 @@ attribute "grafana/mysql_password",
 attribute "grafana/port",
           :description => "Port for grafana",
           :type => "string"
-
-#
-# Kapacitor
-#
-
-attribute "kapacitor/notify/email",
-          :description => "Send notification emails to this address",
-          :type => "string"
-
-attribute "kapacitor/slack_enabled",
-          :description => "Send notifications to slack",
-          :type => "string"
-
-attribute "kapacitor/slack_url",
-          :description => "Slack url hook.",
-          :type => "string"
-
-attribute "kapacitor/slack_channel",
-          :description => "Slack channel name",
-          :type => "string"
-
-
-attribute "smtp/email",
-          :description => "Smtp email",
-          :type => "string"
-
-attribute "smtp/email_password",
-          :description => "Hopsworks email",
-          :type => "string"
-
-
-#
-# Telegraf
-#
-
-attribute "telegraf/",
-          :description => "",
-          :type => "string"
-
-
-
-#
-# General
-#
-
-attribute "install/dir",
-          :description => "Set to a base directory under which we will install.",
-          :type => "string"
-
-attribute "install/user",
-          :description => "User to install the services as",
-          :type => "string"
-
-
-#
-#
-# SMTP
-#
-#
-
-
-attribute "smtp/host",
-          :description => "Ip Address/hostname of SMTP server (default is smtp.gmail.com)",
-          :type => 'string'
-
-attribute "smtp/port",
-          :description => "Port of SMTP server (default is 587)",
-          :type => 'string'
-
-attribute "smtp/ssl_port",
-          :description => "SSL port of SMTP server (default is 465)",
-          :type => 'string'
-
-attribute "smtp/email",
-          :description => "Email account to send notifications from. ",
-          :required => "required",
-          :type => 'string'
-
-attribute "smtp/email_password",
-          :description => "Password for email account. ",
-          :required => "required",
-          :type => 'string'
-
-
-attribute "elastic/default/private_ips",
-          :description => "Set ip addresses",
-          :type => "array"

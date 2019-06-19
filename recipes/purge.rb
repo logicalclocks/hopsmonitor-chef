@@ -1,5 +1,4 @@
-
-services=[ 'grafana', 'telegraf', 'kapacitor', 'influxdb' ] 
+services=[ 'grafana', 'influxdb' ] 
 
 for s in services
   bash "kill_running_service_#{s}" do

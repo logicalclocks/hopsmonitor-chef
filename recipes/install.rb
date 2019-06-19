@@ -1,5 +1,3 @@
-my_private_ip = my_private_ip()
-
 group node['hopsmonitor']['group'] do
   action :create
   not_if "getent group #{node['hopsmonitor']['group']}"
@@ -18,12 +16,3 @@ group node['hopsmonitor']['group'] do
   members ["#{node['hopsmonitor']['user']}"]
   append true
 end
-
-
-include_recipe "java"
-
-
-
-
-
-

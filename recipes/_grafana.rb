@@ -2,7 +2,6 @@
 # Grafana installation
 #
 
-
 package_url = "#{node['grafana']['url']}"
 base_package_filename = File.basename(package_url)
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
@@ -118,72 +117,42 @@ template "#{node['grafana']['base_dir']}/public/dashboards/admin.js" do
   mode 0650
 end
 
-case node['platform']
-when "ubuntu"
- if node['platform_version'].to_f <= 14.04
-   node.override['grafana']['systemd'] = "false"
- end
-end
-
-
 deps = ""
 if exists_local("hopsmonitor", "default") 
   deps = "influxdb.service"
 end  
 service_name="grafana"
 
-if node['grafana']['systemd'] == "true"
+service service_name do
+  provider Chef::Provider::Service::Systemd
+  supports :restart => true, :stop => true, :start => true, :status => true
+  action :nothing
+end
 
-  service service_name do
-    provider Chef::Provider::Service::Systemd
-    supports :restart => true, :stop => true, :start => true, :status => true
-    action :nothing
-  end
+case node['platform_family']
+when "rhel"
+  systemd_script = "/usr/lib/systemd/system/#{service_name}.service"
+when "debian"
+  systemd_script = "/lib/systemd/system/#{service_name}.service"
+end
 
-  case node['platform_family']
-  when "rhel"
-    systemd_script = "/usr/lib/systemd/system/#{service_name}.service"
-  when "debian"
-    systemd_script = "/lib/systemd/system/#{service_name}.service"
-  end
-
-  template systemd_script do
-    source "#{service_name}.service.erb"
-    owner "root"
-    group "root"
-    mode 0754
-    variables({
-              :deps => deps
-              })        
+template systemd_script do
+  source "#{service_name}.service.erb"
+  owner "root"
+  group "root"
+  mode 0754
+  variables({
+            :deps => deps
+            })        
 if node['services']['enabled'] == "true"
     notifies :enable, resources(:service => service_name)
 end
-    notifies :restart, resources(:service => service_name)
-  end
-
-  kagent_config "#{service_name}" do
-    action :systemd_reload
-  end
-
-else #sysv
-
-  service service_name do
-    provider Chef::Provider::Service::Init::Debian
-    supports :restart => true, :stop => true, :start => true, :status => true
-    action :nothing
-  end
-
-  template "/etc/init.d/#{service_name}" do
-    source "#{service_name}.erb"
-    owner node['hopsmonitor']['user']
-    group node['hopsmonitor']['group']
-    mode 0754
-    notifies :enable, resources(:service => service_name)
-    notifies :restart, resources(:service => service_name), :immediately
-  end
-
+  notifies :restart, resources(:service => service_name)
 end
 
+kagent_config "#{service_name}" do
+  action :systemd_reload
+end
 
 if node['kagent']['enabled'] == "true"
    kagent_config service_name do
@@ -192,18 +161,11 @@ if node['kagent']['enabled'] == "true"
    end
 end
 
-
-
-
-
 bash 'add_grafan_index_for_influxdb' do
-        user "root"
-        code <<-EOH
-            set -e
-curl --user #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} 'http://localhost:3000/api/datasources' -H "Content-Type:application/json" -X POST -d '{"Name":"influxdb","Type":"influxdb","url":"http://localhost:#{node['influxdb']['http']['port']}","Access":"proxy","isDefault":true,"database":"graphite","user":"#{node['influxdb']['db_user']}","password":"#{node['influxdb']['db_password']}"}'
-        EOH
+  user "root"
+  code <<-EOH
+    curl --user #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} 'http://localhost:3000/api/datasources' -H "Content-Type:application/json" -X POST -d '{"Name":"influxdb","Type":"influxdb","url":"http://localhost:#{node['influxdb']['http']['port']}","Access":"proxy","isDefault":true,"database":"graphite","user":"#{node['influxdb']['db_user']}","password":"#{node['influxdb']['db_password']}"}'
+  EOH
   retries 10
   retry_delay 5
-#     not_if { }
 end
-

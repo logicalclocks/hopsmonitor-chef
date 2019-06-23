@@ -166,7 +166,7 @@ data_source_proxy_whitelist =
 
 [snapshots]
 # snapshot sharing options
-external_enabled = true
+external_enabled = false 
 external_snapshot_url = https://snapshots-origin.raintank.io
 external_snapshot_name = Publish to snapshot.raintank.io
 
@@ -215,55 +215,6 @@ default_theme = dark
 # Set to true to disable (hide) the login form, useful if you use OAuth
 disable_login_form = false
 
-#################################### Github Auth #########################
-[auth.github]
-enabled = false
-allow_sign_up = true
-client_id = some_id
-client_secret = some_secret
-scopes = user:email
-auth_url = https://github.com/login/oauth/authorize
-token_url = https://github.com/login/oauth/access_token
-api_url = https://api.github.com/user
-team_ids =
-allowed_organizations =
-
-#################################### Google Auth #########################
-[auth.google]
-enabled = false
-allow_sign_up = true
-client_id = some_client_id
-client_secret = some_client_secret
-scopes = https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
-auth_url = https://accounts.google.com/o/oauth2/auth
-token_url = https://accounts.google.com/o/oauth2/token
-api_url = https://www.googleapis.com/oauth2/v1/userinfo
-allowed_domains =
-hosted_domain =
-
-#################################### Grafana.net Auth ####################
-[auth.grafananet]
-enabled = false
-allow_sign_up = true
-client_id = some_id
-client_secret = some_secret
-scopes = user:email
-allowed_organizations =
-
-#################################### Generic OAuth #######################
-[auth.generic_oauth]
-name = OAuth
-enabled = false
-allow_sign_up = true
-client_id = some_id
-client_secret = some_secret
-scopes = user:email
-auth_url =
-token_url =
-api_url =
-team_ids =
-allowed_organizations =
-
 #################################### Basic Auth ##########################
 [auth.basic]
 enabled = true
@@ -276,12 +227,6 @@ header_property = username
 auto_sign_up = true
 ldap_sync_ttl = 60
 whitelist =
-
-#################################### Auth LDAP ###########################
-[auth.ldap]
-enabled = false
-config_file = /etc/grafana/ldap.toml
-allow_sign_up = true
 
 #################################### SMTP / Emailing #####################
 [smtp]

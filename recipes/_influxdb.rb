@@ -177,5 +177,3 @@ if node['kagent']['enabled'] == "true"
      log_file "/var/log/influxdb.log"
    end
 end
-
-

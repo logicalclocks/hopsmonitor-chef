@@ -37,15 +37,9 @@ link node['grafana']['base_dir'] do
   to node['grafana']['home']
 end
 
-
-file "#{node['grafana']['base_dir']}/conf/defaults.ini" do
-  action :delete
-end
-
 file "#{node['grafana']['base_dir']}/conf/sample.ini" do
   action :delete
 end
-
 
 my_private_ip = my_private_ip()
 public_ip=my_public_ip()
@@ -56,20 +50,6 @@ template "/tmp/grafana_tables.sql" do
   group node['hopsmonitor']['group']
   mode 0650
 end
-
-
-exec = "#{node['ndb']['scripts_dir']}/mysql-client.sh"
-
-bash 'create_mysql_table' do
-    user "root"
-    code <<-EOF
-      set -e
-      #{exec} -e \"CREATE DATABASE IF NOT EXISTS grafana CHARACTER SET utf8\";
-      #{exec} grafana < /tmp/grafana_tables.sql
-    EOF
-    not_if "#{exec} grafana -e 'show tables' | grep session"
-end
-
 
 directory "#{node['grafana']['base_dir']}/dashboards" do
   owner node['hopsmonitor']['user']
@@ -100,7 +80,7 @@ template "#{node['grafana']['base_dir']}/conf/defaults.ini" do
   mode 0650
   variables({
      :public_ip => public_ip
-           })
+  })
 end
 
 template "#{node['grafana']['base_dir']}/public/dashboards/spark.js" do

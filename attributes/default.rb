@@ -1,5 +1,4 @@
 include_attribute "kagent"
-include_attribute "ndb"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['group']                   = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
@@ -32,8 +31,8 @@ default['influxdb']['pid_file']                   = "/tmp/influxdb.pid"
 default['influxdb']['graphite']['port']           = "2003"
 default['influxdb']['series']['max']              = 0
 
-default['grafana']['version']                     = "4.1.1-1484211277"
-default['grafana']['url']                         = "#{node['download_url']}/grafana-#{node['grafana']['version']}.linux-x64.tar.gz"
+default['grafana']['version']                     = "6.2.4"
+default['grafana']['url']                         = "#{node['download_url']}/grafana-#{node['grafana']['version']}.linux-amd64.tar.gz"
 default['grafana']['port']                        = 3000
 
 default['grafana']['admin_user']                  = "adminuser"

@@ -44,3 +44,11 @@ default['grafana']['mysql_password']              = "grafana"
 default['grafana']['home']                        = node['hopsmonitor']['dir'] + "/grafana-" + "#{node['grafana']['version']}"
 default['grafana']['base_dir']                    = node['hopsmonitor']['dir'] + "/grafana"
 default['grafana']['pid_file']                    = "/tmp/grafana.pid"
+
+# Default prometheus port is 9090, but we run Karamel on that port.
+default['prometheus']['port']                     = "9091"
+
+default['node_exporter']['version']               = "0.18.1"
+default['node_exporter']['home']                  = "#{node['hopsmonitor']['dir']}/node_exporter-#{node['node_exporter']['version']}"
+default['node_exporte']['base_dir']               = node['hopsmonitor']['dir'] + "/node_exporter"
+

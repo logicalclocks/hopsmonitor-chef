@@ -122,10 +122,10 @@ template systemd_script do
   group "root"
   mode 0754
   variables({
-            :deps => deps
-            })        
+    :deps => deps
+  })        
 if node['services']['enabled'] == "true"
-    notifies :enable, resources(:service => service_name)
+  notifies :enable, resources(:service => service_name)
 end
   notifies :restart, resources(:service => service_name)
 end

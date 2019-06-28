@@ -1,0 +1,15 @@
+[Unit]
+Description = Node exporter 
+After = syslog.target network.target remote-fs.target
+
+[Service]
+User = <%= node['hopsmonitor']['user'] %> 
+Group = <%= node['hopsmonitor']['group'] %> 
+
+ExecStart = <%= node['node_exporter']['base_dir'] %>/node_exporter
+LimitNOFILE = 20000
+
+Type = simple
+
+[Install]
+WantedBy = multi-user.target

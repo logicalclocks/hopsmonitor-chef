@@ -17,7 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 2,
-  "iteration": 1561765440050,
+  "iteration": 1562689021041,
   "links": [],
   "panels": [
     {
@@ -896,7 +896,7 @@
         "#d44a3a"
       ],
       "decimals": null,
-      "format": "s",
+      "format": "dthms",
       "gauge": {
         "maxValue": 100,
         "minValue": 0,
@@ -989,14 +989,14 @@
           "value": "hopsworks0.logicalclocks.com:9100"
         },
         "datasource": "Prometheus",
-        "definition": "label_values(instance)",
+        "definition": "label_values(node_cpu_seconds_total, instance)",
         "hide": 0,
         "includeAll": false,
         "label": "Host",
         "multi": false,
         "name": "instance",
         "options": [],
-        "query": "label_values(instance)",
+        "query": "label_values(node_cpu_seconds_total, instance)",
         "refresh": 1,
         "regex": "//",
         "skipUrlSync": false,
@@ -1041,5 +1041,5 @@
   "timezone": "",
   "title": "Host",
   "uid": "gASP1H4Zz",
-  "version": 11
+  "version": 13
 }

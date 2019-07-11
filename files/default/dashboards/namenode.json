@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 7,
-  "iteration": 1562850813566,
+  "iteration": 1562863351835,
   "links": [],
   "panels": [
     {
@@ -239,7 +239,7 @@
             {
               "color": "dark-green",
               "index": 2,
-              "value": 99.99
+              "value": 99.9
             }
           ],
           "values": false
@@ -251,7 +251,7 @@
       "pluginVersion": "6.2.4",
       "targets": [
         {
-          "expr": "namenode_StartupProgress_safe_mode_percent_complete{instance=\"$namenode\"}",
+          "expr": "namenode_StartupProgress_safe_mode_percent_complete{instance=\"$namenode\"} * 100",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1363,7 +1363,7 @@
       }
     }
   ],
-  "refresh": false,
+  "refresh": "5s",
   "schemaVersion": 18,
   "style": "dark",
   "tags": [],
@@ -1428,5 +1428,5 @@
   "timezone": "",
   "title": "Namenodes",
   "uid": "_elQ6bSWz",
-  "version": 13
+  "version": 15
 }

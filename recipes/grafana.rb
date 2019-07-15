@@ -2,12 +2,11 @@
 # Grafana installation
 #
 
-package_url = "#{node['grafana']['url']}"
-base_package_filename = File.basename(package_url)
+base_package_filename = File.basename(node['grafana']['url'])
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
 
 remote_file cached_package_filename do
-  source package_url
+  source node['grafana']['url']
   owner "root"
   mode "0644"
   action :create_if_missing

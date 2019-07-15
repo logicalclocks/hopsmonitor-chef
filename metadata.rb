@@ -17,8 +17,10 @@ depends 'kagent'
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
 recipe "hopsmonitor::default", "configures Influxdb/Grafana Server"
-recipe "hopsmonitor::kapacitor", "Configures/starts a kapacitor agent "
-recipe "hopsmonitor::telegraf", "Configures/starts a telegraf agent "
+recipe "hopsmonitor::influxdb", "Installs and configure InfluxDb"
+recipe "hopsmonitor::grafana", "Installs and configure Grafana"
+recipe "hopsmonitor::prometheus", "Installs and configure Prometheus"
+recipe "hopsmonitor::node_exporter", "Installs and configure node exporter"
 recipe "hopsmonitor::purge", "Deletes the Influxdb/Grafana Server"
 
 attribute "hopsmonitor/user",
@@ -32,7 +34,6 @@ attribute "hopsmonitor/group",
 attribute "hopsmonitor/dir",
           :description => "Base install directory for Influxdb/Grafana ",
           :type => "string"
-
 
 attribute "hopsmonitor/default/private_ips",
           :description => "Set ip addresses",
@@ -49,7 +50,6 @@ attribute "hopsmonitor/private_ips",
 attribute "hopsmonitor/public_ips",
           :description => "Set ip addresses",
           :type => "array"
-
 
 #
 # InfluxDB
@@ -88,12 +88,9 @@ attribute "influxdb/graphite/port",
           :description => "Port for influxdb graphite connector",
           :type => "string"
 
-
-
 #
 # Grafana
 #
-
 
 attribute "grafana/admin_user",
           :description => "username for grafana admin ",
@@ -101,15 +98,6 @@ attribute "grafana/admin_user",
 
 attribute "grafana/admin_password",
           :description => "Password for grafana admin user",
-          :type => "string"
-
-
-attribute "grafana/mysql_user",
-          :description => "username for grafana mysql user ",
-          :type => "string"
-
-attribute "grafana/mysql_password",
-          :description => "Password for grafana mysql user",
           :type => "string"
 
 attribute "grafana/port",

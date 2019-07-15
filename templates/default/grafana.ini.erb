@@ -62,24 +62,12 @@ cert_key =
 # You can configure the database connection by specifying type, host, name, user and password
 # as seperate properties or as on string using the url propertie.
 
-# Either "mysql", "postgres" or "sqlite3", it's your choice
-#type = mysql
-#host = 127.0.0.1:3306
-#name = grafana
-#user = <%= node['grafana']['mysql_user'] %>
-# If the password contains # or ; you have to wrap it with trippel quotes. Ex """#password;"""
-#password = <%= node['grafana']['mysql_password'] %>
-# Use either URL or the previous fields to configure the database
-# Example: mysql://user:secret@host:port/database
-# url = mysql://<%= node['mysql']['user'] %>:<%= node['mysql']['password'] %>@localhost:3306/hopsworks
-
- type = sqlite3
- host = 127.0.0.1:3308
- name = grafana
- user = root
- password =
- url =
-
+type = sqlite3
+host = 127.0.0.1:3308
+name = grafana
+user = root
+password =
+url =
 
 # For "postgres", use either "disable", "require" or "verify-full"
 # For "mysql", use either "true", "false", or "skip-verify".
@@ -120,27 +108,6 @@ cookie_secure = false
 # Session life time, default is 86400
 session_life_time = 86400
 gc_interval_time = 86400
-
-#################################### Analytics ###########################
-[analytics]
-# Server reporting, sends usage counters to stats.grafana.org every 24 hours.
-# No ip addresses are being tracked, only simple counters to track
-# running instances, dashboard and error counts. It is very helpful to us.
-# Change this option to false to disable reporting.
-reporting_enabled = false
-
-# Set to false to disable all checks to https://grafana.net
-# for new vesions (grafana itself and plugins), check is used
-# in some UI views to notify that grafana or plugin update exists
-# This option does not cause any auto updates, nor send any information
-# only a GET request to http://grafana.net to get latest versions
-check_for_updates = disable
-
-# Google Analytics universal tracking code, only enabled if you specify an id here
-google_analytics_ua_id =
-
-# Google Tag Manager ID, only enabled if you specify an id here
-google_tag_manager_id =
 
 #################################### Security ############################
 [security]
@@ -227,21 +194,6 @@ header_property = username
 auto_sign_up = true
 ldap_sync_ttl = 60
 whitelist =
-
-#################################### SMTP / Emailing #####################
-[smtp]
-enabled = false
-host = localhost:25
-user =
-password =
-cert_file =
-key_file =
-skip_verify = false
-from_address = admin@grafana.localhost
-
-[emails]
-welcome_email_on_sign_up = false
-templates_pattern = emails/*.html
 
 #################################### Logging ##########################
 [log]

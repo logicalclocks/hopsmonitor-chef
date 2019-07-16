@@ -14,6 +14,8 @@ end
 depends 'conda'
 depends 'java'
 depends 'kagent'
+depends 'hops'
+depends 'ndb'
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
 recipe "hopsmonitor::default", "configures Influxdb/Grafana Server"

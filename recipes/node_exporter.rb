@@ -19,7 +19,7 @@ directory node['prometheus']['root_dir'] do
   action :create
 end
 
-node_exporter_downloaded= "#{node['node_exporter']['home']}/.node_exported.extracted_#{node['node_exporter']['version']}"
+node_exporter_downloaded= "#{node['node_exporter']['home']}/.node_exporter.extracted_#{node['node_exporter']['version']}"
 # Extract node_exporter 
 bash 'extract_node_exporter' do
   user "root"
@@ -41,9 +41,9 @@ end
 
 case node['platform_family']
 when "rhel"
-  systemd_script = "/usr/lib/systemd/system/prometheus.service" 
+  systemd_script = "/usr/lib/systemd/system/node_exporter.service" 
 else
-  systemd_script = "/lib/systemd/system/prometheus.service"
+  systemd_script = "/lib/systemd/system/node_exporter.service"
 end
 
 service "node_exporter" do

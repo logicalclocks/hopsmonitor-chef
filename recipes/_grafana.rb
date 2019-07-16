@@ -12,6 +12,8 @@ remote_file cached_package_filename do
   owner "root"
   mode "0644"
   action :create_if_missing
+  retries 2
+  retry_delay 5
 end
 
 
@@ -201,7 +203,7 @@ bash 'add_grafan_index_for_influxdb' do
 curl --user #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} 'http://localhost:3000/api/datasources' -H "Content-Type:application/json" -X POST -d '{"Name":"influxdb","Type":"influxdb","url":"http://localhost:#{node['influxdb']['http']['port']}","Access":"proxy","isDefault":true,"database":"graphite","user":"#{node['influxdb']['db_user']}","password":"#{node['influxdb']['db_password']}"}'
         EOH
   retries 10
-  retry_delay 4
+  retry_delay 5
 #     not_if { }
 end
 

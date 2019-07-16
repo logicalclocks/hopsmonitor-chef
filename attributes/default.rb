@@ -51,6 +51,8 @@ default['prometheus']['data_dir']                 = "#{node['prometheus']['root_
 default['prometheus']['retention_time']           = "15d"
 
 default['node_exporter']['version']               = "0.18.1"
+default['node_exporter']['url']                   = "#{node['download_url']}/prometheus/node_exporter-#{node['node_exporter'][['version']}.linux-amd64.tar.gz"
 default['node_exporter']['port']                  = "9100"
-default['node_exporter']['home']                  = "#{node['prometheus']['root_dir']}/node_exporter-#{node['node_exporter']['version']}"
+default['node_exporter']['home']                  = "#{node['prometheus']['root_dir']}/node_exporter-#{node['node_exporter']['version']}.linux-amd64"
 default['node_exporter']['base_dir']              = "#{node['prometheus']['root_dir']}/node_exporter"
+default['node_exporter']['filesystem']['regex']   = "^/(dev|proc|sys|var/lib/docker/.+)($|/)"

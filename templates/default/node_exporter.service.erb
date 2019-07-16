@@ -6,7 +6,10 @@ After = syslog.target network.target remote-fs.target
 User = <%= node['hopsmonitor']['user'] %> 
 Group = <%= node['hopsmonitor']['group'] %> 
 
-ExecStart = <%= node['node_exporter']['base_dir'] %>/node_exporter
+ExecStart = <%= node['node_exporter']['base_dir'] %>/node_exporter \
+            --web.listen-address=":<%= node['node_exporter']['port'] %>"
+            -collector.filesystem.ignored-mount-points=<%= node['node_exporter']['filesystem']['regex'] %>
+
 LimitNOFILE = 20000
 
 Type = simple

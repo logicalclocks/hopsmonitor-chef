@@ -7,7 +7,7 @@ User = <%= node['hopsmonitor']['user'] %>
 Group = <%= node['hopsmonitor']['group'] %> 
 
 ExecStart = <%= node['node_exporter']['base_dir'] %>/node_exporter \
-            --web.listen-address=":<%= node['node_exporter']['port'] %>" \
+            --web.listen-address=:<%= node['node_exporter']['port'] %> \
             --collector.filesystem.ignored-mount-points=<%= node['node_exporter']['filesystem']['regex'] %>
 
 LimitNOFILE = 20000

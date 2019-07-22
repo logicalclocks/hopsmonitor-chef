@@ -29,3 +29,10 @@ scrape_configs:
     scrape_interval:     10s 
     static_configs:
     - targets: ['<%= @hops_exporters %>']
+
+  - job_name: 'kafka'
+
+    scrape_interval:     10s 
+    static_configs:
+    - targets: ['<%= @kafka_exporters %>']
+

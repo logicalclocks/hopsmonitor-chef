@@ -15,8 +15,8 @@ remote_file cached_package_filename do
 end
 
 directory node['prometheus']['root_dir'] do
-  owner node['prometheus']['user']
-  group node['prometheus']['group']
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
   mode '0750'
   action :create
 end
@@ -26,9 +26,9 @@ prometheus_downloaded= "#{node['prometheus']['home']}/.prometheus.extracted_#{no
 bash 'extract_prometheus' do
   user "root"
   code <<-EOH
-    tar -xf #{cached_package_filename} -C #{node['hopsmonitor']['root_dir']}
+    tar -xf #{cached_package_filename} -C #{node['prometheus']['root_dir']}
     chown -R #{node['hopsmonitor']['user']}:#{node['hopsmonitor']['group']} #{node['prometheus']['home']}
-    chmod 750 #{node['prometheus']['home']}
+    chmod -R 750 #{node['prometheus']['home']}
     touch #{prometheus_downloaded}
     chown #{node['hopsmonitor']['user']} #{prometheus_downloaded}
   EOH
@@ -58,6 +58,10 @@ hops_exporters = []
     }
 end
 
+kafka_exporters = private_ips("kkafka", "default")
+kafka_exporters.map!{ |kafka_exporter| 
+   Resolv.getname(kafka_exporter) + ":" node['kkafka']['metrics_port'] 
+}
 
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   source "prometheus.yml" 
@@ -93,8 +97,7 @@ template systemd_script do
   if node['services']['enabled'] == "true"
     notifies :enable, "service[prometheus]"
   end
-    notifies :restart, "service[prometheus]"
-  end
+  notifies :restart, "service[prometheus]"
 end
 
 kagent_config "prometheus" do

@@ -13,8 +13,8 @@ remote_file cached_package_filename do
 end
 
 directory node['prometheus']['root_dir'] do
-  owner node['prometheus']['user']
-  group node['prometheus']['group']
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
   mode '0750'
   action :create
 end
@@ -24,9 +24,9 @@ node_exporter_downloaded= "#{node['node_exporter']['home']}/.node_exporter.extra
 bash 'extract_node_exporter' do
   user "root"
   code <<-EOH
-    tar -xf #{cached_package_filename} -C #{node['hopsmonitor']['root_dir']}
+    tar -xf #{cached_package_filename} -C #{node['prometheus']['root_dir']}
     chown -R #{node['hopsmonitor']['user']}:#{node['hopsmonitor']['group']} #{node['node_exporter']['home']}
-    chmod 750 #{node['prometheus']['home']}
+    chmod -R 750 #{node['prometheus']['home']}
     touch #{node_exporter_downloaded}
     chown #{node['hopsmonitor']['user']} #{node_exporter_downloaded}
   EOH
@@ -60,8 +60,7 @@ template systemd_script do
   if node['services']['enabled'] == "true"
     notifies :enable, "service[node_exporter]"
   end
-    notifies :restart, "service[node_exporter]"
-  end
+  notifies :restart, "service[node_exporter]"
 end
 
 kagent_config "node_exporter" do

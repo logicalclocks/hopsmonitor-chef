@@ -1,4 +1,7 @@
 include_attribute "kagent"
+include_attribute "hops"
+include_attribute "ndb"
+include_attribute "kafka"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['group']                   = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
@@ -42,7 +45,7 @@ default['grafana']['pid_file']                    = "/tmp/grafana.pid"
 # Default prometheus port is 9090, but we run Karamel on that port.
 default['prometheus']['port']                     = "9091"
 default['prometheus']['version']                  = "2.10.0"
-default['prometheus']['url']                      = "#{node['download_url']}/prometheus/prometheus-#{node['prometheus'][['version']}.linux-amd64.tar.gz"
+default['prometheus']['url']                      = "#{node['download_url']}/prometheus/prometheus-#{node['prometheus']['version']}.linux-amd64.tar.gz"
 default['prometheus']['root_dir']                 = "#{node['hopsmonitor']['dir']}/prometheus"
 
 default['prometheus']['home']                     = "#{node['prometheus']['root_dir']}/prometheus-#{node['prometheus']['version']}.linux-amd64"
@@ -51,7 +54,7 @@ default['prometheus']['data_dir']                 = "#{node['prometheus']['root_
 default['prometheus']['retention_time']           = "15d"
 
 default['node_exporter']['version']               = "0.18.1"
-default['node_exporter']['url']                   = "#{node['download_url']}/prometheus/node_exporter-#{node['node_exporter'][['version']}.linux-amd64.tar.gz"
+default['node_exporter']['url']                   = "#{node['download_url']}/prometheus/node_exporter-#{node['node_exporter']['version']}.linux-amd64.tar.gz"
 default['node_exporter']['port']                  = "9100"
 default['node_exporter']['home']                  = "#{node['prometheus']['root_dir']}/node_exporter-#{node['node_exporter']['version']}.linux-amd64"
 default['node_exporter']['base_dir']              = "#{node['prometheus']['root_dir']}/node_exporter"

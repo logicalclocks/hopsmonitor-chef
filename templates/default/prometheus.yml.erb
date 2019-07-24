@@ -36,3 +36,10 @@ scrape_configs:
     static_configs:
     - targets: ['<%= @kafka_exporters %>']
 
+  - job_name: 'elastic'
+
+    scrape_interval:     10s 
+    static_configs:
+    - targets: ['<%= @elastic_exporters %>']
+
+

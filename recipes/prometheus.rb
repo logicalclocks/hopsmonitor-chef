@@ -63,6 +63,11 @@ kafka_exporters.map!{ |kafka_exporter|
    Resolv.getname(kafka_exporter) + ":" node['kkafka']['metrics_port'] 
 }
 
+elastic_exporters = private_ips("elastic", "default")
+elastic_exporters.map!{ |elastic_exporter| 
+   Resolv.getname(elastic_exporter) + ":" node['elastic']['exporter']['port']
+}
+
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   source "prometheus.yml" 
   owner node['hopsmonitor']['user']
@@ -70,9 +75,10 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   mode '0755'
   action :create
   variables({
-      node_exporters => node_exporters,
-      mysqld_exporters => mysqld_exporters,
-      hops_exporters => hops_exporters
+      'node_exporters' => node_exporters,
+      'mysqld_exporters' => mysqld_exporters,
+      'hops_exporters' => hops_exporters,
+      'elastic_exporters' => elastic_exporters
   })
 end
 

@@ -1,8 +1,9 @@
 include_attribute "kagent"
 include_attribute "hops"
 include_attribute "ndb"
-include_attribute "kafka"
+include_attribute "kkafka"
 include_attribute "elastic"
+include_attribute "hive2"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['group']                   = node['install']['user'].empty? ? "hopsmon" : node['install']['user']

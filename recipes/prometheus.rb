@@ -43,30 +43,44 @@ end
 
 node_exporters = private_ips("hopsmonitor", "node_exporter")
 node_exporters.map!{ |node_exporter| 
-   Resolv.getname(node_exporter) + ":" node['node_exporter']['port'] 
+  Resolv.getname(node_exporter) + ":" + node['node_exporter']['port'] 
 }
 
 mysqld_exporters = private_ips("ndb", "mysqld")
 mysqld_exporters.map!{ |mysqld_exporter| 
-   Resolv.getname(mysqld_exporter) + ":" node['node_exporter']['port'] 
+  Resolv.getname(mysqld_exporter) + ":" + node['node_exporter']['port'] 
 }
 
 hops_exporters = []
 ['nn', 'dn', 'rm', 'nm'].each do |service| 
     hops_exporters << private_ips("hops", service).map{ |exporter| 
-        Resolv.getname(exporter) + ":" node['hops'][service]['metrics_port']
+        Resolv.getname(exporter) + ":" + node['hops'][service]['metrics_port']
     }
 end
 
 kafka_exporters = private_ips("kkafka", "default")
 kafka_exporters.map!{ |kafka_exporter| 
-   Resolv.getname(kafka_exporter) + ":" node['kkafka']['metrics_port'] 
+  Resolv.getname(kafka_exporter) + ":" + node['kkafka']['metrics_port'] 
 }
 
 elastic_exporters = private_ips("elastic", "default")
 elastic_exporters.map!{ |elastic_exporter| 
-   Resolv.getname(elastic_exporter) + ":" node['elastic']['exporter']['port']
+  Resolv.getname(elastic_exporter) + ":" + node['elastic']['exporter']['port']
 }
+
+hive_exporters = private_ips("hive2", "default")
+# This is a bit of a wild assumption. "hive2::default" actually call 
+# both server2 and metastore recipes. This means it deploys 2 services.
+# As such, we duplicate the elements in the array. This ofc is going to break
+# if we start using the specific recipes (server2.rb and metastore.rb) instead of 
+# the default.rb. The proper fix is to use a service discovery. 
+hive_exporters = hive_exporters * 2 
+i = 0
+while i < hive_exporters.length
+  hive_exporter[i] = Resolv.getname(hive_exporter[i]) + ":" + node['hive2']['hs2']['metrics_port'] 
+  hive_exporter[i+1] = Resolv.getname(hive_exporter[i+1]) + ":" + node['hive2']['hm']['metrics_port'] 
+  i += 2
+end
 
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   source "prometheus.yml" 
@@ -78,7 +92,8 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
       'node_exporters' => node_exporters,
       'mysqld_exporters' => mysqld_exporters,
       'hops_exporters' => hops_exporters,
-      'elastic_exporters' => elastic_exporters
+      'elastic_exporters' => elastic_exporters,
+      'hive_exporters' => hive_exporters
   })
 end
 

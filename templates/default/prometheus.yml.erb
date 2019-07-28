@@ -42,4 +42,11 @@ scrape_configs:
     static_configs:
     - targets: ['<%= @elastic_exporters %>']
 
+  - job_name: 'hive'
+
+    scrape_interval:     10s 
+    static_configs:
+    - targets: ['<%= @hive_exporters %>']
+
+
 

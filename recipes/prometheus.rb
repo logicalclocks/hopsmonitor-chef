@@ -82,6 +82,11 @@ while i < hive_exporters.length
   i += 2
 end
 
+airflow_exporters = private_ips("hops_airflow", "default")
+airflow_exporters.map!{ |airflow_exporter| 
+  Resolv.getname(airflow_exporter) + ":" + node['airflow']["config"]["webserver"]["web_server_port"] + node['airflow']['config']['webserver']['base_path'] + "/admin/metrics"
+}
+
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   source "prometheus.yml" 
   owner node['hopsmonitor']['user']
@@ -93,7 +98,8 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
       'mysqld_exporters' => mysqld_exporters,
       'hops_exporters' => hops_exporters,
       'elastic_exporters' => elastic_exporters,
-      'hive_exporters' => hive_exporters
+      'hive_exporters' => hive_exporters,
+      'airflow_exporters' => airflow_exporters
   })
 end
 

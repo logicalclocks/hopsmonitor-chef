@@ -4,6 +4,7 @@ include_attribute "ndb"
 include_attribute "kkafka"
 include_attribute "elastic"
 include_attribute "hive2"
+include_attribute "hopsmonitor_chef"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['group']                   = node['install']['user'].empty? ? "hopsmon" : node['install']['user']

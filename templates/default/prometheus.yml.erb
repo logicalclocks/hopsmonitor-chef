@@ -11,7 +11,7 @@ scrape_configs:
     # scheme defaults to 'http'.
 
     static_configs:
-    - targets: ['localhost:'<%= node['prometheus']['port'] =>]
+    - targets: ['localhost:<%= node['prometheus']['port'] %>']
 
   - job_name: 'host'
 
@@ -51,5 +51,6 @@ scrape_configs:
   - job_name: 'airflow'
 
     scrape_interval:     10s 
+    metrics_path:  <%= node['airflow']['config']['webserver']['base_path'] %>/admin/metrics
     static_configs:
     - targets: ['<%= @airflow_exporters %>']

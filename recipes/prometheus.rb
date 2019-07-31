@@ -84,7 +84,7 @@ while i < hive_exporters_tmp.length
 end
 
 airflow_exporters = private_recipe_ips("hops_airflow", "default")
-ariflow_exporters = airflow_exporters.map{ |airflow_exporter| 
+airflow_exporters = airflow_exporters.map{ |airflow_exporter| 
   Resolv.getname(airflow_exporter) + ":" + node['airflow']["config"]["webserver"]["web_server_port"].to_s
 }
 
@@ -95,12 +95,13 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   mode '0755'
   action :create
   variables({
-      'node_exporters' => node_exporters,
-      'mysqld_exporters' => mysqld_exporters,
-      'hops_exporters' => hops_exporters,
-      'elastic_exporters' => elastic_exporters,
-      'hive_exporters' => hive_exporters,
-      'airflow_exporters' => airflow_exporters
+      'node_exporters' => node_exporters.join("', '"),
+      'mysqld_exporters' => mysqld_exporters.join("', '"),
+      'hops_exporters' => hops_exporters.join("', '"),
+      'kafka_exporters' => kafka_exporters.join("', '"),
+      'elastic_exporters' => elastic_exporters.join("', '"),
+      'hive_exporters' => hive_exporters.join("', '"),
+      'airflow_exporters' => airflow_exporters.join("', '")
   })
 end
 

@@ -43,13 +43,6 @@ end
 my_private_ip = my_private_ip()
 public_ip=my_public_ip()
 
-template "/tmp/grafana_tables.sql" do
-  source "grafana_tables.sql.erb"
-  owner node['hopsmonitor']['user']
-  group node['hopsmonitor']['group']
-  mode 0650
-end
-
 directory "#{node['grafana']['base_dir']}/dashboards" do
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
@@ -82,20 +75,39 @@ template "#{node['grafana']['base_dir']}/conf/defaults.ini" do
   })
 end
 
-template "#{node['grafana']['base_dir']}/public/dashboards/spark.js" do
-  source "spark.js.erb"
+# Replace all the dashboards
+directory "#{node['grafana']['base_dir']}/config/provisioning/dashboards" do
+  action :delete
+  recusrive true
+end
+
+remote_directory "#{node['grafana']['base_dir']}/config/provisioning/dashboards" do 
+  source "dashboards"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
-  mode 0650
+  mode 0750
 end
 
-# Replace all the dashboards
-directory "#{node['grafana']['base_dir']}/public/dashboards" do
-  action :remove
+template "#{node['grafana']['base_dir']}/config/provisioning/dashboards/provisioning.yaml" do 
+  source "dashboards_provisioning.yml.erb"
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  mode 0700
 end
 
-remote_directory "#{node['grafana']['base_dir']}/public/dashboards" do 
-  source "dashboards"
+template "#{node['grafana']['base_dir']}/config/provisioning/datasources/provisioning.yaml" do 
+  source "datasources_provisioning.yml.erb"
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  variables ({
+    'prometheus_ip' => private_recipe_ip("hopsmonitor", "prometheus"),
+    'influxdb_ip' => my_private_ip
+  })
+  mode 0700
+end
+
+template "#{node['grafana']['base_dir']}/public/dashboards/spark.js" do
+  source "spark.js.erb"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0650
@@ -150,13 +162,4 @@ if node['kagent']['enabled'] == "true"
      service "Monitoring"
      log_file "#{node['grafana']['base_dir']}/logs/grafana.log"
    end
-end
-
-bash 'add_grafan_index_for_influxdb' do
-  user "root"
-  code <<-EOH
-    curl --user #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} 'http://localhost:3000/api/datasources' -H "Content-Type:application/json" -X POST -d '{"Name":"influxdb","Type":"influxdb","url":"http://localhost:#{node['influxdb']['http']['port']}","Access":"proxy","isDefault":true,"database":"graphite","user":"#{node['influxdb']['db_user']}","password":"#{node['influxdb']['db_password']}"}'
-  EOH
-  retries 10
-  retry_delay 5
 end

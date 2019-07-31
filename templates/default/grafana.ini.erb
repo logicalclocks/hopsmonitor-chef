@@ -337,3 +337,12 @@ password =
 [paths]
 data = <%= node['grafana']['base_dir'] %>/data
 logs = <%= node['grafana']['base_dir'] %>/logs
+provisioning = <%= node['grafana']['base_dir'] %>/conf/provisioning
+
+#################################### SMTP ############################
+[smtp]
+enabled = false
+
+# We don't use the smtp service, 
+# however we need to set the from_address otherwise Grafana won't start
+from_address = admin@grafana.localhost

@@ -5,6 +5,7 @@ include_attribute "kkafka"
 include_attribute "elastic"
 include_attribute "hive2"
 include_attribute "hops_airflow"
+include_attribute "epipe"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['group']                   = node['install']['user'].empty? ? "hopsmon" : node['install']['user']

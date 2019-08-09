@@ -88,6 +88,20 @@ airflow_exporters = airflow_exporters.map{ |airflow_exporter|
   Resolv.getname(airflow_exporter) + ":" + node['airflow']["config"]["webserver"]["web_server_port"].to_s
 }
 
+hopsworks_port = "8181"
+if node.attribute?("hopsworks") && node['hopsworks'].attribute?("https") && node['hopsworks']['https'].attribute?("port")
+  hopsworks_port = node['hopsworks']['https']['port'].to_s
+end
+hopsworks_exporters = private_recipe_ips("hopsworks", "default")
+hopsworks_exporters = hopsworks_exporters.map{ |hopsworks_exporter| 
+  Resolv.getname(hopsworks_exporter) + ":" + hopsworks_port
+}
+
+epipe_exporters = private_recipe_ips("epipe", "default")
+epipe_exporters = epipe_exporters.map{ |epipe_exporter| 
+  Resolv.getname(epipe_exporter) + ":" + node['epipe']["metrics_port"].to_s
+}
+
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   source "prometheus.yml.erb" 
   owner node['hopsmonitor']['user']
@@ -101,7 +115,9 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
       'kafka_exporters' => kafka_exporters.join("', '"),
       'elastic_exporters' => elastic_exporters.join("', '"),
       'hive_exporters' => hive_exporters.join("', '"),
-      'airflow_exporters' => airflow_exporters.join("', '")
+      'airflow_exporters' => airflow_exporters.join("', '"),
+      'hopsworks_exporters' => hopsworks_exporters.join("', '"),
+      'epipe_exporters' => epipe_exporters.join("', '")
   })
 end
 

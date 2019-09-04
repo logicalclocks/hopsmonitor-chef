@@ -63,3 +63,31 @@ default['node_exporter']['port']                  = "9100"
 default['node_exporter']['home']                  = "#{node['prometheus']['root_dir']}/node_exporter-#{node['node_exporter']['version']}.linux-amd64"
 default['node_exporter']['base_dir']              = "#{node['prometheus']['root_dir']}/node_exporter"
 default['node_exporter']['filesystem']['regex']   = "^/(dev|proc|sys|var/lib/docker/.+)($|/)"
+default['node_exporter']["text_metrics"]          = "#{default['node_exporter']['base_dir']}/text_metrics" 
+
+default['alertmanager']['port']                     = "9093"
+default['alertmanager']['version']                  = "0.17.0"
+default['alertmanager']['url']                      = "#{node['download_url']}/prometheus/alertmanager-#{node['prometheus']['version']}.linux-amd64.tar.gz"
+default['alertmanager']['root_dir']                 = "#{node['hopsmonitor']['dir']}/alertmanager"
+
+default['alertmanager']['home']                     = "#{node['alertmanager']['root_dir']}/alertmanager-#{node['alertmanager']['version']}.linux-amd64"
+default['alertmanager']['base_dir']                 = "#{node['alertmanager']['root_dir']}/alertmanager"
+default['alertmanager']['data_dir']                 = "#{node['alertmanager']['root_dir']}/alertmanager-data"
+default['alertmanager']['retention_time']           = "15d"
+
+# Alertmanager slack configuration
+default['alertmanager']['slack']['api_url']         = ""
+default['alertmanager']['slack']['channel']         = ""
+default['alertmanager']['slack']['username']        = "alertmanager"
+default['alertmanager']['slack']['text']            = "<!channel> \nsummary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
+
+# Alertmanager email configuration
+default['alertmanager']['email']['to']              = ""             
+default['alertmanager']['email']['from']            = "" 
+default['alertmanager']['email']['smtp_host']       = "" 
+default['alertmanager']['email']['smtp_host']       = "" 
+default['alertmanager']['email']['auth_username']   = "" 
+default['alertmanager']['email']['auth_password']   = "" 
+default['alertmanager']['email']['auth_secret']     = "" 
+default['alertmanager']['email']['auth_identity']   = "" 
+default['alertmanager']['email']['text']            = "summary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"

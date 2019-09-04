@@ -76,26 +76,33 @@ template "#{node['grafana']['base_dir']}/conf/defaults.ini" do
 end
 
 # Replace all the dashboards
-directory "#{node['grafana']['base_dir']}/config/provisioning/dashboards" do
+directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards" do
   action :delete
-  recusrive true
+  recursive true
 end
 
-remote_directory "#{node['grafana']['base_dir']}/config/provisioning/dashboards" do 
+remote_directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards" do 
   source "dashboards"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0750
 end
 
-template "#{node['grafana']['base_dir']}/config/provisioning/dashboards/provisioning.yaml" do 
+template "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/provisioning.yaml" do 
   source "dashboards_provisioning.yml.erb"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0700
 end
 
-template "#{node['grafana']['base_dir']}/config/provisioning/datasources/provisioning.yaml" do 
+directory "#{node['grafana']['base_dir']}/conf/provisioning/datasources" do 
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  mode 0700
+  action :create
+end
+
+template "#{node['grafana']['base_dir']}/conf/provisioning/datasources/provisioning.yaml" do 
   source "datasources_provisioning.yml.erb"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']

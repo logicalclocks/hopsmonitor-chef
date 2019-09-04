@@ -16,8 +16,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
-  "iteration": 1562689021041,
+  "iteration": 1566986253669,
   "links": [],
   "panels": [
     {
@@ -781,8 +780,10 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "node_netstat_Tcp_CurrEstab{instance='$instance'}",
+          "expr": "node_netstat_Tcp_CurrEstab{instance='$instance', job=\"host\"}",
           "format": "time_series",
+          "hide": true,
+          "instant": false,
           "intervalFactor": 1,
           "legendFormat": "",
           "refId": "A"
@@ -864,7 +865,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "node_filefd_allocated{instance='$instance'}",
+          "expr": "node_filefd_allocated{instance='$instance', job=\"host\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -948,7 +949,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "node_time_seconds{instance='$instance'} - node_boot_time_seconds{instance='$instance'}",
+          "expr": "node_time_seconds{instance='$instance', job=\"host\"} - node_boot_time_seconds{instance='$instance', job=\"host\"}",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -985,6 +986,7 @@
       {
         "allValue": null,
         "current": {
+          "tags": [],
           "text": "hopsworks0.logicalclocks.com:9100",
           "value": "hopsworks0.logicalclocks.com:9100"
         },
@@ -1041,5 +1043,5 @@
   "timezone": "",
   "title": "Host",
   "uid": "gASP1H4Zz",
-  "version": 13
+  "version": 1
 }

@@ -48,7 +48,7 @@ node_exporters = node_exporters.map{ |node_exporter|
 
 mysqld_exporters = private_recipe_ips("ndb", "mysqld")
 mysqld_exporters = mysqld_exporters.map{ |mysqld_exporter| 
-  Resolv.getname(mysqld_exporter) + ":" + node['node_exporter']['port'] 
+  Resolv.getname(mysqld_exporter) + ":" + node['ndb']['mysqld']['metrics_port']
 }
 
 hops_exporters = []

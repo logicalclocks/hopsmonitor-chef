@@ -1,0 +1,17 @@
+[Unit]
+Description = Writes Nvidia metrics to file to be picked up by node_exporter
+After = syslog.target network.target remote-fs.target
+
+[Service]
+User = <%= node['hopsmonitor']['user'] %> 
+Group = <%= node['hopsmonitor']['group'] %> 
+
+Restart=always
+RestartSec=5
+
+ExecStart = <%= node['conda']['base_dir'] %>/envs/hops-system/bin/python <%= node['node_exporter']['base_dir'] %>/nvml_monitor.py --path <%= node['node_exporter']['text_metrics'] %>
+
+Type = simple 
+
+[Install]
+WantedBy = multi-user.target

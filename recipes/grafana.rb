@@ -85,7 +85,7 @@ remote_directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards" d
   source "dashboards"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
-  mode 0750
+  mode 0700
 end
 
 template "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/provisioning.yaml" do 
@@ -115,13 +115,6 @@ end
 
 template "#{node['grafana']['base_dir']}/public/dashboards/spark.js" do
   source "spark.js.erb"
-  owner node['hopsmonitor']['user']
-  group node['hopsmonitor']['group']
-  mode 0650
-end
-
-template "#{node['grafana']['base_dir']}/public/dashboards/admin.js" do
-  source "admin.js.erb"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0650

@@ -41,6 +41,11 @@ link node['prometheus']['base_dir'] do
   to node['prometheus']['home']
 end
 
+alertmanagers = privaterecipeips("hopsmonitor", "alertmanager")
+alertmanagers = alertmanagers.map{ |alertmanager| 
+  Resolv.getname(alertmanager) + ":" + node['alertmanager']['port'] 
+}
+
 node_exporters = private_recipe_ips("hopsmonitor", "node_exporter")
 node_exporters = node_exporters.map{ |node_exporter| 
   Resolv.getname(node_exporter) + ":" + node['node_exporter']['port'] 
@@ -106,9 +111,10 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   source "prometheus.yml.erb" 
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
-  mode '0755'
+  mode '0700'
   action :create
   variables({
+      'alertmanagers' => alertmanagers.join("', '"),
       'node_exporters' => node_exporters.join("', '"),
       'mysqld_exporters' => mysqld_exporters.join("', '"),
       'hops_exporters' => hops_exporters.join("', '"),
@@ -119,6 +125,18 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
       'hopsworks_exporters' => hopsworks_exporters.join("', '"),
       'epipe_exporters' => epipe_exporters.join("', '")
   })
+end
+
+directory node['prometheus']['rules_dir'] do 
+  action :delete
+  recursive true 
+end
+
+remote_directory node['prometheus']['rules_dir'] do 
+  source "rules"
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  mode 0700
 end
 
 case node['platform_family']
@@ -147,4 +165,10 @@ end
 
 kagent_config "prometheus" do
   action :systemd_reload
+end
+
+if node['kagent']['enabled'] == "true"
+   kagent_config "prometheus" do
+     service "Monitoring"
+   end
 end

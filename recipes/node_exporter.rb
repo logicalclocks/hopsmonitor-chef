@@ -67,6 +67,12 @@ kagent_config "node_exporter" do
   action :systemd_reload
 end
 
+if node['kagent']['enabled'] == "true"
+   kagent_config "node_exporter" do
+     service "Monitoring"
+   end
+end
+
 # If the machine has GPUs, configure the nvml_monitor.py
 if node['cuda']['accept_nvidia_download_terms'].eql?("true")
 
@@ -104,5 +110,11 @@ if node['cuda']['accept_nvidia_download_terms'].eql?("true")
   
   kagent_config "nvml_monitor" do
     action :systemd_reload
+  end
+
+  if node['kagent']['enabled'] == "true"
+     kagent_config "nvml_monitor" do
+       service "Monitoring"
+     end
   end
 end

@@ -6,8 +6,10 @@ global:
 alerting:
   alertmanagers:
   - static_configs:
-    - targets:
-      # - alertmanager:9093
+    - targets: ['<%= @alertmanagers %>']
+
+rule_files:
+  - <%= node['prometheus']['rules_dir'] %>/*
 
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.

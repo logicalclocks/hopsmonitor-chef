@@ -56,6 +56,7 @@ default['prometheus']['home']                     = "#{node['prometheus']['root_
 default['prometheus']['base_dir']                 = "#{node['prometheus']['root_dir']}/prometheus"
 default['prometheus']['data_dir']                 = "#{node['prometheus']['root_dir']}/prometheus-data"
 default['prometheus']['retention_time']           = "15d"
+default['prometheus']['rules_dir']                = "#{node['prometheus']['base_dir']}/alerting-rules"
 
 default['node_exporter']['version']               = "0.18.1"
 default['node_exporter']['url']                   = "#{node['download_url']}/prometheus/node_exporter-#{node['node_exporter']['version']}.linux-amd64.tar.gz"
@@ -91,3 +92,8 @@ default['alertmanager']['email']['auth_password']   = ""
 default['alertmanager']['email']['auth_secret']     = "" 
 default['alertmanager']['email']['auth_identity']   = "" 
 default['alertmanager']['email']['text']            = "summary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
+
+default['telegraf']['version']                      = "1.2.1"
+default['telegraf']['url']                          = "#{node['download_url']}/telegraf-#{node['telegraf']['version']}_linux_amd64.tar.gz"
+default['telegraf']['home']                         = node['hopsmonitor']['dir'] + "/telegraf-" + "#{node['telegraf']['version']}"
+default['telegraf']['base_dir']                     = node['hopsmonitor']['dir'] + "/telegraf"

@@ -41,7 +41,7 @@ template "#{node['alertmanager']['base_dir']}/alertmanager.yml" do
   source "alertmanager.yml.erb" 
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
-  mode '0755'
+  mode '0700'
   action :create
 end
 
@@ -71,4 +71,10 @@ end
 
 kagent_config "alertmanager" do
   action :systemd_reload
+end
+
+if node['kagent']['enabled'] == "true"
+   kagent_config "alertmanager" do
+     service "Monitoring"
+   end
 end

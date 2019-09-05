@@ -110,3 +110,59 @@ attribute "grafana/admin_password",
 attribute "grafana/port",
           :description => "Port for grafana",
           :type => "string"
+
+#
+#  Prometheus
+# 
+attribute "prometheus/retention_time",
+          :description => "Retention time for prometheus data",
+          :type => "string"
+
+attribute "prometheus/port",
+          :description => "Port on which prometheus listens",
+          :type => "string"
+
+#
+# Alertmanager
+# 
+attribute "alertmanager/port",
+          :description => "port on which alertmanager listens",
+          :type => "string"
+
+attribute "alertmanager/slack/api_url",
+          :description => "Slack api url for sending alerts to slack",
+          :type => "string"
+attribute "alertmanager/slack/channel",
+          :description => "Slack channel",
+          :type => "string"
+attribute "alertmanager/slack/username",        
+          :description => "Slack bot username",
+          :type => "string"
+attribute "alertmanager/slack/text",       
+          :description => "Slack text template",
+          :type => "string"
+
+attribute "alertmanager/email/to",
+          :description => "Email address to send alerts to",
+          :type => "string"
+attribute "alertmanager/email/from",
+          :description => "Email address to send alerts from",
+          :type => "string"
+attribute "alertmanager/email/smtp_host", 
+          :description => "Smtp host",
+          :type => "string"
+attribute "alertmanager/email/auth_username",
+          :description => "Email auth username",
+          :type => "string"
+attribute "alertmanager/email/auth_password",
+          :description => "Email auth password",
+          :type => "string"
+attribute "alertmanager/email/auth_secret",
+          :description => "Email auth secret",
+          :type => "string"
+attribute "alertmanager/email/auth_identity",
+          :description => "Email auth identity",
+          :type => "string"
+attribute "alertmanager/email/text",
+          :description => "Email text template",
+          :type => "string"

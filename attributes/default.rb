@@ -86,7 +86,6 @@ default['alertmanager']['slack']['text']            = "<!channel> \nsummary: {{ 
 default['alertmanager']['email']['to']              = ""             
 default['alertmanager']['email']['from']            = "" 
 default['alertmanager']['email']['smtp_host']       = "" 
-default['alertmanager']['email']['smtp_host']       = "" 
 default['alertmanager']['email']['auth_username']   = "" 
 default['alertmanager']['email']['auth_password']   = "" 
 default['alertmanager']['email']['auth_secret']     = "" 

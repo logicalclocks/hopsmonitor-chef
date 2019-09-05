@@ -41,7 +41,7 @@ link node['prometheus']['base_dir'] do
   to node['prometheus']['home']
 end
 
-alertmanagers = privaterecipeips("hopsmonitor", "alertmanager")
+alertmanagers = private_recipe_ips("hopsmonitor", "alertmanager")
 alertmanagers = alertmanagers.map{ |alertmanager| 
   Resolv.getname(alertmanager) + ":" + node['alertmanager']['port'] 
 }
@@ -170,5 +170,6 @@ end
 if node['kagent']['enabled'] == "true"
    kagent_config "prometheus" do
      service "Monitoring"
+     restart_agent false 
    end
 end

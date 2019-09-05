@@ -6,6 +6,7 @@ include_attribute "elastic"
 include_attribute "hive2"
 include_attribute "hops_airflow"
 include_attribute "epipe"
+include_attribute "tensorflow"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['group']                   = node['install']['user'].empty? ? "hopsmon" : node['install']['user']

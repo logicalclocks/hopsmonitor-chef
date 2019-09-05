@@ -70,6 +70,7 @@ end
 if node['kagent']['enabled'] == "true"
    kagent_config "node_exporter" do
      service "Monitoring"
+     restart_agent false
    end
 end
 
@@ -115,6 +116,7 @@ if node['cuda']['accept_nvidia_download_terms'].eql?("true")
   if node['kagent']['enabled'] == "true"
      kagent_config "nvml_monitor" do
        service "Monitoring"
+       restart_agent false
      end
   end
 end

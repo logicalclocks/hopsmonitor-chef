@@ -21,6 +21,7 @@ depends 'kkafka'
 depends 'hive2'
 depends 'hops_airflow'
 depends 'epipe'
+depends 'tensorflow'
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
 recipe "hopsmonitor::default", "configures Influxdb/Grafana Server"

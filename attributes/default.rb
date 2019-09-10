@@ -69,7 +69,7 @@ default['node_exporter']["text_metrics"]          = "#{default['node_exporter'][
 
 default['alertmanager']['port']                     = "9093"
 default['alertmanager']['version']                  = "0.17.0"
-default['alertmanager']['url']                      = "#{node['download_url']}/prometheus/alertmanager-#{node['prometheus']['version']}.linux-amd64.tar.gz"
+default['alertmanager']['url']                      = "#{node['download_url']}/prometheus/alertmanager-#{node['alertmanager']['version']}.linux-amd64.tar.gz"
 default['alertmanager']['root_dir']                 = "#{node['hopsmonitor']['dir']}/alertmanager"
 
 default['alertmanager']['home']                     = "#{node['alertmanager']['root_dir']}/alertmanager-#{node['alertmanager']['version']}.linux-amd64"

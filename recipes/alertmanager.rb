@@ -17,6 +17,13 @@ directory node['alertmanager']['root_dir'] do
   action :create
 end
 
+directory node['alertmanager']['data_dir'] do
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  mode '0750'
+  action :create
+end
+
 alertmanager_downloaded= "#{node['alertmanager']['home']}/.alertmanager.extracted_#{node['alertmanager']['version']}"
 # Extract alertmanager 
 bash 'extract_alertmanager' do
@@ -76,5 +83,6 @@ end
 if node['kagent']['enabled'] == "true"
    kagent_config "alertmanager" do
      service "Monitoring"
+     restart_agent false 
    end
 end

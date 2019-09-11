@@ -31,10 +31,10 @@ receivers:
 
 <% if !node['alertmanager']['email']['to'].empty? -%>
 - name: 'email'
-  email_config:
+  email_configs:
   - to: <%= node['alertmanager']['email']['to'] %>
     from: <%= node['alertmanager']['email']['from'] %>
-    smtp_host: <%= node['alertmanager']['email']['smtp_host'] %>
+    smarthost: <%= node['alertmanager']['email']['smtp_host'] %>
     auth_username: <%= node['alertmanager']['email']['auth_username'] %>
     auth_password: <%= node['alertmanager']['email']['auth_password'] %>
     auth_secret: <%= node['alertmanager']['email']['auth_secret'] %>

@@ -32,12 +32,12 @@ receivers:
 <% if !node['alertmanager']['email']['to'].empty? -%>
 - name: 'email'
   email_config:
-  - to: <%= default['alertmanager']['email']['to'] %>
-    from: <%= default['alertmanager']['email']['from'] %>
-    smtp_host: <%= default['alertmanager']['email']['smtp_host'] %>
-    auth_username: <%= default['alertmanager']['email']['auth_username'] %>
-    auth_password: <%= default['alertmanager']['email']['auth_password'] %>
-    auth_secret: <%= default['alertmanager']['email']['auth_secret'] %>
-    auth_identity: <%= default['alertmanager']['email']['auth_identity'] %>
+  - to: <%= node['alertmanager']['email']['to'] %>
+    from: <%= node['alertmanager']['email']['from'] %>
+    smtp_host: <%= node['alertmanager']['email']['smtp_host'] %>
+    auth_username: <%= node['alertmanager']['email']['auth_username'] %>
+    auth_password: <%= node['alertmanager']['email']['auth_password'] %>
+    auth_secret: <%= node['alertmanager']['email']['auth_secret'] %>
+    auth_identity: <%= node['alertmanager']['email']['auth_identity'] %>
     text: "<%= node['alertmanager']['email']['text'] %>"
 <% end -%>

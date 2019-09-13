@@ -4,7 +4,7 @@ datasources:
   - name: Prometheus
     type: prometheus
     url: http://<%= @prometheus_ip %>:<%= node['prometheus']['port'] %>
-    access: server
+    access: proxy 
     editable: false
     isDefault: true
 

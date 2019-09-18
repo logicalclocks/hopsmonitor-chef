@@ -1,0 +1,18 @@
+apiVersion: 1
+
+providers:
+  # <string> an unique provider name
+- name: 'Hops'
+  # <string, required> name of the dashboard folder. Required
+  folder: 'Hops'
+  # <string, required> provider type. Required
+  type: file
+  # <bool> disable dashboard deletion
+  disableDeletion: false
+  # <bool> enable dashboard editing
+  editable: false 
+  # <int> how often Grafana will scan for changed dashboards
+  updateIntervalSeconds: 10
+  options:
+    # <string, required> path to dashboard files on disk. Required
+    path: <%= node['grafana']['base_dir'] %>/conf/provisioning/dashboards

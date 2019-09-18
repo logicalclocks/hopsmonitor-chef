@@ -1,0 +1,43 @@
+global:
+  resolve_timeout: 5m
+
+<% if !node['alertmanager']['slack']['api_url'].empty? -%>
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'slack'
+<% end -%>
+
+<% if !node['alertmanager']['email']['to'].empty? -%>
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'email'
+<% end -%>
+
+receivers:
+<% if !node['alertmanager']['slack']['api_url'].empty? -%>
+- name: 'slack'
+  slack_configs:
+  - api_url: <%= node['alertmanager']['slack']['api_url'] %> 
+    channel: <%= node['alertmanager']['slack']['channel'] %> 
+    username: <%= node['alertmanager']['slack']['username'] %>  
+    text: "<%= node['alertmanager']['slack']['text'] %>" 
+<% end -%>
+
+<% if !node['alertmanager']['email']['to'].empty? -%>
+- name: 'email'
+  email_configs:
+  - to: <%= node['alertmanager']['email']['to'] %>
+    from: <%= node['alertmanager']['email']['from'] %>
+    smarthost: <%= node['alertmanager']['email']['smtp_host'] %>
+    auth_username: <%= node['alertmanager']['email']['auth_username'] %>
+    auth_password: <%= node['alertmanager']['email']['auth_password'] %>
+    auth_secret: <%= node['alertmanager']['email']['auth_secret'] %>
+    auth_identity: <%= node['alertmanager']['email']['auth_identity'] %>
+    text: "<%= node['alertmanager']['email']['text'] %>"
+<% end -%>

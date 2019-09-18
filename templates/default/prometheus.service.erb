@@ -1,0 +1,19 @@
+[Unit]
+Description = Prometheus  
+After = syslog.target network.target remote-fs.target
+
+[Service]
+User = <%= node['hopsmonitor']['user'] %> 
+Group = <%= node['hopsmonitor']['group'] %> 
+
+ExecStart = <%= node['prometheus']['base_dir'] %>/prometheus \
+            --config.file=<%= node['prometheus']['base_dir'] %>/prometheus.yml \
+            --web.listen-address=0.0.0.0:<%= node['prometheus']['port'] %> \
+            --storage.tsdb.path=<%= node['prometheus']['data_dir'] %> \
+            --storage.tsdb.retention.time=<%= node['prometheus']['retention_time'] %>
+LimitNOFILE = 20000
+
+Type = simple
+
+[Install]
+WantedBy = multi-user.target

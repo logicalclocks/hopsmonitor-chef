@@ -53,8 +53,6 @@ directory "#{node['influxdb']['base_dir']}/etc" do
   recursive true
 end
 
-
-
 directory "#{node['influxdb']['conf_dir']}" do
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
@@ -82,65 +80,34 @@ template"#{node['influxdb']['conf_dir']}/influxdb.conf" do
   })
 end
 
-
-case node['platform']
-when "ubuntu"
- if node['platform_version'].to_f <= 14.04
-   node.override['influxdb']['systemd'] = "false"
- end
+service_name="influxdb"
+service service_name do
+  provider Chef::Provider::Service::Systemd
+  supports :restart => true, :stop => true, :start => true, :status => true
+  action :nothing
 end
 
-service_name="influxdb"
+case node['platform_family']
+when "rhel"
+  systemd_script = "/usr/lib/systemd/system/#{service_name}.service"
+when "debian"
+  systemd_script = "/lib/systemd/system/#{service_name}.service"
+end
 
-if node['influxdb']['systemd'] == "true"
-
-  service service_name do
-    provider Chef::Provider::Service::Systemd
-    supports :restart => true, :stop => true, :start => true, :status => true
-    action :nothing
-  end
-
-  case node['platform_family']
-  when "rhel"
-    systemd_script = "/usr/lib/systemd/system/#{service_name}.service"
-  when "debian"
-    systemd_script = "/lib/systemd/system/#{service_name}.service"
-  end
-
-  template systemd_script do
-    source "#{service_name}.service.erb"
-    owner "root"
-    group "root"
-    mode 0754
+template systemd_script do
+  source "#{service_name}.service.erb"
+  owner "root"
+  group "root"
+  mode 0754
 if node['services']['enabled'] == "true"
     notifies :enable, resources(:service => service_name)
 end
-    notifies :restart, resources(:service => service_name)
-  end
-
-  kagent_config "#{service_name}" do
-    action :systemd_reload
-  end
-
-else #sysv
-
-  service service_name do
-    provider Chef::Provider::Service::Init::Debian
-    supports :restart => true, :stop => true, :start => true, :status => true
-    action :nothing
-  end
-
-  template "/etc/init.d/#{service_name}" do
-    source "#{service_name}.erb"
-    owner node['hopsmonitor']['user']
-    group node['hopsmonitor']['group']
-    mode 0754
-    notifies :enable, resources(:service => service_name)
-    notifies :restart, resources(:service => service_name), :immediately
-  end
-
+  notifies :restart, resources(:service => service_name)
 end
 
+kagent_config "#{service_name}" do
+  action :systemd_reload
+end
 
 #
 # Setup influxdb for use with Hopsworks
@@ -153,31 +120,22 @@ ruby_block 'wait_until_influx_started' do
   action :run
 end
 
+exec = "#{node['influxdb']['base_dir']}/bin/influx"
+exec_pwd = "#{exec} -username #{node['influxdb']['admin_user']} -password #{node['influxdb']['admin_password']} -execute"
 
+# Create a test cluster admin
+execute 'create_adminuser' do
+  command "#{exec} -execute \"CREATE USER #{node['influxdb']['admin_user']} WITH PASSWORD '#{node['influxdb']['admin_password']}' WITH ALL PRIVILEGES\""
+  retries 10
+  retry_delay 3
+  not_if "#{exec_pwd} 'show users' | grep #{node['influxdb']['admin_user']}"
+end
 
-  exec = "#{node['influxdb']['base_dir']}/bin/influx"
-  exec_pwd = "#{exec} -username #{node['influxdb']['admin_user']} -password #{node['influxdb']['admin_password']} -execute"
-
-  # Create a test cluster admin
-  execute 'create_adminuser' do
-    command "#{exec} -execute \"CREATE USER #{node['influxdb']['admin_user']} WITH PASSWORD '#{node['influxdb']['admin_password']}' WITH ALL PRIVILEGES\""
-    retries 10
-    retry_delay 3
-    not_if "#{exec_pwd} 'show users' | grep #{node['influxdb']['admin_user']}"
-  end
-
-  # Create a test user and give it access to the test database
-  execute 'create_hopsworksuser' do
-    command "#{exec_pwd} \"CREATE USER #{node['influxdb']['db_user']} WITH PASSWORD '#{node['influxdb']['db_password']}'\""
-    not_if "#{exec_pwd} 'show users' | grep #{node['influxdb']['db_user']}"
-  end
-
-    # Create telegraf user
-  execute 'create_telegrafuser' do
-    command "#{exec_pwd} \"CREATE USER #{node['influxdb']['telegraf_user']} WITH PASSWORD '#{node['influxdb']['telegraf_password']}'\""
-    not_if "#{exec_pwd} 'show users' | grep #{node['influxdb']['telegraf_user']}"
-  end
-#dbname = 'graphite'
+# Create a test user and give it access to the test database
+execute 'create_hopsworksuser' do
+  command "#{exec_pwd} \"CREATE USER #{node['influxdb']['db_user']} WITH PASSWORD '#{node['influxdb']['db_password']}'\""
+  not_if "#{exec_pwd} 'show users' | grep #{node['influxdb']['db_user']}"
+end
 
 for dbname in node['influxdb']['databases'] do
 
@@ -191,12 +149,6 @@ for dbname in node['influxdb']['databases'] do
     command "#{exec_pwd} \"GRANT READ ON #{dbname} TO #{node['influxdb']['db_user']}\""
     not_if "#{exec_pwd} 'show grants for #{node['influxdb']['db_user']}' | grep #{dbname}"
   end
-
-  execute 'add_telegrafuser_to_graphite' do
-    command "#{exec_pwd} \"GRANT ALL ON #{dbname} TO #{node['influxdb']['telegraf_user']}\""
-    not_if "#{exec_pwd} 'show grants for #{node['influxdb']['telegraf_user']}' | grep #{dbname}"
-  end
-
 
   # Create a test retention policy on the test database
   execute 'add_retention_policy_to_graphite' do
@@ -212,5 +164,3 @@ if node['kagent']['enabled'] == "true"
      log_file "/var/log/influxdb.log"
    end
 end
-
-

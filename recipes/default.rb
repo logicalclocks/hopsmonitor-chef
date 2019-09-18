@@ -1,3 +1,2 @@
-
-include_recipe "hopsmonitor::_influxdb"
-include_recipe "hopsmonitor::_grafana"
+include_recipe "hopsmonitor::influxdb"
+include_recipe "hopsmonitor::grafana"

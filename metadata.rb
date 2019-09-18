@@ -1,11 +1,11 @@
 maintainer       "Jim Dowling"
 maintainer_email "jdowling@kth.se"
 name             "hopsmonitor"
-license          "Apache v2.0"
-description      "Installs/Configures a HopsFS to ElasticSearch connector"
+license          "AGPLv3"
+description      "Deploy monitoring infrastructure for the Hopsworks platform"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.0.0"
-source_url       "https://github.com/hopshadoop/hopsmonitor-chef"
+source_url       "https://github.com/logicalclocks/hopsmonitor-chef"
 
 %w{ ubuntu debian centos }.each do |os|
   supports os
@@ -14,15 +14,21 @@ end
 depends 'conda'
 depends 'java'
 depends 'kagent'
-depends 'elastic'
-depends 'influxdb'
-depends 'kzookeeper'
+depends 'hops'
 depends 'ndb'
+depends 'elastic'
+depends 'kkafka'
+depends 'hive2'
+depends 'hops_airflow'
+depends 'epipe'
+depends 'tensorflow'
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
 recipe "hopsmonitor::default", "configures Influxdb/Grafana Server"
-recipe "hopsmonitor::kapacitor", "Configures/starts a kapacitor agent "
-recipe "hopsmonitor::telegraf", "Configures/starts a telegraf agent "
+recipe "hopsmonitor::influxdb", "Installs and configure InfluxDb"
+recipe "hopsmonitor::grafana", "Installs and configure Grafana"
+recipe "hopsmonitor::prometheus", "Installs and configure Prometheus"
+recipe "hopsmonitor::node_exporter", "Installs and configure node exporter"
 recipe "hopsmonitor::purge", "Deletes the Influxdb/Grafana Server"
 
 attribute "hopsmonitor/user",
@@ -36,7 +42,6 @@ attribute "hopsmonitor/group",
 attribute "hopsmonitor/dir",
           :description => "Base install directory for Influxdb/Grafana ",
           :type => "string"
-
 
 attribute "hopsmonitor/default/private_ips",
           :description => "Set ip addresses",
@@ -53,7 +58,6 @@ attribute "hopsmonitor/private_ips",
 attribute "hopsmonitor/public_ips",
           :description => "Set ip addresses",
           :type => "array"
-
 
 #
 # InfluxDB
@@ -92,12 +96,9 @@ attribute "influxdb/graphite/port",
           :description => "Port for influxdb graphite connector",
           :type => "string"
 
-
-
 #
 # Grafana
 #
-
 
 attribute "grafana/admin_user",
           :description => "username for grafana admin ",
@@ -107,102 +108,62 @@ attribute "grafana/admin_password",
           :description => "Password for grafana admin user",
           :type => "string"
 
-
-attribute "grafana/mysql_user",
-          :description => "username for grafana mysql user ",
-          :type => "string"
-
-attribute "grafana/mysql_password",
-          :description => "Password for grafana mysql user",
-          :type => "string"
-
 attribute "grafana/port",
           :description => "Port for grafana",
           :type => "string"
 
 #
-# Kapacitor
-#
-
-attribute "kapacitor/notify/email",
-          :description => "Send notification emails to this address",
+#  Prometheus
+# 
+attribute "prometheus/retention_time",
+          :description => "Retention time for prometheus data",
           :type => "string"
 
-attribute "kapacitor/slack_enabled",
-          :description => "Send notifications to slack",
+attribute "prometheus/port",
+          :description => "Port on which prometheus listens",
           :type => "string"
 
-attribute "kapacitor/slack_url",
-          :description => "Slack url hook.",
+#
+# Alertmanager
+# 
+attribute "alertmanager/port",
+          :description => "port on which alertmanager listens",
           :type => "string"
 
-attribute "kapacitor/slack_channel",
-          :description => "Slack channel name",
+attribute "alertmanager/slack/api_url",
+          :description => "Slack api url for sending alerts to slack",
+          :type => "string"
+attribute "alertmanager/slack/channel",
+          :description => "Slack channel",
+          :type => "string"
+attribute "alertmanager/slack/username",        
+          :description => "Slack bot username",
+          :type => "string"
+attribute "alertmanager/slack/text",       
+          :description => "Slack text template",
           :type => "string"
 
-
-attribute "smtp/email",
-          :description => "Smtp email",
+attribute "alertmanager/email/to",
+          :description => "Email address to send alerts to",
           :type => "string"
-
-attribute "smtp/email_password",
-          :description => "Hopsworks email",
+attribute "alertmanager/email/from",
+          :description => "Email address to send alerts from",
           :type => "string"
-
-
-#
-# Telegraf
-#
-
-attribute "telegraf/",
-          :description => "",
+attribute "alertmanager/email/smtp_host", 
+          :description => "Smtp host",
           :type => "string"
-
-
-
-#
-# General
-#
-
-attribute "install/dir",
-          :description => "Set to a base directory under which we will install.",
+attribute "alertmanager/email/auth_username",
+          :description => "Email auth username",
           :type => "string"
-
-attribute "install/user",
-          :description => "User to install the services as",
+attribute "alertmanager/email/auth_password",
+          :description => "Email auth password",
           :type => "string"
-
-
-#
-#
-# SMTP
-#
-#
-
-
-attribute "smtp/host",
-          :description => "Ip Address/hostname of SMTP server (default is smtp.gmail.com)",
-          :type => 'string'
-
-attribute "smtp/port",
-          :description => "Port of SMTP server (default is 587)",
-          :type => 'string'
-
-attribute "smtp/ssl_port",
-          :description => "SSL port of SMTP server (default is 465)",
-          :type => 'string'
-
-attribute "smtp/email",
-          :description => "Email account to send notifications from. ",
-          :required => "required",
-          :type => 'string'
-
-attribute "smtp/email_password",
-          :description => "Password for email account. ",
-          :required => "required",
-          :type => 'string'
-
-
-attribute "elastic/default/private_ips",
-          :description => "Set ip addresses",
-          :type => "array"
+attribute "alertmanager/email/auth_secret",
+          :description => "Email auth secret",
+          :type => "string"
+attribute "alertmanager/email/auth_identity",
+          :description => "Email auth identity",
+          :type => "string"
+attribute "alertmanager/email/text",
+          :description => "Email text template",
+          :type => "string"

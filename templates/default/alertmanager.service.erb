@@ -1,0 +1,19 @@
+[Unit]
+Description = Prometheus  
+After = syslog.target network.target remote-fs.target
+
+[Service]
+User = <%= node['hopsmonitor']['user'] %> 
+Group = <%= node['hopsmonitor']['group'] %> 
+
+ExecStart = <%= node['alertmanager']['base_dir'] %>/alertmanager \
+            --config.file=<%= node['alertmanager']['base_dir'] %>/alertmanager.yml \
+            --web.listen-address=0.0.0.0:<%= node['alertmanager']['port'] %> \
+            --storage.path=<%= node['alertmanager']['data_dir'] %>
+
+LimitNOFILE = 20000
+
+Type = simple
+
+[Install]
+WantedBy = multi-user.target

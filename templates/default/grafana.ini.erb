@@ -62,24 +62,12 @@ cert_key =
 # You can configure the database connection by specifying type, host, name, user and password
 # as seperate properties or as on string using the url propertie.
 
-# Either "mysql", "postgres" or "sqlite3", it's your choice
-#type = mysql
-#host = 127.0.0.1:3306
-#name = grafana
-#user = <%= node['grafana']['mysql_user'] %>
-# If the password contains # or ; you have to wrap it with trippel quotes. Ex """#password;"""
-#password = <%= node['grafana']['mysql_password'] %>
-# Use either URL or the previous fields to configure the database
-# Example: mysql://user:secret@host:port/database
-# url = mysql://<%= node['mysql']['user'] %>:<%= node['mysql']['password'] %>@localhost:3306/hopsworks
-
- type = sqlite3
- host = 127.0.0.1:3308
- name = grafana
- user = root
- password =
- url =
-
+type = sqlite3
+host = 127.0.0.1:3308
+name = grafana
+user = root
+password =
+url =
 
 # For "postgres", use either "disable", "require" or "verify-full"
 # For "mysql", use either "true", "false", or "skip-verify".
@@ -121,27 +109,6 @@ cookie_secure = false
 session_life_time = 86400
 gc_interval_time = 86400
 
-#################################### Analytics ###########################
-[analytics]
-# Server reporting, sends usage counters to stats.grafana.org every 24 hours.
-# No ip addresses are being tracked, only simple counters to track
-# running instances, dashboard and error counts. It is very helpful to us.
-# Change this option to false to disable reporting.
-reporting_enabled = false
-
-# Set to false to disable all checks to https://grafana.net
-# for new vesions (grafana itself and plugins), check is used
-# in some UI views to notify that grafana or plugin update exists
-# This option does not cause any auto updates, nor send any information
-# only a GET request to http://grafana.net to get latest versions
-check_for_updates = disable
-
-# Google Analytics universal tracking code, only enabled if you specify an id here
-google_analytics_ua_id =
-
-# Google Tag Manager ID, only enabled if you specify an id here
-google_tag_manager_id =
-
 #################################### Security ############################
 [security]
 # default admin user, created on startup
@@ -164,9 +131,13 @@ disable_gravatar = false
 # data source proxy whitelist (ip_or_domain:port separated by spaces)
 data_source_proxy_whitelist =
 
+# To allow Grafana to be embedded in a iframe 
+# https://grafana.com/docs/installation/configuration/#allow-embedding
+allow_embedding = true
+
 [snapshots]
 # snapshot sharing options
-external_enabled = true
+external_enabled = false 
 external_snapshot_url = https://snapshots-origin.raintank.io
 external_snapshot_name = Publish to snapshot.raintank.io
 
@@ -215,55 +186,6 @@ default_theme = dark
 # Set to true to disable (hide) the login form, useful if you use OAuth
 disable_login_form = false
 
-#################################### Github Auth #########################
-[auth.github]
-enabled = false
-allow_sign_up = true
-client_id = some_id
-client_secret = some_secret
-scopes = user:email
-auth_url = https://github.com/login/oauth/authorize
-token_url = https://github.com/login/oauth/access_token
-api_url = https://api.github.com/user
-team_ids =
-allowed_organizations =
-
-#################################### Google Auth #########################
-[auth.google]
-enabled = false
-allow_sign_up = true
-client_id = some_client_id
-client_secret = some_client_secret
-scopes = https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
-auth_url = https://accounts.google.com/o/oauth2/auth
-token_url = https://accounts.google.com/o/oauth2/token
-api_url = https://www.googleapis.com/oauth2/v1/userinfo
-allowed_domains =
-hosted_domain =
-
-#################################### Grafana.net Auth ####################
-[auth.grafananet]
-enabled = false
-allow_sign_up = true
-client_id = some_id
-client_secret = some_secret
-scopes = user:email
-allowed_organizations =
-
-#################################### Generic OAuth #######################
-[auth.generic_oauth]
-name = OAuth
-enabled = false
-allow_sign_up = true
-client_id = some_id
-client_secret = some_secret
-scopes = user:email
-auth_url =
-token_url =
-api_url =
-team_ids =
-allowed_organizations =
-
 #################################### Basic Auth ##########################
 [auth.basic]
 enabled = true
@@ -276,27 +198,6 @@ header_property = username
 auto_sign_up = true
 ldap_sync_ttl = 60
 whitelist =
-
-#################################### Auth LDAP ###########################
-[auth.ldap]
-enabled = false
-config_file = /etc/grafana/ldap.toml
-allow_sign_up = true
-
-#################################### SMTP / Emailing #####################
-[smtp]
-enabled = false
-host = localhost:25
-user =
-password =
-cert_file =
-key_file =
-skip_verify = false
-from_address = admin@grafana.localhost
-
-[emails]
-welcome_email_on_sign_up = false
-templates_pattern = emails/*.html
 
 #################################### Logging ##########################
 [log]
@@ -365,7 +266,7 @@ exchange = grafana_events
 #################################### Dashboard JSON files ################
 [dashboards.json]
 enabled = true
-path = <%= node['grafana']['base_dir'] %>/dashboards
+path = <%= node['grafana']['base_dir'] %>/public/dashboards
 
 #################################### Usage Quotas ########################
 [quota]
@@ -440,3 +341,12 @@ password =
 [paths]
 data = <%= node['grafana']['base_dir'] %>/data
 logs = <%= node['grafana']['base_dir'] %>/logs
+provisioning = <%= node['grafana']['base_dir'] %>/conf/provisioning
+
+#################################### SMTP ############################
+[smtp]
+enabled = false
+
+# We don't use the smtp service, 
+# however we need to set the from_address otherwise Grafana won't start
+from_address = admin@grafana.localhost

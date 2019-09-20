@@ -85,6 +85,13 @@ if node['cuda']['accept_nvidia_download_terms'].eql?("true")
     action :create
   end
 
+  directory node['node_exporter']['text_metrics'] do
+    owner node['hopsmonitor']['user']
+    group node['hopsmonitor']['group']
+    mode '0700'
+    action :create
+  end
+
   case node['platform_family']
   when "rhel"
     systemd_script = "/usr/lib/systemd/system/nvml_monitor.service" 

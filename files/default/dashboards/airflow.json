@@ -15,8 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 24,
-    "iteration": 1565095395541,
+    "iteration": 1568991918967,
     "links": [],
     "panels": [
         {
@@ -849,8 +848,9 @@
             {
                 "allValue": null,
                 "current": {
-                    "text": "hopsworks0.logicalclocks.com:12358",
-                    "value": "hopsworks0.logicalclocks.com:12358"
+                    "isNone": true,
+                    "text": "None",
+                    "value": ""
                 },
                 "datasource": "Prometheus",
                 "definition": "label_values(airflow_dag_run_duration, instance)",
@@ -859,15 +859,9 @@
                 "label": "Airflow",
                 "multi": false,
                 "name": "airflow",
-                "options": [
-                    {
-                        "selected": true,
-                        "text": "hopsworks0.logicalclocks.com:12358",
-                        "value": "hopsworks0.logicalclocks.com:12358"
-                    }
-                ],
+                "options": [],
                 "query": "label_values(airflow_dag_run_duration, instance)",
-                "refresh": 0,
+                "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
                 "sort": 0,
@@ -911,5 +905,5 @@
     "timezone": "",
     "title": "Airflow",
     "uid": "89d67EDZz",
-    "version": 6
+    "version": 1
 }

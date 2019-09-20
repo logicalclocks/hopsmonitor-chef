@@ -15,8 +15,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 14,
-    "iteration": 1567526204775,
+    "iteration": 1568991765144,
     "links": [],
     "panels": [
         {
@@ -763,8 +762,9 @@
             {
                 "allValue": null,
                 "current": {
-                    "text": "hopsworks1.logicalclocks.com:29191",
-                    "value": "hopsworks1.logicalclocks.com:29191"
+                    "tags": [],
+                    "text": "gpuhost:29191",
+                    "value": "gpuhost:29191"
                 },
                 "datasource": "Prometheus",
                 "definition": "label_values(epipe_num_added_datasets,instance)",
@@ -773,15 +773,9 @@
                 "label": "Epipe",
                 "multi": false,
                 "name": "epipe",
-                "options": [
-                    {
-                        "selected": true,
-                        "text": "hopsworks1.logicalclocks.com:29191",
-                        "value": "hopsworks1.logicalclocks.com:29191"
-                    }
-                ],
+                "options": [],
                 "query": "label_values(epipe_num_added_datasets,instance)",
-                "refresh": 0,
+                "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
                 "sort": 0,
@@ -825,5 +819,5 @@
     "timezone": "",
     "title": "Epipe",
     "uid": "HGPyY3KZk",
-    "version": 8
+    "version": 1
 }

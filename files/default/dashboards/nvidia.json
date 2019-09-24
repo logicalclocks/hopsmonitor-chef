@@ -16,8 +16,7 @@
     "editable": true,
     "gnetId": 6387,
     "graphTooltip": 1,
-    "id": 1,
-    "iteration": 1567604827995,
+    "iteration": 1568992528092,
     "links": [],
     "panels": [
         {
@@ -1109,9 +1108,10 @@
             {
                 "allValue": "",
                 "current": {
-                    "selected": true,
                     "text": "All",
-                    "value": "$__all"
+                    "value": [
+                        "$__all"
+                    ]
                 },
                 "datasource": "Prometheus",
                 "definition": "label_values(nvidia_device_count, instance)",
@@ -1120,20 +1120,9 @@
                 "label": "Instance",
                 "multi": true,
                 "name": "instance",
-                "options": [
-                    {
-                        "selected": true,
-                        "text": "All",
-                        "value": "$__all"
-                    },
-                    {
-                        "selected": false,
-                        "text": "localhost:9100",
-                        "value": "localhost:9100"
-                    }
-                ],
+                "options": [],
                 "query": "label_values(nvidia_device_count, instance)",
-                "refresh": 0,
+                "refresh": 1,
                 "regex": "",
                 "skipUrlSync": false,
                 "sort": 0,
@@ -1177,5 +1166,5 @@
     "timezone": "",
     "title": "Nvidia GPU",
     "uid": "fnvhnzGmk",
-    "version": 10
+    "version": 1
 }

@@ -1,7 +1,6 @@
 import os
 import time
 import argparse
-from pathlib import Path
 
 from pynvml import *
 
@@ -13,7 +12,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    path = Path(args.path, "nvidia_metrics.prom")
+    os.path.join(args.path, "nvidia_metrics.prom")
 
     nvmlInit()
     device_count = int(nvmlDeviceGetCount())
@@ -38,7 +37,10 @@ if __name__ == "__main__":
                 fan_speed = nvmlDeviceGetFanSpeed(handle)
 
                 # Power statistics
-                power_draw = nvmlDeviceGetPowerUsage(handle)
+                try:
+                    power_draw = nvmlDeviceGetPowerUsage(handle)
+                except NVMLError:
+                    power_draw = 0.0
                 power_limit = nvmlDeviceGetEnforcedPowerLimit(handle)
 
                 # Throttling

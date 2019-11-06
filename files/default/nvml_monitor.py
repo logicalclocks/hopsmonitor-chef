@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    os.path.join(args.path, "nvidia_metrics.prom")
+    path = os.path.join(args.path, "nvidia_metrics.prom")
 
     nvmlInit()
     device_count = int(nvmlDeviceGetCount())

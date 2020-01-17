@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1578994450779,
+  "iteration": 1579266837122,
   "links": [],
   "panels": [
     {
@@ -2604,18 +2604,19 @@
       {
         "allValue": null,
         "current": {
+          "tags": [],
           "text": "hopsworks0.logicalclocks.com:29191",
           "value": "hopsworks0.logicalclocks.com:29191"
         },
         "datasource": "Prometheus",
-        "definition": "label_values(epipe_num_added_datasets,instance)",
+        "definition": "label_values(epipe_hopsworks_num_added_datasets,instance)",
         "hide": 0,
         "includeAll": false,
         "label": "Epipe",
         "multi": false,
         "name": "epipe",
         "options": [],
-        "query": "label_values(epipe_num_added_datasets,instance)",
+        "query": "label_values(epipe_hopsworks_num_added_datasets,instance)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

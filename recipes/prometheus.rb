@@ -177,6 +177,9 @@ remote_directory node['prometheus']['rules_dir'] do
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0700
+  files_owner node['hopsmonitor']['user']
+  files_group node['hopsmonitor']['group']
+  files_mode 0700
 end
 
 case node['platform_family']

@@ -15,7 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "iteration": 1579266837122,
+  "iteration": 1581686651655,
   "links": [],
   "panels": [
     {
@@ -55,7 +55,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "epipe_hopsworks_num_added_datasets{instance=\"$epipe\"}",
+          "expr": "epipe_fs_num_added_datasets{instance=\"$epipe\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -63,7 +63,7 @@
           "refId": "A"
         },
         {
-          "expr": "epipe_hopsworks_num_deleted_datasets{instance=\"$epipe\"}",
+          "expr": "epipe_fs_num_deleted_datasets{instance=\"$epipe\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -149,7 +149,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "epipe_hopsworks_num_added_projects{instance=\"$epipe\"}",
+          "expr": "epipe_fs_num_added_projects{instance=\"$epipe\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -157,7 +157,7 @@
           "refId": "A"
         },
         {
-          "expr": "epipe_hopsworks_num_deleted_projects{instance=\"$epipe\"}",
+          "expr": "epipe_fs_num_deleted_projects{instance=\"$epipe\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -2609,14 +2609,14 @@
           "value": "hopsworks0.logicalclocks.com:29191"
         },
         "datasource": "Prometheus",
-        "definition": "label_values(epipe_hopsworks_num_added_datasets,instance)",
+        "definition": "label_values(epipe_fs_num_added_datasets,instance)",
         "hide": 0,
         "includeAll": false,
         "label": "Epipe",
         "multi": false,
         "name": "epipe",
         "options": [],
-        "query": "label_values(epipe_hopsworks_num_added_datasets,instance)",
+        "query": "label_values(epipe_fs_num_added_datasets,instance)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

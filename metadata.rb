@@ -11,17 +11,8 @@ source_url       "https://github.com/logicalclocks/hopsmonitor-chef"
   supports os
 end
 
-depends 'conda'
-depends 'java'
-depends 'kagent'
-depends 'hops'
-depends 'ndb'
-depends 'elastic'
-depends 'kkafka'
-depends 'hive2'
-depends 'hops_airflow'
-depends 'epipe'
-depends 'tensorflow'
+depends 'java', '~> 7.0.0'
+
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
 recipe "hopsmonitor::default", "configures Influxdb/Grafana Server"

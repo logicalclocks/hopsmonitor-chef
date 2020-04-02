@@ -86,7 +86,6 @@ if __name__ == "__main__":
 
                 pcie_tx_throughput = call_nvml(nvmlDeviceGetPcieThroughput, handle, NVML_PCIE_UTIL_TX_BYTES)
                 pcie_rx_throughput = call_nvml(nvmlDeviceGetPcieThroughput, handle, NVML_PCIE_UTIL_RX_BYTES)
-
                 if pcie_tx_throughput is not None and pcie_rx_throughput is not None:
                     f.write(
                         "# HELP: nvidia_pcie_throughput Total number of bytes rx/tx through PCIe.\n")

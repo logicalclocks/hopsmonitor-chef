@@ -44,17 +44,6 @@ if __name__ == "__main__":
                     f.write('nvidia_utilization{{name="{0}", gpu="{1}", type="memory"}} {2}\n'.format(
                         name, i, util.memory))
 
-                # Encoder rate %
-                encoder_rate = call_nvml(nvmlDeviceGetEncoderUtilization, handle)
-                if encoder_rate is not None:
-                    f.write('nvidia_utilization{{name="{0}", gpu="{1}", type="encoder"}} {2}\n'.format(
-                        name, i, encoder_rate[0]))
-
-                decoder_rate = call_nvml(nvmlDeviceGetDecoderUtilization, handle)
-                if decoder_rate is not None:
-                    f.write('nvidia_utilization{{name="{0}", gpu="{1}", type="decoder"}} {2}\n'.format(
-                        name, i, decoder_rate[0]))
-
                 # Fan utilisation %
                 fan_speed = call_nvml(nvmlDeviceGetFanSpeed, handle)
                 if fan_speed is not None:

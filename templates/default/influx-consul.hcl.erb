@@ -24,11 +24,11 @@ services = [
         port = <%= node['influxdb']['graphite']['port'] %> 
         check = {
             id = "influx-graphite-check"
-            alias = "influx-check"
+            alias_service = "influxdb"
         }
     },
     {
-        id = "influxdb/graphite"
+        id = "influxdb/http"
         name = "influxdb"
         tags = [
             "http"
@@ -36,7 +36,7 @@ services = [
         port = <%= node['influxdb']['http']['port'] %> 
         check = {
             id = "influx-http-check"
-            alias = "influx-check"
+            alias_service = "influxdb"
         }
     }
 ]

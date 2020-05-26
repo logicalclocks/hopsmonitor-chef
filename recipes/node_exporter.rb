@@ -1,6 +1,7 @@
 #
 # Node exporter installation
 # 
+Chef::Recipe.send(:include, Hops::Helpers)
 
 base_package_filename = File.basename(node['node_exporter']['url'])
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"

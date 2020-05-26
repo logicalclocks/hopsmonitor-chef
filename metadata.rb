@@ -17,6 +17,7 @@ depends 'hops'
 depends 'ndb'
 depends 'kagent'
 depends 'tensorflow'
+depends 'hops_airflow'
 
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"

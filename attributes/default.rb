@@ -1,7 +1,9 @@
 include_attribute "kagent"
+include_attribute "consul"
 include_attribute "hops"
 include_attribute "ndb"
 include_attribute "tensorflow"
+include_attribute "hops_airflow"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['group']                   = node['install']['user'].empty? ? "hopsmon" : node['install']['user']

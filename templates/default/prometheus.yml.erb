@@ -32,12 +32,6 @@ scrape_configs:
     static_configs:
     - targets: ['<%= @mysqld_exporters %>']
 
-  - job_name: 'hops'
-
-    scrape_interval:     10s 
-    static_configs:
-    - targets: ['<%= @hops_exporters %>']
-
   - job_name: 'kafka'
 
     scrape_interval:     10s 
@@ -50,18 +44,28 @@ scrape_configs:
     static_configs:
     - targets: ['<%= @elastic_exporters %>']
 
-  - job_name: 'hive'
-
-    scrape_interval:     10s 
-    static_configs:
-    - targets: ['<%= @hive_exporters %>']
-
   - job_name: 'airflow'
 
     scrape_interval:     10s 
     metrics_path:  <%= node['airflow']['config']['webserver']['base_path'] %>/admin/metrics
     static_configs:
     - targets: ['<%= @airflow_exporters %>']
+    
+  - job_name: 'hadoop'
+    scrape_interval:     10s
+
+    consul_sd_configs:
+      - server: localhost:8501
+        scheme: https
+        datacenter: lc
+        tls_config:
+          ca_file: "/srv/hops/kagent/host-certs/hops_ca.pem"
+          cert_file: "/srv/hops/kagent/host-certs/elastic_host.pem"
+          key_file: "/srv/hops/kagent/host-certs/priv.key"
+          insecure_skip_verify: true
+
+        tags: ['monitoring']
+
 
   - job_name: 'hopsworks'
 
@@ -69,11 +73,16 @@ scrape_configs:
     scheme: https
     tls_config:
       insecure_skip_verify: true
-    static_configs:
-    - targets: ['<%= @hopsworks_exporters %>']
 
-  - job_name: 'epipe'
+    consul_sd_configs:
+      - server: localhost:8501
+        scheme: https
+        datacenter: lc
+        tls_config:
+          ca_file: "/srv/hops/kagent/host-certs/hops_ca.pem"
+          cert_file: "/srv/hops/kagent/host-certs/elastic_host.pem"
+          key_file: "/srv/hops/kagent/host-certs/priv.key"
+          insecure_skip_verify: true
 
-    scrape_interval:     10s 
-    static_configs:
-    - targets: ['<%= @epipe_exporters %>']
+        services: ['glassfish']
+        tags: ['monitoring']

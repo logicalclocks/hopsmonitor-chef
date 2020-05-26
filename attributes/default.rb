@@ -92,8 +92,3 @@ default['alertmanager']['email']['auth_password']   = ""
 default['alertmanager']['email']['auth_secret']     = "" 
 default['alertmanager']['email']['auth_identity']   = "" 
 default['alertmanager']['email']['text']            = "summary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
-
-default['telegraf']['version']                      = "1.2.1"
-default['telegraf']['url']                          = "#{node['download_url']}/telegraf-#{node['telegraf']['version']}_linux_amd64.tar.gz"
-default['telegraf']['home']                         = node['hopsmonitor']['dir'] + "/telegraf-" + "#{node['telegraf']['version']}"
-default['telegraf']['base_dir']                     = node['hopsmonitor']['dir'] + "/telegraf"

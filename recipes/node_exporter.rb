@@ -127,3 +127,12 @@ if node['cuda']['accept_nvidia_download_terms'].eql?("true")
      end
   end
 end
+
+# Register node exporter with service discovery
+if service_discovery_enabled()
+  # Register epipe with Consul
+  consul_service "Registering node exporter with Consul" do
+    service_definition "node-exporter-consul.hcl.erb"
+    action :register
+  end
+end 

@@ -88,3 +88,11 @@ if node['kagent']['enabled'] == "true"
      restart_agent false 
    end
 end
+
+if service_discovery_enabled()
+  # Register Alertmanager with Consul
+  consul_service "Registering Alertmanager with Consul" do
+    service_definition "alertmanager-consul.hcl.erb"
+    action :register
+  end
+end 

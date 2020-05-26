@@ -51,15 +51,6 @@ rescue
 end
 
 begin
-  node_exporters = private_recipe_ips("hopsmonitor", "node_exporter")
-  node_exporters = node_exporters.map{ |node_exporter| 
-    Resolv.getname(node_exporter) + ":" + node['node_exporter']['port'] 
-  }
-rescue
-  node_exporters = []
-end
-
-begin
   mysqld_exporters = private_recipe_ips("ndb", "mysqld")
   mysqld_exporters = mysqld_exporters.map{ |mysqld_exporter| 
     Resolv.getname(mysqld_exporter) + ":" + node['ndb']['mysqld']['metrics_port']
@@ -103,7 +94,6 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   action :create
   variables({
       'alertmanagers' => alertmanagers.join("', '"),
-      'node_exporters' => node_exporters.join("', '"),
       'mysqld_exporters' => mysqld_exporters.join("', '"),
       'kafka_exporters' => kafka_exporters.join("', '"),
       'elastic_exporters' => elastic_exporters.join("', '"),

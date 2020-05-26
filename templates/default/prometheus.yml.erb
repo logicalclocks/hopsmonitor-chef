@@ -21,11 +21,6 @@ scrape_configs:
     static_configs:
     - targets: ['localhost:<%= node['prometheus']['port'] %>']
 
-  - job_name: 'host'
-
-    static_configs:
-    - targets: ['<%= @node_exporters %>']
-
   - job_name: 'db'
 
     scrape_interval:     5s 

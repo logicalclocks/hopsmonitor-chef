@@ -107,7 +107,7 @@ template "#{node['grafana']['base_dir']}/conf/provisioning/datasources/provision
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   variables ({
-    'prometheus_ip' => private_recipe_ip("hopsmonitor", "prometheus"),
+    'prometheus' => get_service_fqdn("prometheus"),
     'influxdb_ip' => my_private_ip
   })
   mode 0700

@@ -41,42 +41,6 @@ link node['prometheus']['base_dir'] do
   to node['prometheus']['home']
 end
 
-begin
-  alertmanagers = private_recipe_ips("hopsmonitor", "alertmanager")
-  alertmanagers = alertmanagers.map{ |alertmanager| 
-    Resolv.getname(alertmanager) + ":" + node['alertmanager']['port'] 
-  }
-rescue 
-  alertmanagers = []
-end
-
-begin
-  mysqld_exporters = private_recipe_ips("ndb", "mysqld")
-  mysqld_exporters = mysqld_exporters.map{ |mysqld_exporter| 
-    Resolv.getname(mysqld_exporter) + ":" + node['ndb']['mysqld']['metrics_port']
-  }
-rescue
-  mysqld_exporters = []
-end
-
-begin
-  kafka_exporters = private_recipe_ips("kkafka", "default")
-  kafka_exporters = kafka_exporters.map{ |kafka_exporter| 
-    Resolv.getname(kafka_exporter) + ":" + node['kkafka']['metrics_port'] 
-  }
-rescue
-  kafka_exporters = []
-end
-
-begin
-  elastic_exporters = private_recipe_ips("elastic", "default")
-  elastic_exporters = elastic_exporters.map{ |elastic_exporter| 
-    Resolv.getname(elastic_exporter) + ":" + node['elastic']['exporter']['port']
-  }
-rescue
-  elastic_exporters = []
-end
-
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   source "prometheus.yml.erb" 
   owner node['hopsmonitor']['user']
@@ -84,10 +48,7 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   mode '0700'
   action :create
   variables({
-      'alertmanagers' => alertmanagers.join("', '"),
-      'mysqld_exporters' => mysqld_exporters.join("', '"),
-      'kafka_exporters' => kafka_exporters.join("', '"),
-      'elastic_exporters' => elastic_exporters.join("', '"),
+      'alertmanagers' => get_service_fqdn("alertmanager.prometheus") + ":" + node['alertmanager']['port'] 
   })
 end
 
@@ -140,3 +101,11 @@ if node['kagent']['enabled'] == "true"
      restart_agent false 
    end
 end
+
+if service_discovery_enabled()
+  # Register Prometheus with Consul
+  consul_service "Registering Prometheus with Consul" do
+    service_definition "prometheus-consul.hcl.erb"
+    action :register
+  end
+end 

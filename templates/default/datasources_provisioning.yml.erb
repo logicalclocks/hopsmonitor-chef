@@ -3,7 +3,7 @@ apiVersion: 1
 datasources:
   - name: Prometheus
     type: prometheus
-    url: http://<%= @prometheus_ip %>:<%= node['prometheus']['port'] %>
+    url: http://<%= @prometheus %>:<%= node['prometheus']['port'] %>
     access: proxy 
     editable: false
     isDefault: true

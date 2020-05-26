@@ -163,3 +163,11 @@ if node['kagent']['enabled'] == "true"
      log_file "#{node['grafana']['base_dir']}/logs/grafana.log"
    end
 end
+
+if service_discovery_enabled()
+  # Register Grafana with Consul
+  consul_service "Registering Grafana with Consul" do
+    service_definition "grafana-consul.hcl.erb"
+    action :register
+  end
+end 

@@ -164,3 +164,11 @@ if node['kagent']['enabled'] == "true"
      log_file "/var/log/influxdb.log"
    end
 end
+
+if service_discovery_enabled()
+  # Register InfluxDb with Consul
+  consul_service "Registering InfluxDB with Consul" do
+    service_definition "influx-consul.hcl.erb"
+    action :register
+  end
+end 

@@ -1,5 +1,7 @@
 # Install Alertmanager
 
+Chef::Recipe.send(:include, Hops::Helpers)
+
 base_package_filename = File.basename(node['alertmanager']['url'])
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
 

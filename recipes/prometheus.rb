@@ -1,5 +1,7 @@
 require 'resolv'
 
+Chef::Recipe.send(:include, Hops::Helpers)
+
 #
 # Prometheus installation
 # 
@@ -48,7 +50,7 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   mode '0700'
   action :create
   variables({
-      'alertmanagers' => get_service_fqdn("alertmanager.prometheus") + ":" + node['alertmanager']['port'] 
+      'alertmanagers' => consul_helper.get_service_fqdn("alertmanager.prometheus") + ":" + node['alertmanager']['port'] 
   })
 end
 

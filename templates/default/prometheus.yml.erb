@@ -43,8 +43,18 @@ scrape_configs:
 
     scrape_interval:     10s 
     metrics_path:  <%= node['airflow']['config']['webserver']['base_path'] %>/admin/metrics
-    static_configs:
-    - targets: ['<%= @airflow_exporters %>']
+    consul_sd_configs:
+      - server: localhost:8501
+        scheme: https
+        datacenter: lc
+        tls_config:
+          ca_file: "/srv/hops/kagent/host-certs/hops_ca.pem"
+          cert_file: "/srv/hops/kagent/host-certs/elastic_host.pem"
+          key_file: "/srv/hops/kagent/host-certs/priv.key"
+          insecure_skip_verify: true
+
+        services: ['airflow']
+        tags: ['monitoring']
     
   - job_name: 'hadoop'
     scrape_interval:     10s

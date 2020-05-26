@@ -77,15 +77,6 @@ rescue
   elastic_exporters = []
 end
 
-begin 
-  airflow_exporters = private_recipe_ips("hops_airflow", "default")
-  airflow_exporters = airflow_exporters.map{ |airflow_exporter| 
-    Resolv.getname(airflow_exporter) + ":" + node['airflow']["config"]["webserver"]["web_server_port"].to_s
-  }
-rescue 
-  airflow_exporters = []
-end
-
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   source "prometheus.yml.erb" 
   owner node['hopsmonitor']['user']
@@ -97,7 +88,6 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
       'mysqld_exporters' => mysqld_exporters.join("', '"),
       'kafka_exporters' => kafka_exporters.join("', '"),
       'elastic_exporters' => elastic_exporters.join("', '"),
-      'airflow_exporters' => airflow_exporters.join("', '"),
   })
 end
 

@@ -7,4 +7,4 @@ dependencies:
       - kagent::default
   - recipe: hopsmonitor::prometheus
     global:
-      - consul::slave
+      - kagent::default

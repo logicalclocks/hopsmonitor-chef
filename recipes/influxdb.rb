@@ -2,6 +2,8 @@
 # InfluxDB installation
 #
 
+Chef::Recipe.send(:include, Hops::Helpers)
+
 package_url = "#{node['influxdb']['url']}"
 base_package_filename = File.basename(package_url)
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
@@ -164,3 +166,11 @@ if node['kagent']['enabled'] == "true"
      log_file "/var/log/influxdb.log"
    end
 end
+
+if service_discovery_enabled()
+  # Register InfluxDb with Consul
+  consul_service "Registering InfluxDB with Consul" do
+    service_definition "influx-consul.hcl.erb"
+    action :register
+  end
+end 

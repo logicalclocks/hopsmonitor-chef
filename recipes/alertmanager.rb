@@ -1,5 +1,7 @@
 # Install Alertmanager
 
+Chef::Recipe.send(:include, Hops::Helpers)
+
 base_package_filename = File.basename(node['alertmanager']['url'])
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
 
@@ -86,3 +88,11 @@ if node['kagent']['enabled'] == "true"
      restart_agent false 
    end
 end
+
+if service_discovery_enabled()
+  # Register Alertmanager with Consul
+  consul_service "Registering Alertmanager with Consul" do
+    service_definition "alertmanager-consul.hcl.erb"
+    action :register
+  end
+end 

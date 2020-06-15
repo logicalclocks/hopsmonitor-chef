@@ -1,0 +1,42 @@
+services = [
+    {
+        id = "influxdb"
+        name = "influxdb"
+        tags = [
+            "inflxudb"
+        ]
+        port = <%= node['influxdb']['port'] %> 
+        check = {
+            id = "influx-check"
+            name = "Health check for InfluxDB"
+            http = "http://localhost:<%= node['influxdb']['http']['port'] %>/ping"
+            interval = "20s"
+            timeout = "20s"
+            status = "passing"
+        }
+    },
+    {
+        id = "influxdb/graphite"
+        name = "influxdb"
+        tags = [
+            "graphite"
+        ]
+        port = <%= node['influxdb']['graphite']['port'] %> 
+        check = {
+            id = "influx-graphite-check"
+            alias_service = "influxdb"
+        }
+    },
+    {
+        id = "influxdb/http"
+        name = "influxdb"
+        tags = [
+            "http"
+        ]
+        port = <%= node['influxdb']['http']['port'] %> 
+        check = {
+            id = "influx-http-check"
+            alias_service = "influxdb"
+        }
+    }
+]

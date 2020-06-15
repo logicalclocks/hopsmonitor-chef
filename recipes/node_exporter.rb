@@ -1,6 +1,7 @@
 #
 # Node exporter installation
 # 
+Chef::Recipe.send(:include, Hops::Helpers)
 
 base_package_filename = File.basename(node['node_exporter']['url'])
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
@@ -127,3 +128,12 @@ if node['cuda']['accept_nvidia_download_terms'].eql?("true")
      end
   end
 end
+
+# Register node exporter with service discovery
+if service_discovery_enabled()
+  # Register epipe with Consul
+  consul_service "Registering node exporter with Consul" do
+    service_definition "node-exporter-consul.hcl.erb"
+    action :register
+  end
+end 

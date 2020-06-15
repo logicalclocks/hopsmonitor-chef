@@ -1,0 +1,16 @@
+service {
+    id = "prometheus/alertmanager"
+    name = "prometheus"
+    tags = [
+        "alertmanager"
+    ]
+    port = <%= node['alertmanager']['port'] %> 
+    check = {
+        id = "alertmanager-check"
+        name = "Health check for Alertmanager"
+        http = "http://localhost:<%= node['alertmanager']['port'] %>/-/healthy"
+        interval = "20s"
+        timeout = "20s"
+        status = "passing"
+    }
+}

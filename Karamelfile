@@ -5,9 +5,6 @@ dependencies:
   - recipe: hopsmonitor::default
     global:
       - kagent::default
-  - recipe: hopsmonitor::telegraf
+  - recipe: hopsmonitor::prometheus
     global:
       - kagent::default
-  - recipe: hopsmonitor::kapacitor
-    global:
-      - hopsmonitor::telegraf

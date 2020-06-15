@@ -16,12 +16,8 @@ depends 'conda'
 depends 'hops'
 depends 'ndb'
 depends 'kagent'
-depends 'kkafka'
-depends 'elastic'
-depends 'hive2'
-depends 'epipe'
-depends 'hops_airflow'
 depends 'tensorflow'
+depends 'hops_airflow'
 
 
 recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"

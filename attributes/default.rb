@@ -1,12 +1,9 @@
 include_attribute "kagent"
+include_attribute "consul"
 include_attribute "hops"
 include_attribute "ndb"
-include_attribute "kkafka"
-include_attribute "elastic"
-include_attribute "hive2"
-include_attribute "hops_airflow"
-include_attribute "epipe"
 include_attribute "tensorflow"
+include_attribute "hops_airflow"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['group']                   = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
@@ -92,8 +89,3 @@ default['alertmanager']['email']['auth_password']   = ""
 default['alertmanager']['email']['auth_secret']     = "" 
 default['alertmanager']['email']['auth_identity']   = "" 
 default['alertmanager']['email']['text']            = "summary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
-
-default['telegraf']['version']                      = "1.2.1"
-default['telegraf']['url']                          = "#{node['download_url']}/telegraf-#{node['telegraf']['version']}_linux_amd64.tar.gz"
-default['telegraf']['home']                         = node['hopsmonitor']['dir'] + "/telegraf-" + "#{node['telegraf']['version']}"
-default['telegraf']['base_dir']                     = node['hopsmonitor']['dir'] + "/telegraf"

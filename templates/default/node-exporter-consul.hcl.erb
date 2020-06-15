@@ -1,0 +1,16 @@
+service {
+    id = "node_exporter/monitoring"
+    name = "node_exporter"
+    tags = [
+        "monitoring"
+    ]
+    port = <%= node['node_exporter']['port'] %> 
+    check = {
+        id = "epipe-check"
+        name = "Health check for epipe"
+        http = "http://localhost:<%= node['node_exporter']['port'] %>/metrics"
+        interval = "20s"
+        timeout = "20s"
+        status = "passing"
+    }
+}

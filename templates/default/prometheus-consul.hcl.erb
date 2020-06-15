@@ -1,0 +1,16 @@
+service {
+    id = "prometheus"
+    name = "prometheus"
+    tags = [
+        "prometheus"
+    ]
+    port = <%= node['prometheus']['port'] %> 
+    check = {
+        id = "prometheus-check"
+        name = "Health check for Prometheus"
+        http = "http://localhost:<%= node['prometheus']['port'] %>/-/healthy"
+        interval = "20s"
+        timeout = "20s"
+        status = "passing"
+    }
+}

@@ -1,0 +1,16 @@
+service {
+    id = "grafana"
+    name = "grafana"
+    tags = [
+        "grafana"
+    ]
+    port = <%= node['grafana']['port'] %> 
+    check = {
+        id = "grafana-check"
+        name = "Health check for Grafana"
+        http = "http://localhost:<%= node['grafana']['port'] %>/api/healthy"
+        interval = "20s"
+        timeout = "20s"
+        status = "passing"
+    }
+}

@@ -1,7 +1,5 @@
 require 'resolv'
 
-Chef::Recipe.send(:include, Hops::Helpers)
-
 #
 # Prometheus installation
 # 

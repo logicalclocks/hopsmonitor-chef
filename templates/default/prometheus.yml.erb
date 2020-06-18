@@ -30,9 +30,9 @@ scrape_configs:
         scheme: https
         datacenter: lc
         tls_config:
-          ca_file: "<%= node["kagent"]["certs"]["root_ca"] %>"
-          cert_file: "<%= node["kagent"]["certs"]["elastic_host_certificate"] %>"
-          key_file: "<%= node["kagent"]["certs"]["host_key"] %>"
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
           insecure_skip_verify: true
 
         services: ['airflow']
@@ -46,9 +46,9 @@ scrape_configs:
         scheme: https
         datacenter: lc
         tls_config:
-          ca_file: "<%= node["kagent"]["certs"]["root_ca"] %>"
-          cert_file: "<%= node["kagent"]["certs"]["elastic_host_certificate"] %>"
-          key_file: "<%= node["kagent"]["certs"]["host_key"] %>"
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
           insecure_skip_verify: true
 
         tags: ['monitoring']
@@ -66,9 +66,9 @@ scrape_configs:
         scheme: https
         datacenter: lc
         tls_config:
-          ca_file: "<%= node["kagent"]["certs"]["root_ca"] %>"
-          cert_file: "<%= node["kagent"]["certs"]["elastic_host_certificate"] %>"
-          key_file: "<%= node["kagent"]["certs"]["host_key"] %>"
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
           insecure_skip_verify: true
 
         services: ['glassfish']

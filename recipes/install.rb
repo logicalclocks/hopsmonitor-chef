@@ -25,10 +25,3 @@ group node["kagent"]["certs_group"] do
   not_if "getent group #{node["kagent"]["certs_group"]}"
   not_if { node['install']['external_users'].casecmp("true") == 0 }
 end
-
-group node["kagent"]["certs_group"] do
-  action :modify
-  members [node['hopsmonitor']['user']]
-  append true
-  not_if { node['install']['external_users'].casecmp("true") == 0 }
-end

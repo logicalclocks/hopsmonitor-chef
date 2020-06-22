@@ -1,5 +1,13 @@
 require 'resolv'
 
+crypto_dir = x509_helper.get_crypto_dir(node['hopsmonitor']['user'])
+kagent_hopsify "Generate x.509" do
+  user node['hopsmonitor']['user']
+  crypto_directory crypto_dir
+  action :generate_x509
+  not_if { conda_helpers.is_upgrade || node["kagent"]["test"] == true }
+end
+
 #
 # Prometheus installation
 # 
@@ -41,6 +49,9 @@ link node['prometheus']['base_dir'] do
   to node['prometheus']['home']
 end
 
+certificate = "#{crypto_dir}/#{x509_helper.get_certificate_bundle_name(node['hopsmonitor']['user'])}"
+key = "#{crypto_dir}/#{x509_helper.get_private_key_pkcs8_name(node['hopsmonitor']['user'])}"
+hops_ca = "#{crypto_dir}/#{x509_helper.get_hops_ca_bundle_name()}"
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   source "prometheus.yml.erb" 
   owner node['hopsmonitor']['user']
@@ -48,7 +59,10 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   mode '0700'
   action :create
   variables({
-      'alertmanagers' => consul_helper.get_service_fqdn("alertmanager.prometheus") + ":" + node['alertmanager']['port'] 
+      'alertmanagers' => consul_helper.get_service_fqdn("alertmanager.prometheus") + ":" + node['alertmanager']['port'],
+      'certificate' => certificate,
+      'key' => key,
+      'hops_ca' => hops_ca
   })
 end
 

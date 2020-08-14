@@ -12,5 +12,5 @@ kagent_hopsify "Generate x.509" do
   crypto_directory crypto_dir
   hopsworks_alt_url hopsworks_alt_url
   action :generate_x509
-  not_if { conda_helpers.is_upgrade || node["kagent"]["test"] == true }
+  not_if { conda_helpers.is_upgrade || node["kagent"]["enabled"].eql? "false" }
 end

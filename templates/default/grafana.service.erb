@@ -1,7 +1,7 @@
 [Unit]
 Description=Grafana Server is a visualization tool for time-series data
 After=network-online.target <%= @deps %>
-StartLimitIntervalSec=30
+StartLimitIntervalSec=60
 StartLimitBurst=20
 
 [Service]

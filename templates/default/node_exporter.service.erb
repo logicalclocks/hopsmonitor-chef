@@ -1,6 +1,8 @@
 [Unit]
 Description = Node exporter 
 After = syslog.target network.target remote-fs.target
+StartLimitIntervalSec=60
+StartLimitBurst=20
 
 [Service]
 User = <%= node['hopsmonitor']['user'] %> 
@@ -12,6 +14,8 @@ ExecStart = <%= node['node_exporter']['base_dir'] %>/node_exporter \
             --collector.textfile.directory=<%= node['node_exporter']['text_metrics'] %>
 
 LimitNOFILE = 20000
+Restart=on-failure
+RestartSec=2
 
 Type = simple
 

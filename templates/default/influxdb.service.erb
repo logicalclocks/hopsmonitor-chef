@@ -2,6 +2,8 @@
 Description=InfluxDB is an open-source, distributed, time series database
 Documentation=https://docs.influxdata.com/influxdb/
 After=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=20
 
 [Service]
 User=<%= node['hopsmonitor']['user'] %>
@@ -11,6 +13,7 @@ EnvironmentFile=-/etc/default/influxdb
 ExecStart=<%= node['influxdb']['base_dir'] %>/bin/influxd -config <%= node['influxdb']['conf_dir'] %>/influxdb.conf ${INFLUXD_OPTS}
 KillMode=control-group
 Restart=on-failure
+RestartSec=2
 
 [Install]
 WantedBy=multi-user.target

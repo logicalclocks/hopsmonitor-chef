@@ -1,6 +1,8 @@
 [Unit]
 Description=Grafana Server is a visualization tool for time-series data
 After=network-online.target <%= @deps %>
+StartLimitIntervalSec=60
+StartLimitBurst=20
 
 [Service]
 User=<%= node['hopsmonitor']['user'] %>
@@ -9,6 +11,7 @@ LimitNOFILE=65536
 ExecStart=<%= node['grafana']['base_dir'] %>/bin/grafana-server -config <%= node['grafana']['base_dir'] %>/conf/defaults.ini -homepath <%= node['grafana']['base_dir'] %> -pidfile <%= node['grafana']['base_dir'] %>/grafana.pid 
 KillMode=control-group
 Restart=on-failure
+RestartSec=2
 
 [Install]
 WantedBy=multi-user.target

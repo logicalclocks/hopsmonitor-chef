@@ -7,12 +7,3 @@ datasources:
     access: proxy 
     editable: false
     isDefault: true
-
-  - name: influxdb
-    type: influxdb
-    url: http://<%= @influxdb_ip %>:<%= node['influxdb']['http']['port'] %>
-    access: proxy
-    isDefault: false
-    database: graphite
-    user: <%= node['influxdb']['db_user'] %> 
-    password: <%= node['influxdb']['db_password'] %> 

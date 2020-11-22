@@ -66,3 +66,11 @@ default['alertmanager']['email']['auth_password']   = ""
 default['alertmanager']['email']['auth_secret']     = "" 
 default['alertmanager']['email']['auth_identity']   = "" 
 default['alertmanager']['email']['text']            = "summary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
+
+default['pushgateway']['port']                     = "9095"
+default['pushgateway']['version']                  = "1.3.0"
+default['pushgateway']['url']                      = "#{node['download_url']}/prometheus/pushgateway-#{node['pushgateway']['version']}.linux-amd64.tar.gz"
+default['pushgateway']['root_dir']                 = "#{node['hopsmonitor']['dir']}/pushgateway"
+
+default['pushgateway']['home']                     = "#{node['prometheus']['root_dir']}/pushgateway-#{node['pushgateway']['version']}.linux-amd64"
+default['pushgateway']['base_dir']                 = "#{node['prometheus']['root_dir']}/pushgateway"

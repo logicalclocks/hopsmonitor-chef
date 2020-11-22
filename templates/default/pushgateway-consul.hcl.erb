@@ -1,0 +1,16 @@
+service {
+    id = "prometheus/pushgateway"
+    name = "prometheus"
+    tags = [
+        "pushgateway"
+    ]
+    port = <%= node['pushgateway']['port'] %> 
+    check = {
+        id = "pushgateway-check"
+        name = "Health check for Pushgateway"
+        http = "http://localhost:<%= node['pushgateway']['port'] %>/-/healthy"
+        interval = "20s"
+        timeout = "20s"
+        status = "passing"
+    }
+}

@@ -112,13 +112,6 @@ template "#{node['grafana']['base_dir']}/conf/provisioning/datasources/provision
   mode 0700
 end
 
-template "#{node['grafana']['base_dir']}/public/dashboards/spark.js" do
-  source "spark.js.erb"
-  owner node['hopsmonitor']['user']
-  group node['hopsmonitor']['group']
-  mode 0650
-end
-
 service_name="grafana"
 service service_name do
   provider Chef::Provider::Service::Systemd

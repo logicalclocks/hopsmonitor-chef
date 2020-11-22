@@ -1,5 +1,3 @@
-require 'resolv'
-
 include_recipe "hopsmonitor::_security"
 
 #

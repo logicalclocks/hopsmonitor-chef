@@ -21,7 +21,7 @@ default['grafana']['home']                        = node['hopsmonitor']['dir'] +
 default['grafana']['base_dir']                    = node['hopsmonitor']['dir'] + "/grafana"
 default['grafana']['pid_file']                    = "/tmp/grafana.pid"
 
-# Default prometheus port is 9090, but we run Karamel on that port. 
+# Default prometheus port is 9090, but we run Karamel on that port.
 default['prometheus']['port']                     = "9089"
 default['prometheus']['version']                  = "2.10.0"
 default['prometheus']['url']                      = "#{node['download_url']}/prometheus/prometheus-#{node['prometheus']['version']}.linux-amd64.tar.gz"
@@ -39,7 +39,7 @@ default['node_exporter']['port']                  = "9100"
 default['node_exporter']['home']                  = "#{node['prometheus']['root_dir']}/node_exporter-#{node['node_exporter']['version']}.linux-amd64"
 default['node_exporter']['base_dir']              = "#{node['prometheus']['root_dir']}/node_exporter"
 default['node_exporter']['filesystem']['regex']   = "^/(dev|proc|sys|var/lib/docker/.+)($|/)"
-default['node_exporter']["text_metrics"]          = "#{default['node_exporter']['base_dir']}/text_metrics" 
+default['node_exporter']["text_metrics"]          = "#{default['node_exporter']['base_dir']}/text_metrics"
 
 default['alertmanager']['port']                     = "9093"
 default['alertmanager']['version']                  = "0.17.0"
@@ -58,13 +58,13 @@ default['alertmanager']['slack']['username']        = "alertmanager"
 default['alertmanager']['slack']['text']            = "<!channel> \nsummary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
 
 # Alertmanager email configuration
-default['alertmanager']['email']['to']              = ""             
-default['alertmanager']['email']['from']            = "" 
-default['alertmanager']['email']['smtp_host']       = "" 
-default['alertmanager']['email']['auth_username']   = "" 
-default['alertmanager']['email']['auth_password']   = "" 
-default['alertmanager']['email']['auth_secret']     = "" 
-default['alertmanager']['email']['auth_identity']   = "" 
+default['alertmanager']['email']['to']              = ""
+default['alertmanager']['email']['from']            = ""
+default['alertmanager']['email']['smtp_host']       = ""
+default['alertmanager']['email']['auth_username']   = ""
+default['alertmanager']['email']['auth_password']   = ""
+default['alertmanager']['email']['auth_secret']     = ""
+default['alertmanager']['email']['auth_identity']   = ""
 default['alertmanager']['email']['text']            = "summary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
 
 default['pushgateway']['port']                     = "9095"
@@ -72,5 +72,5 @@ default['pushgateway']['version']                  = "1.3.0"
 default['pushgateway']['url']                      = "#{node['download_url']}/prometheus/pushgateway-#{node['pushgateway']['version']}.linux-amd64.tar.gz"
 default['pushgateway']['root_dir']                 = "#{node['hopsmonitor']['dir']}/pushgateway"
 
-default['pushgateway']['home']                     = "#{node['prometheus']['root_dir']}/pushgateway-#{node['pushgateway']['version']}.linux-amd64"
-default['pushgateway']['base_dir']                 = "#{node['prometheus']['root_dir']}/pushgateway"
+default['pushgateway']['home']                     = "#{node['pushgateway']['root_dir']}/pushgateway-#{node['pushgateway']['version']}.linux-amd64"
+default['pushgateway']['base_dir']                 = "#{node['pushgateway']['root_dir']}/pushgateway"

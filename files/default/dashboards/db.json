@@ -1,4 +1,52 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "7.3.2"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table-old",
+      "name": "Table (old)",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -16,8 +64,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 5,
-  "iteration": 1562766163666,
+  "id": null,
+  "iteration": 1606818150793,
   "links": [],
   "panels": [
     {
@@ -29,6 +77,13 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -60,7 +115,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.2.4",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -79,7 +133,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "",
+      "tableColumn": "ndb_ndbinfo_processes{alias=\"db1\", instance=\"localhost:9104\", job=\"ndb\", nodeType=\"NDB\", processName=\"ndbmtd\"}",
       "targets": [
         {
           "expr": "ndb_ndbinfo_processes{nodeType=\"NDB\"}",
@@ -113,6 +167,13 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -144,7 +205,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.2.4",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -163,7 +223,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "",
+      "tableColumn": "ndb_ndbinfo_processes{alias=\"db1\", instance=\"localhost:9104\", job=\"ndb\", nodeType=\"MGM\", processName=\"ndb_mgmd\"}",
       "targets": [
         {
           "expr": "ndb_ndbinfo_processes{nodeType=\"MGM\"}",
@@ -197,6 +257,13 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -228,7 +295,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.2.4",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -247,7 +313,7 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "",
+      "tableColumn": "ndb_ndbinfo_processes{alias=\"db1\", instance=\"localhost:9104\", job=\"ndb\", nodeType=\"API\", processName=\"mysqld\"}",
       "targets": [
         {
           "expr": "ndb_ndbinfo_processes{nodeType=\"API\",processName=\"mysqld\"}",
@@ -281,6 +347,13 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "none",
       "gauge": {
         "maxValue": 100,
@@ -312,7 +385,6 @@
       "maxDataPoints": 100,
       "nullPointMode": "connected",
       "nullText": null,
-      "options": {},
       "pluginVersion": "6.2.4",
       "postfix": "",
       "postfixFontSize": "50%",
@@ -363,13 +435,23 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "unit": "percent"
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 4
       },
+      "hiddenSeries": false,
       "id": 6,
       "legend": {
         "avg": false,
@@ -384,8 +466,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "7.3.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -395,19 +480,12 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\"}[1m]))",
+          "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\"}[60s])/10000)+sum by (threadName)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\"}[60s])/10000)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ threadName }} System Time",
+          "legendFormat": "{{ threadName }}",
           "refId": "A"
-        },
-        {
-          "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\"}[1m]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "{{ threadName }} User Time",
-          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -430,7 +508,7 @@
       },
       "yaxes": [
         {
-          "format": "µs",
+          "format": "percent",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -456,13 +534,22 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 12,
         "y": 4
       },
+      "hiddenSeries": false,
       "id": 4,
       "legend": {
         "avg": false,
@@ -477,8 +564,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "7.3.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -488,25 +578,51 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "ndb_ndbinfo_memory_used{nodeID=\"$nodeID\"}",
+          "expr": "ndb_ndbinfo_memory_resource_reserved{nodeID=\"$nodeID\",memoryType=\"DATA_MEMORY\"}",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ memoryType }} used",
+          "legendFormat": "{{ memoryType }} reserved",
           "refId": "A"
         },
         {
-          "expr": "ndb_ndbinfo_memory_total{nodeID=\"$nodeID\"}",
+          "expr": "ndb_ndbinfo_memory_resource_used{nodeID=\"$nodeID\",memoryType=\"DATA_MEMORY\"}",
           "format": "time_series",
+          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ memoryType }} total",
+          "legendFormat": "{{ memoryType }} used",
           "refId": "C"
+        },
+        {
+          "expr": "ndb_ndbinfo_memory_resource_reserved{nodeID=\"$nodeID\",memoryType=\"TRANSACTION_MEMORY\"}",
+          "interval": "",
+          "legendFormat": "{{ memoryType }} reserved",
+          "refId": "B"
+        },
+        {
+          "expr": "ndb_ndbinfo_memory_resource_used{nodeID=\"$nodeID\",memoryType=\"TRANSACTION_MEMORY\"}",
+          "interval": "",
+          "legendFormat": "{{ memoryType }} used",
+          "refId": "D"
+        },
+        {
+          "expr": "ndb_ndbinfo_memory_resource_reserved{nodeID=\"$nodeID\",memoryType=\"LONG_SIGNAL_MEMORY\"}",
+          "interval": "",
+          "legendFormat": "{{ memoryType }} reserved",
+          "refId": "E"
+        },
+        {
+          "expr": "ndb_ndbinfo_memory_resource_used{nodeID=\"$nodeID\",memoryType=\"LONG_SIGNAL_MEMORY\"}",
+          "interval": "",
+          "legendFormat": "{{ memoryType }} used",
+          "refId": "F"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Memory",
+      "title": "Memory Resources",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -548,13 +664,23 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "description": "Checkpoint and REDO logging speed",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 8,
         "x": 0,
         "y": 12
       },
+      "hiddenSeries": false,
       "id": 15,
       "legend": {
         "avg": false,
@@ -569,8 +695,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "7.3.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -580,18 +709,19 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (threadName)(ndb_ndbinfo_disk_write_speed_lcp{nodeID=\"$nodeID\"})",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "LCP - {{ threadName }}",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by (threadName)(ndb_ndbinfo_disk_write_speed_redo{nodeID=\"$nodeID\"})",
+          "expr": "sum(ndb_ndbinfo_disk_write_speed_lcp{nodeID=\"$nodeID\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "Redo - {{ threadName }}",
+          "legendFormat": "LCP",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(ndb_ndbinfo_disk_write_speed_redo{nodeID=\"$nodeID\"})",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Redo",
           "refId": "B"
         }
       ],
@@ -637,18 +767,137 @@
       }
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "fill": 1,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 7,
         "w": 8,
         "x": 8,
         "y": 12
       },
-      "id": 10,
+      "id": 29,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.3.2",
+      "targets": [
+        {
+          "expr": "100 * sum by (logType) (ndb_ndbinfo_logspaces_used{nodeID=\"$nodeID\"}) / sum by (logType) (ndb_ndbinfo_logspaces_total{nodeID=\"$nodeID\"})",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{logType}} % used",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Log space fill level",
+      "type": "gauge"
+    },
+    {
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 12
+      },
+      "id": 30,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.3.2",
+      "targets": [
+        {
+          "expr": "100 * sum by (logType) (ndb_ndbinfo_logbuffers_used{nodeID=\"$nodeID\"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{nodeID=\"$nodeID\"})",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "{{logType}} % used",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Log buffer fill level",
+      "type": "gauge"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "hiddenSeries": false,
+      "id": 24,
       "legend": {
         "avg": false,
         "current": false,
@@ -662,8 +911,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "7.3.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -673,19 +925,25 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "ndb_ndbinfo_cluster_transactions{nodeID=\"$nodeID\"}",
+          "expr": "sum by (nodeID) (rate(ndb_ndbinfo_transporters_bytes_received{nodeID=\"$nodeID\"}[30s]))",
           "format": "time_series",
-          "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "{{ state }}",
+          "legendFormat": "Bytes received",
           "refId": "A"
+        },
+        {
+          "expr": "sum by (nodeID) (rate(ndb_ndbinfo_transporters_bytes_sent{nodeID=\"$nodeID\"}[30s]))",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Bytes sent",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Transactions",
+      "title": "Network",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -701,7 +959,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "decbytes",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -727,13 +985,22 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 8,
-        "x": 16,
-        "y": 12
+        "x": 0,
+        "y": 27
       },
+      "hiddenSeries": false,
       "id": 12,
       "legend": {
         "avg": false,
@@ -748,8 +1015,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "7.3.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -810,16 +1080,125 @@
     },
     {
       "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 27
+      },
+      "hiddenSeries": false,
+      "id": 11,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.3.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum by (mode, state) (ndb_ndbinfo_cluster_locks_avg_duration{nodeID=\"$nodeID\"})",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{ mode }} - {{ state  }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Locks AVG duration",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ms",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 19
+        "y": 34
       },
+      "hiddenSeries": false,
       "id": 8,
       "legend": {
         "avg": false,
@@ -834,8 +1213,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "7.3.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -907,13 +1289,22 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 8,
         "x": 8,
-        "y": 19
+        "y": 34
       },
+      "hiddenSeries": false,
       "id": 13,
       "legend": {
         "avg": false,
@@ -928,8 +1319,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "7.3.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -951,7 +1345,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Operations",
+      "title": "Ongoing Operations",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -968,187 +1362,6 @@
       "yaxes": [
         {
           "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": true,
-      "cacheTimeout": null,
-      "dashLength": 10,
-      "dashes": false,
-      "fill": 1,
-      "gridPos": {
-        "h": 7,
-        "w": 8,
-        "x": 16,
-        "y": 19
-      },
-      "id": 11,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": false,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {},
-      "percentage": false,
-      "pluginVersion": "6.2.4",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by (mode, state) (ndb_ndbinfo_cluster_locks_avg_duration{nodeID=\"$nodeID\"})",
-          "format": "time_series",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "{{ mode }} - {{ state  }}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Locks AVG duration",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "ms",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "fill": 1,
-      "gridPos": {
-        "h": 8,
-        "w": 10,
-        "x": 0,
-        "y": 26
-      },
-      "id": 24,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {},
-      "percentage": false,
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum by (nodeID) (rate(ndb_ndbinfo_transporters_bytes_received{nodeID=\"$nodeID\"}[30s]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "Bytes received",
-          "refId": "A"
-        },
-        {
-          "expr": "sum by (nodeID) (rate(ndb_ndbinfo_transporters_bytes_sent{nodeID=\"$nodeID\"}[30s]))",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "legendFormat": "Bytes sent",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Network",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decbytes",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1176,17 +1389,23 @@
           "value": "current"
         }
       ],
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Transporter is using >60% of send buffer",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fontSize": "100%",
       "gridPos": {
         "h": 8,
         "w": 7,
-        "x": 10,
-        "y": 26
+        "x": 0,
+        "y": 41
       },
       "id": 26,
       "links": [],
-      "options": {},
       "pageSize": null,
       "scroll": true,
       "showHeader": true,
@@ -1197,12 +1416,14 @@
       "styles": [
         {
           "alias": "Time",
+          "align": "auto",
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "pattern": "Time",
           "type": "date"
         },
         {
           "alias": "",
+          "align": "auto",
           "colorMode": "row",
           "colors": [
             "#37872D",
@@ -1233,7 +1454,7 @@
       "timeShift": null,
       "title": "Slowdown transporters",
       "transform": "timeseries_aggregations",
-      "type": "table"
+      "type": "table-old"
     },
     {
       "columns": [
@@ -1242,17 +1463,23 @@
           "value": "current"
         }
       ],
+      "datasource": "${DS_PROMETHEUS}",
       "description": "Transporter is using >80% of send buffer",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fontSize": "100%",
       "gridPos": {
         "h": 8,
         "w": 7,
-        "x": 17,
-        "y": 26
+        "x": 8,
+        "y": 41
       },
       "id": 27,
       "links": [],
-      "options": {},
       "pageSize": null,
       "scroll": true,
       "showHeader": true,
@@ -1263,12 +1490,14 @@
       "styles": [
         {
           "alias": "Time",
+          "align": "auto",
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "pattern": "Time",
           "type": "date"
         },
         {
           "alias": "",
+          "align": "auto",
           "colorMode": "row",
           "colors": [
             "#37872D",
@@ -1299,20 +1528,29 @@
       "timeShift": null,
       "title": "Overloaded  transporters",
       "transform": "timeseries_aggregations",
-      "type": "table"
+      "type": "table-old"
     },
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 8,
         "x": 0,
-        "y": 34
+        "y": 49
       },
+      "hiddenSeries": false,
       "id": 7,
       "legend": {
         "avg": false,
@@ -1327,8 +1565,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "7.3.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1400,13 +1641,22 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "fill": 1,
+      "fillGradient": 0,
       "gridPos": {
         "h": 7,
         "w": 12,
         "x": 8,
-        "y": 34
+        "y": 49
       },
+      "hiddenSeries": false,
       "id": 22,
       "legend": {
         "avg": false,
@@ -1421,8 +1671,11 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
-      "options": {},
+      "options": {
+        "alertThreshold": true
+      },
       "percentage": false,
+      "pluginVersion": "7.3.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1489,49 +1742,60 @@
     },
     {
       "cacheTimeout": null,
+      "datasource": "${DS_PROMETHEUS}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {},
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "index": 0,
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "index": 1,
+                "value": 95
+              },
+              {
+                "color": "green",
+                "index": 2,
+                "value": 98
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
       "gridPos": {
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 41
+        "y": 56
       },
       "id": 17,
       "links": [],
       "options": {
-        "fieldOptions": {
+        "orientation": "auto",
+        "reduceOptions": {
           "calcs": [
             "last"
           ],
-          "defaults": {
-            "max": 100,
-            "min": 0
-          },
-          "mappings": [],
-          "override": {},
-          "thresholds": [
-            {
-              "color": "red",
-              "index": 0,
-              "value": null
-            },
-            {
-              "color": "yellow",
-              "index": 1,
-              "value": 95
-            },
-            {
-              "color": "green",
-              "index": 2,
-              "value": 98
-            }
-          ],
+          "fields": "",
           "values": false
         },
-        "orientation": "auto",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "6.2.4",
+      "pluginVersion": "7.3.2",
       "targets": [
         {
           "expr": "100 * sum by (threadName)(ndb_ndbinfo_diskpagebuffer_direct_return{nodeID=\"$nodeID\"}) / sum by (threadName)((ndb_ndbinfo_diskpagebuffer_direct_return{nodeID=\"$nodeID\"} + ndb_ndbinfo_diskpagebuffer_wait_io{nodeID=\"$nodeID\"}))",
@@ -1550,19 +1814,17 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 18,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "allValue": null,
-        "current": {
-          "text": "1",
-          "value": "1"
-        },
-        "datasource": "Prometheus",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "definition": "label_values(nodeID)",
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Node ID",
@@ -1583,7 +1845,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -1614,5 +1876,5 @@
   "timezone": "",
   "title": "Database",
   "uid": "zEP9m6VWz",
-  "version": 33
+  "version": 109
 }

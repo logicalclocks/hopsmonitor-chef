@@ -1,0 +1,21 @@
+[Unit]
+Description = Pushgateway
+After = syslog.target network.target remote-fs.target
+StartLimitIntervalSec=60
+StartLimitBurst=20
+
+[Service]
+User = <%= node['hopsmonitor']['user'] %>
+Group = <%= node['hopsmonitor']['group'] %>
+
+ExecStart = <%= node['pushgateway']['base_dir'] %>/pushgateway \
+            --web.listen-address=0.0.0.0:<%= node['pushgateway']['port'] %>
+
+LimitNOFILE = 20000
+Restart=on-failure
+RestartSec=2
+
+Type = simple
+
+[Install]
+WantedBy = multi-user.target

@@ -108,24 +108,11 @@ template "#{node['grafana']['base_dir']}/conf/provisioning/datasources/provision
   group node['hopsmonitor']['group']
   variables ({
     'prometheus' => consul_helper.get_service_fqdn("prometheus"),
-    'influxdb_ip' => my_private_ip
   })
   mode 0700
 end
 
-template "#{node['grafana']['base_dir']}/public/dashboards/spark.js" do
-  source "spark.js.erb"
-  owner node['hopsmonitor']['user']
-  group node['hopsmonitor']['group']
-  mode 0650
-end
-
-deps = ""
-if exists_local("hopsmonitor", "default") 
-  deps = "influxdb.service"
-end  
 service_name="grafana"
-
 service service_name do
   provider Chef::Provider::Service::Systemd
   supports :restart => true, :stop => true, :start => true, :status => true
@@ -144,9 +131,7 @@ template systemd_script do
   owner "root"
   group "root"
   mode 0754
-  variables({
-    :deps => deps
-  })        
+
 if node['services']['enabled'] == "true"
   notifies :enable, resources(:service => service_name)
 end

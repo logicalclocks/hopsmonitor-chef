@@ -21,6 +21,24 @@ scrape_configs:
     static_configs:
     - targets: ['localhost:<%= node['prometheus']['port'] %>']
 
+  - job_name: 'pushgateway'
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    consul_sd_configs:
+      - server: localhost:<%= node['consul']['http_api_port'] %>
+        scheme: https
+        datacenter: lc
+        tls_config:
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
+          insecure_skip_verify: true
+
+        services: ['prometheus']
+        tags: ['pushgateway']
+
   - job_name: 'airflow'
 
     scrape_interval:     10s 

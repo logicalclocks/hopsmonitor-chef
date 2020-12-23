@@ -20,24 +20,22 @@ depends 'tensorflow'
 depends 'hops_airflow'
 
 
-recipe "hopsmonitor::install", "Installs Influxdb/Grafana Server"
-recipe "hopsmonitor::default", "configures Influxdb/Grafana Server"
-recipe "hopsmonitor::influxdb", "Installs and configure InfluxDb"
+recipe "hopsmonitor::install", "Installs Prometheus/Grafana Server"
+recipe "hopsmonitor::default", "configures Grafana Server"
 recipe "hopsmonitor::grafana", "Installs and configure Grafana"
 recipe "hopsmonitor::prometheus", "Installs and configure Prometheus"
 recipe "hopsmonitor::node_exporter", "Installs and configure node exporter"
-recipe "hopsmonitor::purge", "Deletes the Influxdb/Grafana Server"
 
 attribute "hopsmonitor/user",
-          :description => "User to run Influxdb/Grafana server as",
+          :description => "User to run Prometheus/Grafana server as",
           :type => "string"
 
 attribute "hopsmonitor/group",
-          :description => "Group to run Influxdb/Grafana server as",
+          :description => "Group to run Prometheus/Grafana server as",
           :type => "string"
 
 attribute "hopsmonitor/dir",
-          :description => "Base install directory for Influxdb/Grafana ",
+          :description => "Base install directory for Prometheus/Grafana ",
           :type => "string"
 
 attribute "hopsmonitor/default/private_ips",
@@ -55,44 +53,6 @@ attribute "hopsmonitor/private_ips",
 attribute "hopsmonitor/public_ips",
           :description => "Set ip addresses",
           :type => "array"
-
-#
-# InfluxDB
-#
-
-attribute "influxdb/db_user",
-          :description => "username for influxdb account used by hopsworks ",
-          :type => "string"
-
-attribute "influxdb/db_password",
-          :description => "Password for influxdb account used by hopsworks",
-          :type => "string"
-
-attribute "influxdb/admin_user",
-          :description => "username for influxdb admin ",
-          :type => "string"
-
-attribute "influxdb/admin_password",
-          :description => "Password for influxdb admin user",
-          :type => "string"
-
-
-attribute "influxdb/http/port",
-          :description => "Http port for influxdb",
-          :type => "string"
-
-attribute "influxdb/port",
-          :description => "Main port for influxdb",
-          :type => "string"
-
-attribute "influxdb/admin/port",
-          :description => "Admin port for influxdb",
-          :type => "string"
-
-attribute "influxdb/graphite/port",
-          :description => "Port for influxdb graphite connector",
-          :type => "string"
-
 #
 # Grafana
 #

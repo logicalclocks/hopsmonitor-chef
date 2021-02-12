@@ -61,7 +61,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -167,7 +167,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -275,7 +275,7 @@
           "value": "current"
         }
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "Transporter is using >60% of send buffer",
       "fieldConfig": {
         "defaults": {
@@ -349,7 +349,7 @@
           "value": "current"
         }
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "Transporter is using >80% of send buffer",
       "fieldConfig": {
         "defaults": {
@@ -426,7 +426,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "Prometheus",
         "definition": "label_values(nodeID)",
         "error": null,
         "hide": 0,

@@ -55,7 +55,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "Checkpoint and REDO logging speed",
       "fieldConfig": {
         "defaults": {
@@ -162,7 +162,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "Checkpoint and REDO logging speed",
       "fieldConfig": {
         "defaults": {
@@ -274,7 +274,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "Prometheus",
         "definition": "label_values(nodeID)",
         "error": null,
         "hide": 0,

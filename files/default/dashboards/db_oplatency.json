@@ -55,7 +55,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "This is the latency from start to finish, includes communication with API",
       "fieldConfig": {
         "defaults": {
@@ -169,7 +169,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "This is the latency from start of table/range scan to finish",
       "fieldConfig": {
         "defaults": {
@@ -283,7 +283,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "This is the latency for a read key operation",
       "fieldConfig": {
         "defaults": {
@@ -397,7 +397,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "This is the latency for a write key operation (doesn't include commit phase)",
       "fieldConfig": {
         "defaults": {
@@ -511,7 +511,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "This is the latency for a index key operation",
       "fieldConfig": {
         "defaults": {
@@ -630,7 +630,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "Prometheus",
         "definition": "label_values(nodeID)",
         "error": null,
         "hide": 0,

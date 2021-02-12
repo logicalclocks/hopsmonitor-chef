@@ -61,7 +61,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -186,7 +186,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -311,7 +311,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -432,7 +432,7 @@
       }
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -494,7 +494,7 @@
       "type": "gauge"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -565,7 +565,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "Prometheus",
         "definition": "label_values(nodeID)",
         "error": null,
         "hide": 0,

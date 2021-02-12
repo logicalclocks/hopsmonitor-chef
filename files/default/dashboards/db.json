@@ -77,7 +77,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -167,7 +167,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -257,7 +257,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -347,7 +347,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -435,7 +435,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -534,7 +534,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -664,7 +664,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "Checkpoint and REDO logging speed",
       "fieldConfig": {
         "defaults": {
@@ -767,7 +767,7 @@
       }
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -822,7 +822,7 @@
       "type": "gauge"
     },
     {
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {},
@@ -881,7 +881,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -985,7 +985,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1084,7 +1084,7 @@
       "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1183,7 +1183,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1289,7 +1289,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1389,7 +1389,7 @@
           "value": "current"
         }
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "Transporter is using >60% of send buffer",
       "fieldConfig": {
         "defaults": {
@@ -1463,7 +1463,7 @@
           "value": "current"
         }
       ],
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "description": "Transporter is using >80% of send buffer",
       "fieldConfig": {
         "defaults": {
@@ -1535,7 +1535,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1641,7 +1641,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -1742,7 +1742,7 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": "${DS_PROMETHEUS}",
+      "datasource": "Prometheus",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1822,7 +1822,7 @@
       {
         "allValue": null,
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "Prometheus",
         "definition": "label_values(nodeID)",
         "error": null,
         "hide": 0,

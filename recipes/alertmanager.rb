@@ -24,6 +24,16 @@ directory node['alertmanager']['data_dir'] do
   action :create
 end
 
+remote_directory node['alertmanager']['tmpl_dir'] do 
+  source "templates"
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  mode 0770
+  files_owner node['hopsmonitor']['user']
+  files_group node['hopsmonitor']['group']
+  files_mode 0770
+end
+
 alertmanager_downloaded= "#{node['alertmanager']['home']}/.alertmanager.extracted_#{node['alertmanager']['version']}"
 # Extract alertmanager 
 bash 'extract_alertmanager' do
@@ -48,7 +58,7 @@ template "#{node['alertmanager']['base_dir']}/alertmanager.yml" do
   source "alertmanager.yml.erb" 
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
-  mode '0700'
+  mode '0770'
   action :create
 end
 

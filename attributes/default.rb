@@ -49,6 +49,7 @@ default['alertmanager']['root_dir']                 = "#{node['hopsmonitor']['di
 default['alertmanager']['home']                     = "#{node['alertmanager']['root_dir']}/alertmanager-#{node['alertmanager']['version']}.linux-amd64"
 default['alertmanager']['base_dir']                 = "#{node['alertmanager']['root_dir']}/alertmanager"
 default['alertmanager']['data_dir']                 = "#{node['alertmanager']['root_dir']}/alertmanager-data"
+default['alertmanager']['tmpl_dir']                 = "#{node['alertmanager']['home']}/template"
 default['alertmanager']['retention_time']           = "15d"
 
 # Alertmanager slack configuration

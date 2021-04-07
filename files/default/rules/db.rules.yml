@@ -4,6 +4,8 @@ groups:
   - alert: OutOfMemory
     expr: (ndb_ndbinfo_memory_total - ndb_ndbinfo_memory_used) / ndb_ndbinfo_memory_total * 100 < 10
     for: 5m
+    labels:
+      type: system-alert
     annotations:
       summary: "Out of memory"
       description: "DB memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

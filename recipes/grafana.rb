@@ -5,6 +5,11 @@
 base_package_filename = File.basename(node['grafana']['url'])
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
 
+rondb=
+if node['hopsmonitor']['rondb'].eql?("false")
+  rondb="rondb-"
+end  
+
 remote_file cached_package_filename do
   source node['grafana']['url']
   owner "root"
@@ -64,6 +69,14 @@ directory "#{node['grafana']['base_dir']}/logs" do
   action :create
 end
 
+public_endpoint="http://#{public_ip}/hopsworks-api/grafana"
+domain="domain = #{public_ip}"
+if node['hopsmonitor']['rondb'].eql?("true")
+  public_endpoint="http://#{public_ip}:3000/"
+  domain="# domain = #{public_ip}"  
+end
+
+domain="domain = #{public_ip}"
 
 template "#{node['grafana']['base_dir']}/conf/defaults.ini" do
   source "grafana.ini.erb"
@@ -71,7 +84,9 @@ template "#{node['grafana']['base_dir']}/conf/defaults.ini" do
   group node['hopsmonitor']['group']
   mode 0650
   variables({
-     :public_ip => public_ip
+     :public_ip => public_ip,
+     :domain => domain,
+     :public_endpoint => public_endpoint
   })
 end
 
@@ -82,18 +97,19 @@ directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards" do
 end
 
 remote_directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards" do 
-  source "dashboards"
+  source "#{rondb}dashboards"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0700
 end
 
 template "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/provisioning.yaml" do 
-  source "dashboards_provisioning.yml.erb"
+  source "#{rondb}dashboards_provisioning.yml.erb"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0700
 end
+
 
 directory "#{node['grafana']['base_dir']}/conf/provisioning/datasources" do 
   owner node['hopsmonitor']['user']

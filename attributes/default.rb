@@ -10,6 +10,8 @@ default['hopsmonitor']['group']                   = node['install']['user'].empt
 
 default['hopsmonitor']['dir']                     = node['install']['dir'].empty? ? "/srv" : node['install']['dir']
 
+default['hopsmonitor']['rondb']                   = "false"
+
 default['grafana']['version']                     = "6.2.4"
 default['grafana']['url']                         = "#{node['download_url']}/grafana-#{node['grafana']['version']}.linux-amd64.tar.gz"
 default['grafana']['port']                        = 3000

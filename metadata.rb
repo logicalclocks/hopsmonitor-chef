@@ -53,6 +53,13 @@ attribute "hopsmonitor/private_ips",
 attribute "hopsmonitor/public_ips",
           :description => "Set ip addresses",
           :type => "array"
+
+
+attribute "hopsmonitor/rondb",
+          :description => "Default 'false'. Set to 'true' to install grafana/prometheus for RonDB standalone installation.",
+          :type => "string"
+
+
 #
 # Grafana
 #

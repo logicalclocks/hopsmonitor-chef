@@ -1,0 +1,93 @@
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets: ['<%= @alertmanagers %>']
+
+rule_files:
+  - <%= node['prometheus']['rules_dir'] %>/*
+
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+    - targets: ['localhost:<%= node['prometheus']['port'] %>']
+
+  - job_name: 'pushgateway'
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    consul_sd_configs:
+      - server: localhost:<%= node['consul']['http_api_port'] %>
+        scheme: https
+        datacenter: lc
+        tls_config:
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
+          insecure_skip_verify: true
+
+        services: ['prometheus']
+        tags: ['pushgateway']
+
+  - job_name: 'airflow'
+
+    scrape_interval:     10s 
+    metrics_path:  <%= node['airflow']['config']['webserver']['base_path'] %>/admin/metrics
+    consul_sd_configs:
+      - server: localhost:<%= node['consul']['http_api_port'] %>
+        scheme: https
+        datacenter: lc
+        tls_config:
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
+          insecure_skip_verify: true
+
+        services: ['airflow']
+        tags: ['monitoring']
+    
+  - job_name: 'hadoop'
+    scrape_interval:     10s
+
+    consul_sd_configs:
+      - server: localhost:<%= node['consul']['http_api_port'] %>
+        scheme: https
+        datacenter: lc
+        tls_config:
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
+          insecure_skip_verify: true
+
+        tags: ['monitoring']
+
+
+  - job_name: 'hopsworks'
+
+    scrape_interval:     10s
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+
+    consul_sd_configs:
+      - server: localhost:<%= node['consul']['http_api_port'] %>
+        scheme: https
+        datacenter: lc
+        tls_config:
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
+          insecure_skip_verify: true
+
+        services: ['glassfish']
+        tags: ['monitoring']

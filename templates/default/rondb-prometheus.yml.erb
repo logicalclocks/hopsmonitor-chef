@@ -26,13 +26,8 @@ scrape_configs:
 
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
-        scheme: https
+        scheme: http
         datacenter: lc
-        tls_config:
-          ca_file: "<%= @hops_ca %>"
-          cert_file: "<%= @certificate %>"
-          key_file: "<%= @key %>"
-          insecure_skip_verify: true
 
         tags: ['monitoring']
 

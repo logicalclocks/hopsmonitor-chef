@@ -7,6 +7,11 @@ include_recipe "hopsmonitor::_security"
 base_package_filename = File.basename(node['prometheus']['url'])
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
 
+rondb=
+if node['hopsmonitor']['rondb'].eql?("true")
+  rondb="rondb-"
+end  
+
 remote_file cached_package_filename do
   source node['prometheus']['url']
   owner "root"
@@ -46,7 +51,7 @@ certificate = "#{crypto_dir}/#{x509_helper.get_certificate_bundle_name(node['hop
 key = "#{crypto_dir}/#{x509_helper.get_private_key_pkcs8_name(node['hopsmonitor']['user'])}"
 hops_ca = "#{crypto_dir}/#{x509_helper.get_hops_ca_bundle_name()}"
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
-  source "prometheus.yml.erb" 
+  source "#{rondb}prometheus.yml.erb" 
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode '0700'

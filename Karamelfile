@@ -5,15 +5,17 @@ dependencies:
   - recipe: hopsmonitor::default
     global:
       - kagent::default
+      - consul::master            
   - recipe: hopsmonitor::prometheus
     global:
       - kagent::default
       - consul::master      
   - recipe: hopsmonitor::alertmanager
     global:
-      - hopsmonitor::prometheus
       - consul::master      
   - recipe: hopsmonitor::grafana
     global:
-      - hopsmonitor::prometheus
+      - consul::master      
+  - recipe: hopsmonitor::pushgateway
+    global:
       - consul::master      

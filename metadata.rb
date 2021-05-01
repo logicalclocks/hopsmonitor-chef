@@ -11,13 +11,13 @@ source_url       "https://github.com/logicalclocks/hopsmonitor-chef"
   supports os
 end
 
-depends 'java', '~> 7.0.0'
 depends 'conda'
 depends 'hops'
 depends 'ndb'
 depends 'kagent'
 depends 'tensorflow'
 depends 'hops_airflow'
+depends 'java'
 
 
 recipe "hopsmonitor::install", "Installs Prometheus/Grafana Server"

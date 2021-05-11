@@ -356,8 +356,9 @@ a {
                       <li> Project: {{ .Labels.project }} </li>
                       {{ if .Labels.job -}} <li> Job: {{ .Labels.job }} </li> {{ end }}
                       {{ if .Labels.executionId -}} <li>  Execution id: {{ .Labels.executionId }} </li> {{ end }}
+                      {{ if .Labels.featureStore -}} <li>  Feature Store: {{ .Labels.featureStore }} </li> {{ end }}
                       {{ if .Labels.featureGroup -}} <li>  Feature Group: {{ .Labels.featureGroup }} </li> {{ end }}
-                      {{ if .Labels.featureGroupId -}} <li>  Feature Group id: {{ .Labels.featureGroupId }} </li> {{ end }}
+                      {{ if .Labels.featureGroupVersion -}} <li>  Feature Group version: {{ .Labels.featureGroupVersion }} </li> {{ end }}
                       {{ if .Labels.status -}} <li>  Status: {{ .Labels.status }} </li> {{ end }}
                     </ul>
                   </td>
@@ -393,8 +394,9 @@ a {
                       <li> Project: {{ .Labels.project }} </li>
                       {{ if .Labels.job -}} <li> Job: {{ .Labels.job }} </li> {{ end }}
                       {{ if .Labels.executionId -}} <li>  Execution id: {{ .Labels.executionId }} </li> {{ end }}
+                      {{ if .Labels.featureStore -}} <li>  Feature Store: {{ .Labels.featureStore }} </li> {{ end }}
                       {{ if .Labels.featureGroup -}} <li>  Feature Group: {{ .Labels.featureGroup }} </li> {{ end }}
-                      {{ if .Labels.featureGroupId -}} <li>  Feature Group id: {{ .Labels.featureGroupId }} </li> {{ end }}
+                      {{ if .Labels.featureGroupVersion -}} <li>  Feature Group version: {{ .Labels.featureGroupVersion }} </li> {{ end }}
                       {{ if .Labels.status -}} <li>  Status: {{ .Labels.status }} </li> {{ end }}
                     </ul>
                   </td>

@@ -20,9 +20,10 @@
      {{- if and .Labels.job .Labels.executionId}}
       - *Job:* {{ .Labels.job }}
       - *Execution id:* {{ .Labels.executionId }}
-     {{- else if and .Labels.featureGroup .Labels.featureGroupId }}
+     {{- else if .Labels.featureGroup }}
+      - *Feature store:* {{ .Labels.featureStore }}
       - *Feature group:* {{ .Labels.featureGroup }}
-      - *Feature group id:* {{ .Labels.featureGroupId }}
+      - *Feature group version:* {{ .Labels.featureGroupVersion }}
      {{- end }}
      {{- if .Labels.status }}
       - *Status:* {{ .Labels.status }}

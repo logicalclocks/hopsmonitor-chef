@@ -1,25 +1,28 @@
 global:
   resolve_timeout: 5m
-
+templates:
+- "<%= node['alertmanager']['tmpl_dir']%>/*.tmpl"
+<% if !node['alertmanager']['email']['to'].empty? or !node['alertmanager']['slack']['api_url'].empty? -%> 
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h 
+  receiver: 'default'
+  routes:
+<% end -%>
 <% if !node['alertmanager']['slack']['api_url'].empty? -%>
-route:
-  group_by: ['alertname']
-  group_wait: 10s
-  group_interval: 10s
-  repeat_interval: 1h
-  receiver: 'slack'
+    - match:
+        type: "system-alert"
+      receiver: 'slack'
 <% end -%>
-
 <% if !node['alertmanager']['email']['to'].empty? -%>
-route:
-  group_by: ['alertname']
-  group_wait: 10s
-  group_interval: 10s
-  repeat_interval: 1h
-  receiver: 'email'
+    - match:
+        type: "system-alert"
+      receiver: 'email'
 <% end -%>
-
 receivers:
+- name: 'default'
 <% if !node['alertmanager']['slack']['api_url'].empty? -%>
 - name: 'slack'
   slack_configs:
@@ -28,7 +31,6 @@ receivers:
     username: <%= node['alertmanager']['slack']['username'] %>  
     text: "<%= node['alertmanager']['slack']['text'] %>" 
 <% end -%>
-
 <% if !node['alertmanager']['email']['to'].empty? -%>
 - name: 'email'
   email_configs:

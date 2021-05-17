@@ -1,0 +1,33 @@
+{{ define "hopsworks.slack.default.title" }}
+     [{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
+{{ end }}
+{{ define "hopsworks.slack.default.text" }}
+ {{ with index .Alerts 0 -}}
+     {{- if and .Labels.job .GeneratorURL }}
+        :bar_chart: *<{{ .GeneratorURL }}|{{ .Labels.job }}>*
+     {{- else if and .Labels.featureGroup .GeneratorURL }}
+        :chart_with_upwards_trend: *<{{ .GeneratorURL }}|{{ .Labels.featureGroup }}>*
+     {{- end }}
+ {{ end }}
+ {{ range .Alerts -}}
+   *Alert:* {{ .Annotations.title }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+
+   *Summary:* {{ .Annotations.summary }}
+   *description:* {{ .Annotations.description }}
+
+   *Details:*
+      - *Project:* {{ .Labels.project }}
+     {{- if and .Labels.job .Labels.executionId}}
+      - *Job:* {{ .Labels.job }}
+      - *Execution id:* {{ .Labels.executionId }}
+     {{- else if .Labels.featureGroup }}
+      - *Feature store:* {{ .Labels.featureStore }}
+      - *Feature group:* {{ .Labels.featureGroup }}
+      - *Feature group version:* {{ .Labels.featureGroupVersion }}
+     {{- end }}
+     {{- if .Labels.status }}
+      - *Status:* {{ .Labels.status }}
+     {{- end }}
+ {{ end }}
+{{ end }}
+

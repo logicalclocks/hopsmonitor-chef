@@ -21,11 +21,17 @@ directory node['prometheus']['root_dir'] do
   action :create
 end
 
+directory node['prometheus']['data_volume']['root_dir'] do
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  mode '0750'
+  action :create
+end
+
 directory node['prometheus']['data_volume']['data_dir'] do
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode '0750'
-  recursive true
   action :create
 end
 

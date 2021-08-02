@@ -67,11 +67,9 @@ kagent_config "node_exporter" do
   action :systemd_reload
 end
 
-if node['kagent']['enabled'] == "true"
-   kagent_config "node_exporter" do
-     service "Monitoring"
-     restart_agent false
-   end
+kagent_config "node_exporter" do
+  service "Monitoring"
+  restart_agent false
 end
 
 cookbook_file "#{node['node_exporter']['base_dir']}/nvml_monitor.py" do
@@ -120,17 +118,14 @@ if node['cuda']['accept_nvidia_download_terms'].eql?("true")
     action :systemd_reload
   end
 
-  if node['kagent']['enabled'] == "true"
-     kagent_config "nvml_monitor" do
-       service "Monitoring"
-       restart_agent false
-     end
+  kagent_config "nvml_monitor" do
+    service "Monitoring"
+    restart_agent false
   end
 end
 
 # Register node exporter with service discovery
 if service_discovery_enabled()
-  # Register epipe with Consul
   consul_service "Registering node exporter with Consul" do
     service_definition "node-exporter-consul.hcl.erb"
     action :register

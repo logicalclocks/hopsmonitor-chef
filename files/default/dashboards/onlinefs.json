@@ -16,9 +16,268 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 28,
-  "iteration": 1621243687072,
+  "iteration": 1623741276029,
   "links": [],
   "panels": [
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "description": "Deserialization time per row in seconds",
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "max by (topic,quantile) (\n  onlinefs_row_deserialization_time{topic=\"$topic\"}\n)",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{ topic }} - {{ quantile }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Dezerialization Time",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ns",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "description": "Processing time per row in seconds",
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      },
+      "id": 10,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "max by (topic,quantile) (\n  onlinefs_row_processing_time{topic=\"$topic\"}\n)",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{ topic }} - {{ quantile }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Processing Time",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "ns",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 15,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum by (topic) (\nrate(onlinefs_row_total_bytes_total[30s])\n)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{ topic }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Byte rate",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
     {
       "aliasColors": {},
       "bars": false,
@@ -29,7 +288,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 0
+        "y": 9
       },
       "id": 2,
       "legend": {
@@ -105,9 +364,7 @@
       }
     },
     {
-      "aliasColors": {
-        "10.0.0.47:12800": "red"
-      },
+      "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
@@ -116,9 +373,9 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 9
       },
-      "id": 3,
+      "id": 18,
       "legend": {
         "avg": false,
         "current": false,
@@ -143,7 +400,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(onlinefs_clusterj_error_write_counter_total[30s])",
+          "expr": "sum by (job) (\nrate(onlinefs_clusterj_success_write_counter_total[30s])\n)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{ instance }}",
@@ -154,7 +411,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "OnlineFS error rate",
+      "title": "Total OnlineFS success rate",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -201,9 +458,9 @@
       "fill": 1,
       "gridPos": {
         "h": 9,
-        "w": 12,
+        "w": 8,
         "x": 0,
-        "y": 9
+        "y": 18
       },
       "id": 4,
       "legend": {
@@ -289,9 +546,9 @@
       "fill": 1,
       "gridPos": {
         "h": 9,
-        "w": 12,
-        "x": 12,
-        "y": 9
+        "w": 8,
+        "x": 8,
+        "y": 18
       },
       "id": 5,
       "legend": {
@@ -367,6 +624,93 @@
       }
     },
     {
+      "aliasColors": {
+        "10.0.0.47:12800": "red"
+      },
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 18
+      },
+      "id": 3,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "rate(onlinefs_clusterj_error_write_counter_total[30s])",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{ instance }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "OnlineFS error rate",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
       "aliasColors": {},
       "bars": true,
       "dashLength": 10,
@@ -376,7 +720,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 27
       },
       "id": 7,
       "legend": {
@@ -403,7 +747,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(onlinefs_row_topic_counter_total{instance=\"$instance\"}[30s])",
+          "expr": "sum by (topic) (\nrate(onlinefs_row_topic_counter_total[30s])\n)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{ instance }} - {{ topic }}",
@@ -462,19 +806,47 @@
         "allValue": null,
         "current": {
           "tags": [],
-          "text": "10.0.0.47:12800",
-          "value": "10.0.0.47:12800"
+          "text": "10.0.0.17:12800 + 10.0.0.253:12800",
+          "value": [
+            "10.0.0.17:12800",
+            "10.0.0.253:12800"
+          ]
         },
         "datasource": "Prometheus",
-        "definition": "label_values(onlinefs_row_topic_counter_total, instance)",
+        "definition": "label_values(onlinefs_clusterj_success_write_counter_total, instance)",
         "hide": 0,
         "includeAll": false,
         "label": "Instance",
-        "multi": false,
+        "multi": true,
         "name": "instance",
         "options": [],
-        "query": "label_values(onlinefs_row_topic_counter_total, instance)",
+        "query": "label_values(onlinefs_clusterj_success_write_counter_total, instance)",
         "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "119_1037_ip_bench_10f_1m_1_onlinefs",
+          "value": "119_1037_ip_bench_10f_1m_1_onlinefs"
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(topic)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Feature Group",
+        "multi": true,
+        "name": "topic",
+        "options": [],
+        "query": "label_values(topic)",
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -518,5 +890,5 @@
   "timezone": "",
   "title": "OnlineFS",
   "uid": "wYQy0eCGz",
-  "version": 7
+  "version": 13
 }

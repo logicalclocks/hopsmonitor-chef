@@ -30,8 +30,16 @@ attribute "hopsmonitor/user",
           :description => "User to run Prometheus/Grafana server as",
           :type => "string"
 
+attribute "hopsmonitor/user_id",
+          :description => "Monitor user id. Default: 1503",
+          :type => "string"
+
 attribute "hopsmonitor/group",
           :description => "Group to run Prometheus/Grafana server as",
+          :type => "string"
+
+attribute "hopsmonitor/group_id",
+          :description => "Monitor group id. Default: 1503",
           :type => "string"
 
 attribute "hopsmonitor/dir",

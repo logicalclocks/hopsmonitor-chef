@@ -1,10 +1,12 @@
 group node['hopsmonitor']['group'] do
+  gid node['hopsmonitor']['group_id']
   action :create
   not_if "getent group #{node['hopsmonitor']['group']}"
   not_if { node['install']['external_users'].casecmp("true") == 0 }
 end
 
 user node['hopsmonitor']['user'] do
+  uid node['hopsmonitor']['user_id']
   gid node['hopsmonitor']['group']
   action :create
   system true

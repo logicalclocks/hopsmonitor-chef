@@ -6,7 +6,9 @@ include_attribute "tensorflow"
 include_attribute "hops_airflow"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
+default['hopsmonitor']['user_id']                 = '1503'
 default['hopsmonitor']['group']                   = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
+default['hopsmonitor']['group_id']                = '1503'
 
 default['hopsmonitor']['dir']                     = node['install']['dir'].empty? ? "/srv" : node['install']['dir']
 

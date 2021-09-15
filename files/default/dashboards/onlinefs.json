@@ -15,8 +15,7 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 28,
-  "iteration": 1623741276029,
+  "iteration": 1631723710484,
   "links": [],
   "panels": [
     {
@@ -794,6 +793,91 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 1,
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 37
+      },
+      "id": 19,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum by (thread) (\nrate(onlinefs_kafka_partition_read_counter_total[30s])\n)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{ instance }} - {{ thread }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Messages consumed/Thread rate",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     }
   ],
   "refresh": "5s",
@@ -805,12 +889,9 @@
       {
         "allValue": null,
         "current": {
-          "tags": [],
-          "text": "10.0.0.17:12800 + 10.0.0.253:12800",
-          "value": [
-            "10.0.0.17:12800",
-            "10.0.0.253:12800"
-          ]
+          "selected": true,
+          "text": "10.0.0.8:12800",
+          "value": "10.0.0.8:12800"
         },
         "datasource": "Prometheus",
         "definition": "label_values(onlinefs_clusterj_success_write_counter_total, instance)",
@@ -834,8 +915,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "119_1037_ip_bench_10f_1m_1_onlinefs",
-          "value": "119_1037_ip_bench_10f_1m_1_onlinefs"
+          "text": "119_15_season_scores_features_1_onlinefs",
+          "value": "119_15_season_scores_features_1_onlinefs"
         },
         "datasource": "Prometheus",
         "definition": "label_values(topic)",
@@ -890,5 +971,5 @@
   "timezone": "",
   "title": "OnlineFS",
   "uid": "wYQy0eCGz",
-  "version": 13
+  "version": 1
 }

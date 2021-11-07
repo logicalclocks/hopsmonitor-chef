@@ -83,7 +83,7 @@ groups:
       description: "RonDB undo log buffers high utilization (> 50%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 
   - alert: HighRedoLogSpaces
-    expr: (sum by (logType) (ndb_ndbinfo_logspaces_user{logType="REDO"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{logType="REDO"})) > 0.25
+    expr: (sum by (logType) (ndb_ndbinfo_logspaces_used{logType="REDO"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{logType="REDO"})) > 0.25
     for: 1m
     labels:
       type: system-alert

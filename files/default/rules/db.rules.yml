@@ -65,7 +65,7 @@ groups:
       description: "RonDB disk data file extents are running out (< 10% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 
   - alert: HighRedoLogBuffer
-    expr: (sum by (logType) (ndb_ndbinfo_logbuffers_user{logType="REDO"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{logType="REDO"})) > 0.50
+    expr: (sum by (logType) (ndb_ndbinfo_logbuffers_used{logType="REDO"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{logType="REDO"})) > 0.50
     for: 30s
     labels:
       type: system-alert

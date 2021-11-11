@@ -56,7 +56,7 @@ groups:
       description: "RonDB long global memory is filling up (< 15% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 
   - alert: OutOfDiskDataFileExtents
-    expr: sum(mysql_info_schema_files_free_extents{tablespace="ts_1", fileType="DATAFILE"}) / sum(mysql_info_schema_files_total_extents{tablespace="ts_1", fileType="DATAFILE"}) > 0.90
+    expr: sum(mysql_info_schema_files_free_extents{tablespace="ts_1", fileType="DATAFILE"}) / sum(mysql_info_schema_files_total_extents{tablespace="ts_1", fileType="DATAFILE"}) < 0.10
     for: 1m
     labels:
       type: system-alert

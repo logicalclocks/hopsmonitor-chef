@@ -19,7 +19,7 @@ groups:
       summary: "RonDB management node down"
       description: "RonDB management node is down"
 
- - alert: MySQLdDown
+  - alert: MySQLdDown
     expr: (ndb_ndbinfo_processes{nodeType="API",processName="mysqld"} offset 1m) > ndb_ndbinfo_processes{nodeType="API",processName="mysqld"} 
     for: 1m
     labels:

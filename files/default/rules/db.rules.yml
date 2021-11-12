@@ -1,15 +1,101 @@
 groups:
-- name: db 
+- name: rondb
   rules:
-  - alert: OutOfMemory
-    expr: (ndb_ndbinfo_memory_total - ndb_ndbinfo_memory_used) / ndb_ndbinfo_memory_total * 100 < 10
-    for: 5m
+  - alert: DatanodeDown
+    expr: (ndb_ndbinfo_processes{nodeType="NDB"} offset 1m) > ndb_ndbinfo_processes{nodeType="NDB"}
+    for: 1m
     labels:
       type: system-alert
     annotations:
-      summary: "Out of memory"
-      description: "DB memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      summary: "RonDB datanode down"
+      description: "RonDB datanode is down"
 
-# transactions
-# transporters
-# diskdata 
+  - alert: ManagementDown
+    expr: (ndb_ndbinfo_processes{nodeType="MGM"} offset 1m) > ndb_ndbinfo_processes{nodeType="MGM"}
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB management node down"
+      description: "RonDB management node is down"
+
+  - alert: MySQLdDown
+    expr: (ndb_ndbinfo_processes{nodeType="API",processName="mysqld"} offset 1m) > ndb_ndbinfo_processes{nodeType="API",processName="mysqld"} 
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB MySQLd node down"
+      description: "RonDB MySQLd node is down"
+
+  - alert: OutOfDataMemory
+    expr: (ndb_ndbinfo_memory_resource_used{memory_type="DATA_MEMORY"} / ndb_ndbinfo_memory_resource_reserved{memory_type="DATA_MEMORY"}) > 0.75
+    for: 2m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB out of Data Memory"
+      description: "RonDB data memory is filling up (< 25% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+  - alert: OutOfLongSignalMemory
+    expr: (ndb_ndbinfo_memory_resource_used{memory_type="LONG_SIGNAL_MEMORY"} / ndb_ndbinfo_memory_resource_reserved{memory_type="LONG_SIGNAL_MEMORY"}) > 0.85
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB out of Long Signal Memory"
+      description: "RonDB long signal memory is filling up (< 15% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+  - alert: OutOfGlobalMemory
+    expr: (ndb_ndbinfo_memory_resource_used{memory_type="TOTAL_GLOBAL_MEMORY"} / ndb_ndbinfo_memory_resource_reserved{memory_type="TOTAL_GLOBAL_MEMORY"}) > 0.85
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB out of Global Memory"
+      description: "RonDB long global memory is filling up (< 15% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+  - alert: OutOfDiskDataFileExtents
+    expr: sum(mysql_info_schema_files_free_extents{tablespace="ts_1", fileType="DATAFILE"}) / sum(mysql_info_schema_files_total_extents{tablespace="ts_1", fileType="DATAFILE"}) < 0.10
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB out of Disk data file extents"
+      description: "RonDB disk data file extents are running out (< 10% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+  - alert: HighRedoLogBuffer
+    expr: (sum by (logType) (ndb_ndbinfo_logbuffers_used{logType="REDO"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{logType="REDO"})) > 0.50
+    for: 30s
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB Redo Log buffers high utilization"
+      description: "RonDB redo log buffers high utilization (> 50%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+  - alert: HighUndoLogBuffer
+    expr: (sum by (logType) (ndb_ndbinfo_logbuffers_used{logType="DD-UNDO"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{logType="DD-UNDO"})) > 0.70
+    for: 30s
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB Undo Log buffers high utilization"
+      description: "RonDB undo log buffers high utilization (> 50%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+  - alert: HighRedoLogSpaces
+    expr: (sum by (logType) (ndb_ndbinfo_logspaces_used{logType="REDO"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{logType="REDO"})) > 0.25
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB Redo Log spaces high utilization"
+      description: "RonDB redo log spaces high utilization (> 60%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+  - alert: HighUndoLogSpaces
+    expr: (sum by (logType) (ndb_ndbinfo_logspaces_used{logType="DD-UNDO"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{logType="DD-UNDO"})) > 0.25
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB Undo Log spaces high utilization"
+      description: "RonDB undo log spaces high utilization (> 60%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

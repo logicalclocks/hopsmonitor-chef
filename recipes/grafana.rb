@@ -76,13 +76,25 @@ template "#{node['grafana']['base_dir']}/conf/defaults.ini" do
 end
 
 # Replace all the dashboards
-directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards" do
+directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/rondb" do
   action :delete
   recursive true
 end
 
-remote_directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards" do 
-  source "dashboards"
+remote_directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/rondb" do 
+  source "dashboards/rondb"
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  mode 0700
+end
+
+directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/hops" do
+  action :delete
+  recursive true
+end
+
+remote_directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/hops" do 
+  source "dashboards/hops"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0700

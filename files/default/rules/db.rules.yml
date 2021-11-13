@@ -80,7 +80,7 @@ groups:
       type: system-alert
     annotations:
       summary: "RonDB Undo Log buffers high utilization"
-      description: "RonDB undo log buffers high utilization (> 50%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      description: "RonDB undo log buffers high utilization (> 70%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 
   - alert: HighRedoLogSpaces
     expr: (sum by (logType) (ndb_ndbinfo_logspaces_used{logType="REDO"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{logType="REDO"})) > 0.25
@@ -89,7 +89,7 @@ groups:
       type: system-alert
     annotations:
       summary: "RonDB Redo Log spaces high utilization"
-      description: "RonDB redo log spaces high utilization (> 60%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      description: "RonDB redo log spaces high utilization (> 25%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 
   - alert: HighUndoLogSpaces
     expr: (sum by (logType) (ndb_ndbinfo_logspaces_used{logType="DD-UNDO"}) / sum by (logType) (ndb_ndbinfo_logbuffers_total{logType="DD-UNDO"})) > 0.25
@@ -98,4 +98,4 @@ groups:
       type: system-alert
     annotations:
       summary: "RonDB Undo Log spaces high utilization"
-      description: "RonDB undo log spaces high utilization (> 60%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      description: "RonDB undo log spaces high utilization (> 25%)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"

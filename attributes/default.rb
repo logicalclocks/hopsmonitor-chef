@@ -85,3 +85,9 @@ default['pushgateway']['root_dir']                 = "#{node['hopsmonitor']['dir
 
 default['pushgateway']['home']                     = "#{node['pushgateway']['root_dir']}/pushgateway-#{node['pushgateway']['version']}.linux-amd64"
 default['pushgateway']['base_dir']                 = "#{node['pushgateway']['root_dir']}/pushgateway"
+
+# Managed cloud
+default['cloud']['queue_config']['capacity']             = "10000"
+default['cloud']['queue_config']['max_sample_per_send']  = "5000"
+default['cloud']['queue_config']['batch_send_deadline']  = "60s"
+default['cloud']['metrics']['port']                      = "9096"

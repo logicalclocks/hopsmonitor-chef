@@ -132,3 +132,18 @@ attribute "alertmanager/email/auth_identity",
 attribute "alertmanager/email/text",
           :description => "Email text template",
           :type => "string"
+
+#
+# Managed cloud
+#
+attribute "cloud/queue_config/capacity",
+          :description => "capacit of the queue for sending metrics to hopsworks.ai",
+          :type => "string"
+
+attribute "cloud/queue_config/max_sample_per_send",
+          :description => "maximum number of samples per metrics send to hopsworks.ai",
+          :type => "string"
+
+attribute "cloud/queue_config/batch_send_deadline",
+          :description => "maximum time before a metric is sent to hopsworks.ai",
+          :type => "string"

@@ -2,7 +2,10 @@ global:
   scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
   evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
   # scrape_timeout is set to the global default (10s).
-
+  <% if @managed_cloud -%>
+  external_labels:
+    cluster: INSTANCE_ID
+  <% end -%>
 alerting:
   alertmanagers:
   - static_configs:
@@ -91,3 +94,12 @@ scrape_configs:
 
         services: ['glassfish']
         tags: ['monitoring']
+
+<% if @managed_cloud -%>
+remote_write:
+  - url: "http://localhost:<%= node['cloud']['metrics']['port'] %>/receive"
+    queue_config:
+      capacity: <%= node['cloud']['queue_config']['capacity'] %>
+      max_samples_per_send: <%= node['cloud']['queue_config']['max_sample_per_send'] %>
+      batch_send_deadline: <%= node['cloud']['queue_config']['batch_send_deadline'] %>
+<% end -%>

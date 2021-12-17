@@ -25,7 +25,7 @@ default['grafana']['pid_file']                    = "/tmp/grafana.pid"
 
 # Default prometheus port is 9090, but we run Karamel on that port.
 default['prometheus']['port']                     = "9089"
-default['prometheus']['version']                  = "2.10.0"
+default['prometheus']['version']                  = "2.31.1"
 default['prometheus']['url']                      = "#{node['download_url']}/prometheus/prometheus-#{node['prometheus']['version']}.linux-amd64.tar.gz"
 default['prometheus']['root_dir']                 = "#{node['hopsmonitor']['dir']}/prometheus"
 

@@ -78,6 +78,7 @@ crypto_dir = x509_helper.get_crypto_dir(node['hopsmonitor']['user'])
 certificate = "#{crypto_dir}/#{x509_helper.get_certificate_bundle_name(node['hopsmonitor']['user'])}"
 key = "#{crypto_dir}/#{x509_helper.get_private_key_pkcs8_name(node['hopsmonitor']['user'])}"
 hops_ca = "#{crypto_dir}/#{x509_helper.get_hops_ca_bundle_name()}"
+#check if installation for managed cloud, aka: enterprise installation and installing the cloud recipe 
 managed_cloud = (node['install']['enterprise']['install'].casecmp? "true" and exists_local("cloud", "default"))
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   source "prometheus.yml.erb" 

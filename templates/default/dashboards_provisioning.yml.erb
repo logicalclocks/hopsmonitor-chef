@@ -31,4 +31,33 @@ providers:
   options:
     # <string, required> path to dashboard files on disk. Required
     path: <%= node['grafana']['base_dir'] %>/conf/provisioning/dashboards/rondb
-
+#Kserve
+- name: 'KServe'
+  # <string, required> name of the dashboard folder. Required
+  folder: 'kserve'
+  # <string, required> provider type. Required
+  type: file
+  # <bool> disable dashboard deletion
+  disableDeletion: false
+  # <bool> enable dashboard editing
+  editable: false
+  # <int> how often Grafana will scan for changed dashboards
+  updateIntervalSeconds: 10
+  options:
+    # <string, required> path to dashboard files on disk. Required
+    path: /srv/hops/grafana/conf/provisioning/dashboards/kserve
+#kubernetes
+- name: 'KubernetesCluster'
+  # <string, required> name of the dashboard folder. Required
+  folder: 'kubernetes'
+  # <string, required> provider type. Required
+  type: file
+  # <bool> disable dashboard deletion
+  disableDeletion: false
+  # <bool> enable dashboard editing
+  editable: false
+  # <int> how often Grafana will scan for changed dashboards
+  updateIntervalSeconds: 10
+  options:
+    # <string, required> path to dashboard files on disk. Required
+    path: /srv/hops/grafana/conf/provisioning/dashboards/kubernetes

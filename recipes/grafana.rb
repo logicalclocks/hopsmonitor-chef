@@ -100,6 +100,30 @@ remote_directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/ho
   mode 0700
 end
 
+directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/kserve" do
+  action :delete
+  recursive true
+end
+
+remote_directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/kserve" do
+  source "dashboards/kserve"
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  mode 0700
+end
+
+directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/kubernetes" do
+  action :delete
+  recursive true
+end
+
+remote_directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/kubernetes" do
+  source "dashboards/kubernetes"
+  owner node['hopsmonitor']['user']
+  group node['hopsmonitor']['group']
+  mode 0700
+end
+
 template "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/provisioning.yaml" do 
   source "dashboards_provisioning.yml.erb"
   owner node['hopsmonitor']['user']

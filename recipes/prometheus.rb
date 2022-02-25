@@ -80,19 +80,95 @@ key = "#{crypto_dir}/#{x509_helper.get_private_key_pkcs8_name(node['hopsmonitor'
 hops_ca = "#{crypto_dir}/#{x509_helper.get_hops_ca_bundle_name()}"
 #check if installation for managed cloud, aka: enterprise installation and installing the cloud recipe 
 managed_cloud = (node['install']['enterprise']['install'].casecmp? "true" and exists_local("cloud", "default"))
+
+kube_certs_dir           = "#{crypto_dir}/kube"
+kube_data_pattern        = {'{data:' => "", '}'=>""}
+kube_crt_str             = +(node['hopsmonitor']['prometheus']['kube-crt'])
+kube_ca_str              = +(node['hopsmonitor']['prometheus']['kube-ca'])
+kube_key_str             = +(node['hopsmonitor']['prometheus']['kube-key'])
+prometheus_kube_key_path = "#{kube_certs_dir}/hopsmon.key"
+prometheus_kube_crt_path = "#{kube_certs_dir}/hopsmon.crt"
+kube_ca_path             = "#{kube_certs_dir}/kube_ca.pem"
+
+kube_cluster_master_ip = ""
+
+if node["install"]["kubernetes"].casecmp? "true"
+  begin
+    kube_cluster_master_ip = private_recipe_ip('kube-hops', 'master')
+  rescue
+    raise "could not find the master ip for the kubernetes cluster"
+  end
+
+  if node['hopsmonitor']['prometheus']['kube-crt'].eql? ""
+    raise "No cert received from kube-hops::hopsmon"
+  end
+  #Clean up the certs from kubernetes. The JSON.parse does not work so we clean the strings manually
+  kube_data_pattern.each {|k,v| (kube_ca_str).sub!(k,v)}
+  kube_data_pattern.each {|k,v| (kube_key_str).sub!(k,v)}
+  kube_data_pattern.each {|k,v| (kube_crt_str).sub!(k,v)}
+  directory kube_certs_dir do
+    owner node["kagent"]["certs_user"]
+    group node["kagent"]["certs_user"]
+    action :create
+    mode '0700'
+  end
+
+  bash "kube_certs_dir_permissions" do
+    user "root"
+    code <<-EOH
+    setfacl -m u:#{node['hopsmonitor']['user']}:rx #{kube_certs_dir}
+    EOH
+    only_if { File.directory?(kube_certs_dir)}
+  end
+
+  # Create the certificate files in the kube_certs_dir
+  file prometheus_kube_crt_path do
+    content kube_crt_str
+    mode '0600'
+    owner node["kagent"]["certs_user"]
+    group node["kagent"]["certs_group"]
+  end
+
+  file prometheus_kube_key_path do
+    content kube_key_str
+    mode '0600'
+    owner node["kagent"]["certs_user"]
+    group node["kagent"]["certs_group"]
+  end
+
+  file kube_ca_path do
+    content kube_ca_str
+    mode '0600'
+    owner node["kagent"]["certs_user"]
+    group node["kagent"]["certs_group"]
+  end
+
+  bash "kube_certs_permissions" do
+    user "root"
+    code <<-EOH
+    setfacl -m u:#{node['hopsmonitor']['user']}:rx #{kube_certs_dir}/*
+    EOH
+    only_if { File.directory?(kube_certs_dir)}
+  end
+end
+
 template "#{node['prometheus']['base_dir']}/prometheus.yml" do
-  source "prometheus.yml.erb" 
+  source "prometheus.yml.erb"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode '0700'
   action :create
   variables({
-      'alertmanagers' => consul_helper.get_service_fqdn("alertmanager.prometheus") + ":" + node['alertmanager']['port'],
-      'certificate' => certificate,
-      'key' => key,
-      'hops_ca' => hops_ca,
-      'managed_cloud' => managed_cloud
-  })
+              'alertmanagers' => consul_helper.get_service_fqdn("alertmanager.prometheus") + ":" + node['alertmanager']['port'],
+              'certificate' => certificate,
+              'key' => key,
+              'hops_ca' => hops_ca,
+              'managed_cloud' => managed_cloud,
+              'kube_master_ip' => kube_cluster_master_ip,
+              'prometheus_kube_key'  => prometheus_kube_key_path,
+              'prometheus_kube_crt' => prometheus_kube_crt_path,
+              'kube_ca'              => kube_ca_path
+            })
 end
 
 directory node['prometheus']['rules_dir'] do 

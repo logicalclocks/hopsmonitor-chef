@@ -18,6 +18,7 @@ depends 'kagent'
 depends 'tensorflow'
 depends 'hops_airflow'
 depends 'java'
+depends 'kube-hops'
 
 
 recipe "hopsmonitor::install", "Installs Prometheus/Grafana Server"

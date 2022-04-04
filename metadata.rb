@@ -16,7 +16,6 @@ depends 'hops'
 depends 'ndb'
 depends 'kagent'
 depends 'tensorflow'
-depends 'hops_airflow'
 depends 'java'
 
 

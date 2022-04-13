@@ -8,4 +8,4 @@ dependencies:
   - recipe: hopsmonitor::prometheus
     global:
       - kagent::default
-      - kube-hops::hopsmon
+      - kube-hops::addons

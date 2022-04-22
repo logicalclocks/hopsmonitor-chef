@@ -1,0 +1,20 @@
+groups:
+- name: Hive 
+  rules:
+  - alert: HiveServer2Down 
+    expr: absent(hs2_hs2_completed_sql_operation_CLOSED) > 0
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Hive server 2 is unresponsive"
+      description: "Hive server 2 is not reporting metrics" 
+
+  - alert: HiveMetastoreDown 
+    expr: absent(hm_active_calls_get_databases) > 0
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Hive metasetore is unresponsive"
+      description: "Hive metastore is not reporting metrics"

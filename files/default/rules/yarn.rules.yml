@@ -1,0 +1,11 @@
+groups:
+- name: yarn
+  rules:
+  - alert: UnhealthyNodeManager 
+    expr: resourcemanager_ClusterMetrics_num_unhealthy_nms > 0
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "There are unhealthy Yarn Node Managers"
+      description: "There are {{ $value }} unhealthy Yarn Node Managers\n Check the Yarn Admin UI for more information"

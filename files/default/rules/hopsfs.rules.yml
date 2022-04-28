@@ -1,0 +1,49 @@
+groups:
+- name: hopsfs
+  rules:
+  - alert: UnderReplicatedBlocks 
+    expr: namenode_FSNamesystem_under_replicated_blocks > 1000 
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "There are under replicated blocks"
+      description: "There are {{ $value }} under replicated blocks\n Most likely nothing to worry about. Blocks will be replicated automatically if there is space" 
+
+  - alert: MissingBlocks
+    expr: namenode_FSNamesystem_missing_blocks > 0
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "There are missing blocks"
+      description: "There are {{ $value }} missing blocks\n Check the HDFS admin UI to see to which file they belong to" 
+
+  - alert: DeadDataNodes 
+    expr: namenode_FSNamesystem_dead_data_nodes > 0
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "There are dead datanodes"
+      description: "There are {{ $value }} dead datanodes\n Check the HDFS admin UI to see what's going on" 
+
+  - alert: StaleDataNodes 
+    expr: namenode_FSNamesystem_stale_data_nodes > 0
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "There are stale datanodes"
+      description: "There are {{ $value }} dead datanodes\n Check the HDFS admin UI to see what's going on" 
+
+  - alert: OutOfStorage
+    expr: namenode_FSNamesystemState_capacity_used / namenode_FSNamesystemState_capacity_total * 100 > 80
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Out of HopsFS storage"
+      description: "HopsFS Storage (< 20% left)\n  VALUE = {{ $value }}"
+
+

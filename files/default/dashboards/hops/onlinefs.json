@@ -747,7 +747,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (topic) (\nrate(onlinefs_row_topic_counter_total[30s])\n)",
+          "expr": "sum by (topic) (\nrate(onlinefs_row_topic_counter_total{topic=\"$topic\"}[30s])\n)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{ instance }} - {{ topic }}",

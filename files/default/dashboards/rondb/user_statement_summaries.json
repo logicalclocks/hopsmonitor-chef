@@ -197,7 +197,7 @@
     ]
   },
   "timezone": "",
-  "title": "User Statement Summaries",
+  "title": "Database user statement summaries",
   "uid": "userstatementsummaries",
   "version": 13
 }

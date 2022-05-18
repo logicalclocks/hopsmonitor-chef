@@ -94,7 +94,7 @@ scrape_configs:
 
         services: ['glassfish']
         tags: ['monitoring']
-  <% if node['install']['kubernetes'] == 'true' -%>
+  <% if node['install']['kubernetes'] == 'true' && !@managed_cloud -%>
   - job_name: 'knative-controller'
     scrape_interval: 3s
     scrape_timeout: 3s

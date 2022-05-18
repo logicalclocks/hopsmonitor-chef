@@ -31,7 +31,7 @@ providers:
   options:
     # <string, required> path to dashboard files on disk. Required
     path: <%= node['grafana']['base_dir'] %>/conf/provisioning/dashboards/rondb
-  <% if node['install']['kubernetes'] == 'true' -%>
+  <% if node['install']['kubernetes'] == 'true' && !@managed_cloud -%>
 #Kserve
 - name: 'KServe'
   # <string, required> name of the dashboard folder. Required

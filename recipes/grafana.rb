@@ -100,7 +100,8 @@ remote_directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/ho
   mode 0700
 end
 
-if !is_managed_cloud()
+managed_cloud = is_managed_cloud()
+if !managed_cloud
   directory "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/kserve" do
     action :delete
     recursive true
@@ -131,6 +132,9 @@ template "#{node['grafana']['base_dir']}/conf/provisioning/dashboards/provisioni
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0700
+  variables({
+    :managed_cloud => managed_cloud
+ })
 end
 
 directory "#{node['grafana']['base_dir']}/conf/provisioning/datasources" do 

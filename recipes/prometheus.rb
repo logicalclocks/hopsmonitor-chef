@@ -79,7 +79,7 @@ certificate = "#{crypto_dir}/#{x509_helper.get_certificate_bundle_name(node['hop
 key = "#{crypto_dir}/#{x509_helper.get_private_key_pkcs8_name(node['hopsmonitor']['user'])}"
 hops_ca = "#{crypto_dir}/#{x509_helper.get_hops_ca_bundle_name()}"
 #check if installation for managed cloud, aka: enterprise installation and installing the cloud recipe 
-managed_cloud = (node['install']['enterprise']['install'].casecmp? "true" and exists_local("cloud", "default"))
+managed_cloud = is_managed_cloud()
 
 kube_certs_dir           = "#{crypto_dir}/kube"
 kube_data_pattern        = {'{data:' => "", '}'=>""}
@@ -92,7 +92,7 @@ kube_ca_path             = "#{kube_certs_dir}/kube_ca.pem"
 
 kube_cluster_master_ip = ""
 
-if node["install"]["kubernetes"].casecmp? "true"
+if node["install"]["kubernetes"].casecmp? "true" && !managed_cloud
   begin
     kube_cluster_master_ip = private_recipe_ip('kube-hops', 'master')
   rescue

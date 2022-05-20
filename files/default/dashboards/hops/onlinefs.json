@@ -718,7 +718,7 @@
       "fill": 1,
       "gridPos": {
         "h": 10,
-        "w": 24,
+        "w": 12,
         "x": 0,
         "y": 27
       },
@@ -747,7 +747,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (topic) (\nrate(onlinefs_row_topic_counter_total[30s])\n)",
+          "expr": "sum by (topic) (\nrate(onlinefs_row_topic_counter_total{topic=\"$topic\"}[30s])\n)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{ instance }} - {{ topic }}",
@@ -759,6 +759,91 @@
       "timeRegions": [],
       "timeShift": null,
       "title": "Messages/Topic rate",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "fill": 1,
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 27
+      },
+      "id": 8,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {},
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum by (topic) (\nrate(onlinefs_row_topic_counter_total{}[30s])\n)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{ instance }} - {{ topic }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Global Messages/Topic rate",
       "tooltip": {
         "shared": true,
         "sort": 0,

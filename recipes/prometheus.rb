@@ -92,7 +92,7 @@ kube_ca_path             = "#{kube_certs_dir}/kube_ca.pem"
 
 kube_cluster_master_ip = ""
 
-if node["install"]["kubernetes"].casecmp? "true" && !managed_cloud
+if (node["install"]["kubernetes"].casecmp? "true") && (!managed_cloud)
   begin
     kube_cluster_master_ip = private_recipe_ip('kube-hops', 'master')
   rescue

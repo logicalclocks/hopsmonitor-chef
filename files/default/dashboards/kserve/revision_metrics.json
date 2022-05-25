@@ -1296,7 +1296,7 @@
     ]
   },
   "timezone":"",
-  "title":"KServing",
+  "title":"Deployment Metrics",
   "uid":"kserve",
   "version":2
 }

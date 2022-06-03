@@ -12,7 +12,7 @@
       }
     ]
   },
-  "description":"Summary metrics about containers running on Kubernetes nodes.\r\n\r\nDashboard was taken from here.  This version does not reqiure you to\r\nsetup the Kubernetes-app plugin. (https://github.com/grafana/kubernetes-app)\r\n\r\nUse this Helm chart to launch Grafana into a Kubernetes cluster.  It will include this dashboard and many more dashboards to give you visibility into the Kubernetes Cluster. (https://github.com/sekka1/cloud-public/tree/master/kubernetes/pods/grafana-helm)",
+  "description":"Summary metrics about containers running on Kubernetes nodes. Resources do not include those of tainted nodes",
   "editable":true,
   "gnetId":6417,
   "graphTooltip":1,
@@ -51,11 +51,11 @@
     {
       "cacheTimeout":null,
       "colorBackground":false,
-      "colorValue":false,
+      "colorValue":true,
       "colors":[
-        "#299c46",
+        "rgba(50, 172, 45, 0.97)",
         "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
+        "rgba(245, 54, 54, 0.9)"
       ],
       "datasource":"Prometheus",
       "fieldConfig":{
@@ -68,7 +68,7 @@
 
         ]
       },
-      "format":"percentunit",
+      "format":"percent",
       "gauge":{
         "maxValue":100,
         "minValue":0,
@@ -121,9 +121,8 @@
       "tableColumn":"",
       "targets":[
         {
-          "expr":"sum(kube_pod_info{node=~\"$node\"}) / sum(kube_node_status_allocatable_pods{node=~\".*\"})",
-          "format":"time_series",
-          "interval":"",
+          "expr":"(sum(kube_pod_info{node=~\"$node\"}) / sum(kube_node_status_allocatable_pods{node=~\".*\"})) * 100",
+          "interval":"10s",
           "intervalFactor":1,
           "legendFormat":"",
           "refId":"A"
@@ -145,11 +144,11 @@
     {
       "cacheTimeout":null,
       "colorBackground":false,
-      "colorValue":false,
+      "colorValue":true,
       "colors":[
-        "#299c46",
+        "rgba(50, 172, 45, 0.97)",
         "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
+        "rgba(245, 54, 54, 0.9)"
       ],
       "datasource":"Prometheus",
       "fieldConfig":{
@@ -162,7 +161,7 @@
 
         ]
       },
-      "format":"percentunit",
+      "format":"percent",
       "gauge":{
         "maxValue":100,
         "minValue":0,
@@ -215,8 +214,7 @@
       "tableColumn":"",
       "targets":[
         {
-          "expr":"sum(kube_pod_container_resource_requests_cpu_cores{node=~\"$node\"}) / sum(kube_node_status_allocatable_cpu_cores{node=~\"$node\"})",
-          "format":"time_series",
+          "expr":"(sum(kube_pod_container_resource_requests_cpu_cores{node=~\"$node\"}) / sum(kube_node_status_allocatable_cpu_cores{node=~\"$node\"})) * 100",
           "interval":"",
           "intervalFactor":1,
           "legendFormat":"",
@@ -237,192 +235,175 @@
       "valueName":"current"
     },
     {
-      "cacheTimeout":null,
-      "colorBackground":false,
-      "colorValue":false,
-      "colors":[
-        "#299c46",
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
         "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
+        "rgba(245, 54, 54, 0.9)"
       ],
-      "datasource":"Prometheus",
-      "fieldConfig":{
-        "defaults":{
-          "custom":{
-
-          }
+      "datasource": "Prometheus",
+      "editable": false,
+      "error": false,
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "height": "180px",
+      "id": 6,
+      "interval": null,
+      "isNew": true,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "overrides":[
-
-        ]
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
       },
-      "format":"percentunit",
-      "gauge":{
-        "maxValue":100,
-        "minValue":0,
-        "show":true,
-        "thresholdLabels":false,
-        "thresholdMarkers":true
-      },
-      "gridPos":{
+      "targets": [
+        {
+          "expr": "(sum(kube_pod_container_resource_requests_memory_bytes{node=~\"$node\"}) / sum(kube_node_status_allocatable_memory_bytes{node=~\"$node\"})) * 100",
+          "interval": "10s",
+          "intervalFactor": 1,
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "thresholds": "65, 90",
+      "title": "Cluster memory usage",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current",
+      "gridPos": {
         "h":4,
         "w":6,
         "x":12,
         "y":1
       },
-      "id":6,
-      "interval":null,
-      "links":[
-
-      ],
-      "mappingType":1,
-      "mappingTypes":[
-        {
-          "name":"value to text",
-          "value":1
-        },
-        {
-          "name":"range to text",
-          "value":2
-        }
-      ],
-      "maxDataPoints":100,
-      "nullPointMode":"connected",
-      "nullText":null,
-      "postfix":"",
-      "postfixFontSize":"50%",
-      "prefix":"",
-      "prefixFontSize":"50%",
-      "rangeMaps":[
-        {
-          "from":"null",
-          "text":"N/A",
-          "to":"null"
-        }
-      ],
-      "sparkline":{
-        "fillColor":"rgba(31, 118, 189, 0.18)",
-        "full":false,
-        "lineColor":"rgb(31, 120, 193)",
-        "show":false
-      },
-      "tableColumn":"",
-      "targets":[
-        {
-          "expr":"sum(kube_pod_container_resource_requests_memory_bytes{node=~\"$node\"}) / sum(kube_node_status_allocatable_memory_bytes{node=~\"$node\"})",
-          "format":"time_series",
-          "interval":"",
-          "intervalFactor":1,
-          "legendFormat":"",
-          "refId":"A"
-        }
-      ],
-      "thresholds":"80,90",
-      "title":"Cluster Memory Usage",
-      "type":"singlestat",
-      "valueFontSize":"80%",
-      "valueMaps":[
-        {
-          "op":"=",
-          "text":"N/A",
-          "value":"null"
-        }
-      ],
-      "valueName":"current"
+      "options": {},
+      "tableColumn": ""
     },
     {
-      "cacheTimeout":null,
-      "colorBackground":false,
-      "colorValue":false,
-      "colors":[
-        "#299c46",
+      "cacheTimeout": null,
+      "colorBackground": false,
+      "colorValue": true,
+      "colors": [
+        "rgba(50, 172, 45, 0.97)",
         "rgba(237, 129, 40, 0.89)",
-        "#d44a3a"
+        "rgba(245, 54, 54, 0.9)"
       ],
-      "datasource":"Prometheus",
-      "fieldConfig":{
-        "defaults":{
-          "custom":{
-
-          }
+      "datasource": "Prometheus",
+      "editable": true,
+      "error": false,
+      "format": "percent",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": true,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "id": 7,
+      "interval": null,
+      "isNew": true,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
         },
-        "overrides":[
-
-        ]
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
       },
-      "format":"percentunit",
-      "gauge":{
-        "maxValue":100,
-        "minValue":0,
-        "show":true,
-        "thresholdLabels":false,
-        "thresholdMarkers":true
-      },
-      "gridPos":{
+      "targets": [
+        {
+          "expr": "sum (container_memory_working_set_bytes{id=\"/\",kubernetes_io_hostname=~\"^$node$\"}) / sum (machine_memory_bytes{kubernetes_io_hostname=~\"^$node$\"}) * 100",
+          "interval": "10s",
+          "intervalFactor": 1,
+          "refId": "A",
+          "step": 10
+        }
+      ],
+      "thresholds": "65, 90",
+      "title": "Cluster Disk Usage",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current",
+      "gridPos": {
         "h":4,
         "w":6,
         "x":18,
         "y":1
       },
-      "id":7,
-      "interval":null,
-      "links":[
-
-      ],
-      "mappingType":1,
-      "mappingTypes":[
-        {
-          "name":"value to text",
-          "value":1
-        },
-        {
-          "name":"range to text",
-          "value":2
-        }
-      ],
-      "maxDataPoints":100,
-      "nullPointMode":"connected",
-      "nullText":null,
-      "postfix":"",
-      "postfixFontSize":"50%",
-      "prefix":"",
-      "prefixFontSize":"50%",
-      "rangeMaps":[
-        {
-          "from":"null",
-          "text":"N/A",
-          "to":"null"
-        }
-      ],
-      "sparkline":{
-        "fillColor":"rgba(31, 118, 189, 0.18)",
-        "full":false,
-        "lineColor":"rgb(31, 120, 193)",
-        "show":false
-      },
-      "tableColumn":"",
-      "targets":[
-        {
-          "expr":"(sum (node_filesystem_size_bytes{node=~\"$node\"}) - sum (node_filesystem_free_bytes{node=~\"$node\"})) / sum (node_filesystem_size_bytes{node=~\"$node\"})",
-          "format":"time_series",
-          "interval":"",
-          "intervalFactor":1,
-          "legendFormat":"",
-          "refId":"A"
-        }
-      ],
-      "thresholds":"80,90",
-      "title":"Cluster Disk Usage",
-      "type":"singlestat",
-      "valueFontSize":"80%",
-      "valueMaps":[
-        {
-          "op":"=",
-          "text":"N/A",
-          "value":"null"
-        }
-      ],
-      "valueName":"current"
+      "options": {},
+      "tableColumn": ""
     },
     {
       "aliasColors":{
@@ -866,7 +847,7 @@
       "steppedLine":false,
       "targets":[
         {
-          "expr":"sum(node_filesystem_size_bytes{node=~\"$node\"}) - sum(node_filesystem_free_bytes{node=~\"$node\"})",
+          "expr":"sum(container_fs_usage_bytes{device=~\"^/dev/[sv]d[a-z][1-9]$\",id=\"/\",kubernetes_io_hostname=~\"^$node$\"})",
           "format":"time_series",
           "interval":"",
           "intervalFactor":1,
@@ -874,7 +855,7 @@
           "refId":"A"
         },
         {
-          "expr":"sum(node_filesystem_size_bytes{node=~\"$node\"})",
+          "expr":"sum (container_fs_limit_bytes{device=~\"^/dev/[sv]d[a-z][1-9]$\",id=\"/\",kubernetes_io_hostname=~\"^$node$\"})",
           "format":"time_series",
           "interval":"",
           "intervalFactor":1,
@@ -2903,6 +2884,16 @@
       "valueName":"current"
     },
     {
+      "transformations": [
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [],
+            "type": "include",
+            "match": "any"
+          }
+        }
+      ],
       "columns":[
 
       ],
@@ -2911,7 +2902,10 @@
       "fieldConfig":{
         "defaults":{
           "custom":{
-
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false,
+            "filterable": true
           }
         },
         "overrides":[
@@ -2927,7 +2921,7 @@
       },
       "id":52,
       "pageSize":null,
-      "pluginVersion":"6.3.4",
+      "pluginVersion":"8.5.4",
       "scroll":true,
       "showHeader":true,
       "sort":{
@@ -3052,7 +3046,16 @@
       "type":"table"
     },
     {
-      "_comment": "TODO Gibson: Add column for the container requested memory",
+      "transformations": [
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [],
+            "type": "include",
+            "match": "any"
+          }
+        }
+      ],
       "columns":[
 
       ],
@@ -3061,7 +3064,10 @@
       "fieldConfig":{
         "defaults":{
           "custom":{
-
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false,
+            "filterable": true
           }
         },
         "overrides":[
@@ -3077,7 +3083,7 @@
       },
       "id":53,
       "pageSize":null,
-      "pluginVersion":"6.3.4",
+      "pluginVersion": "8.5.4",
       "scroll":true,
       "showHeader":true,
       "sort":{
@@ -3118,6 +3124,24 @@
 
           ],
           "unit":"short"
+        },
+        {
+          "alias":"Mem Requested",
+          "colorMode":null,
+          "colors":[
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat":"YYYY-MM-DD HH:mm:ss",
+          "decimals":2,
+          "mappingType":1,
+          "pattern":"Value #C",
+          "thresholds":[
+
+          ],
+          "type":"number",
+          "unit":"bytes"
         },
         {
           "alias":"Current Usage",
@@ -3190,6 +3214,13 @@
           "instant":true,
           "intervalFactor":1,
           "refId":"B"
+        },
+        {
+          "expr":"max(container_spec_memory_limit_bytes{namespace=~\"$namespace\", name!=\"\", container!=\"\", instance=~\"$node\"}) by (namespace, name, container)",
+          "format":"table",
+          "instant":true,
+          "intervalFactor":1,
+          "refId":"C"
         }
       ],
       "timeFrom":null,
@@ -3235,18 +3266,18 @@
           "value":"ATFM_PROD"
         },
         "datasource":"Prometheus",
-        "definition":"label_values(kube_node_info, node)",
+        "definition":"query_result(kube_node_info unless on(node) kube_node_spec_taint{effect=\"NoSchedule\"})",
         "hide":0,
-        "includeAll":true,
+        "includeAll":false,
         "label":null,
-        "multi":false,
+        "multi":true,
         "name":"node",
         "options":[
 
         ],
-        "query":"label_values(kube_node_info, node)",
+        "query":"query_result(kube_node_info unless on(node) kube_node_spec_taint{effect=\"NoSchedule\"})",
         "refresh":2,
-        "regex":"",
+        "regex":"/.*node=\"([^\"]+)\".*/",
         "skipUrlSync":false,
         "sort":0,
         "tagValuesQuery":"",

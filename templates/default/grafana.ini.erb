@@ -15,19 +15,19 @@ force_migration = false
 #################################### Paths ###############################
 [paths]
 # Path to where grafana can store temp files, sessions, and the sqlite3 db (if that is used)
-data = "<%= node['grafana']['base_dir'] %>/data"
+data = <%= node['grafana']['base_dir'] %>/data
 
 # Temporary files in `data` directory older than given duration will be removed
 temp_data_lifetime = 24h
 
 # Directory where grafana can store logs
-logs = "<%= node['grafana']['base_dir'] %>/logs"
+logs = <%= node['grafana']['base_dir'] %>/logs
 
 # Directory where grafana will automatically scan and look for plugins
-plugins = "<%= node['grafana']['base_dir'] %>/data/plugins"
+plugins = <%= node['grafana']['base_dir'] %>/data/plugins
 
 # folder that contains provisioning config files that grafana will apply on startup and while running.
-provisioning = "<%= node['grafana']['base_dir'] %>/conf/provisioning"
+provisioning = <%= node['grafana']['base_dir'] %>/conf/provisioning
 
 #################################### Server ##############################
 [server]
@@ -38,10 +38,10 @@ protocol = http
 http_addr =
 
 # The http port to use
-http_port = "<%= node['grafana']['port'] %>"
+http_port = <%= node['grafana']['port'] %>
 
 # The public facing domain name used to access grafana from a browser
-domain = "<%= @public_ip %>"
+domain = <%= @public_ip %>
 
 # Redirect to correct domain if host header does not match domain
 # Prevents DNS rebinding attacks
@@ -242,13 +242,13 @@ feedback_links_enabled = false
 disable_initial_admin_creation = false
 
 # default admin user, created on startup
-admin_user = "<%= node['grafana']['admin_user'] %>"
+admin_user = <%= node['grafana']['admin_user'] %>
 
 # default admin password, can be changed before first start of grafana, or in profile settings
-admin_password = "<%= node['grafana']['admin_password'] %>"
+admin_password = <%= node['grafana']['admin_password'] %>
 
 # used for signing
-#secret_key = SW2YcwTIb9zpOOhoPsMm
+# secret_key = SW2YcwTIb9zpOOhoPsMm
 
 # current key provider used for envelope encryption, default to static value specified by secret_key
 encryption_provider = secretKey.v1

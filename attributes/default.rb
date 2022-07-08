@@ -22,6 +22,7 @@ default['grafana']['admin_password']              = "adminpw"
 default['grafana']['home']                        = node['hopsmonitor']['dir'] + "/grafana-" + "#{node['grafana']['version']}"
 default['grafana']['base_dir']                    = node['hopsmonitor']['dir'] + "/grafana"
 default['grafana']['pid_file']                    = "/tmp/grafana.pid"
+default['grafana']['dashboard']['viewer_permission'] = "wYQy0eCGz userstatementsummaries" #space separated list of dashboard uids with viewer permission
 
 # Default prometheus port is 9090, but we run Karamel on that port.
 default['prometheus']['port']                     = "9089"

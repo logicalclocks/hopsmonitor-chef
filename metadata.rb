@@ -78,6 +78,10 @@ attribute "grafana/port",
           :description => "Port for grafana",
           :type => "string"
 
+attribute "grafana/dashboard/viewer_permission",
+          :description => "Space separated list of dashboard uids with viewer permission. Default: 'wYQy0eCGz userstatementsummaries'",
+          :type => "string"
+
 #
 #  Prometheus
 # 

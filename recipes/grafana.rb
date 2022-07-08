@@ -191,6 +191,31 @@ if node['kagent']['enabled'] == "true"
    end
 end
 
+dashboards_with_viewer_permission = node['grafana']['dashboard']['viewer_permission']
+bash 'set_dashboard_permissions' do
+  code <<-EOH
+    FOLDERS=$(curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
+                   --request GET \
+                   #{public_ip}:#{node['grafana']['port']}/api/folders | jq -r .[].uid)
+
+    for uid in ${FOLDERS}; do
+      curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
+        --header "Content-Type: application/json" \
+        --request POST \
+        --data '{"items": []}'\
+        #{public_ip}:#{node['grafana']['port']}/api/folders/${uid}/permissions
+    done
+
+    for uid in #{dashboards_with_viewer_permission}; do
+      curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
+        --header "Content-Type: application/json" \
+        --request POST \
+        --data '{"items": [{ "role": "Viewer", "permission": 1 }]}' \
+        #{public_ip}:#{node['grafana']['port']}/api/dashboards/uid/${uid}/permissions
+    done
+  EOH
+end
+
 if service_discovery_enabled()
   # Register Grafana with Consul
   consul_service "Registering Grafana with Consul" do

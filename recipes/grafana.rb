@@ -191,6 +191,14 @@ if node['kagent']['enabled'] == "true"
    end
 end
 
+if service_discovery_enabled()
+  # Register Grafana with Consul
+  consul_service "Registering Grafana with Consul" do
+    service_definition "grafana-consul.hcl.erb"
+    action :register
+  end
+end 
+
 dashboards_with_viewer_permission = node['grafana']['dashboard']['viewer_permission']
 bash 'set_dashboard_permissions' do
   code <<-EOH
@@ -215,11 +223,3 @@ bash 'set_dashboard_permissions' do
     done
   EOH
 end
-
-if service_discovery_enabled()
-  # Register Grafana with Consul
-  consul_service "Registering Grafana with Consul" do
-    service_definition "grafana-consul.hcl.erb"
-    action :register
-  end
-end 

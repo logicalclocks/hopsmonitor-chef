@@ -23,8 +23,8 @@ default['grafana']['home']                        = node['hopsmonitor']['dir'] +
 default['grafana']['base_dir']                    = node['hopsmonitor']['dir'] + "/grafana"
 default['grafana']['pid_file']                    = "/tmp/grafana.pid"
 # Space separated list of dashboard uids with viewer permission. Viewer role will be mapped to HOPS_USER
-# rest of the dashboards will be Admin only
-default['grafana']['dashboard']['viewer_permission'] = "wYQy0eCGz userstatementsummaries"
+# rest of the dashboards will be Admin only. Default wYQy0eCGz (onlinefs), userstatementsummaries, kserve, 4XuMd2Iiz (Kubernetes)
+default['grafana']['dashboard']['viewer_permission'] = "wYQy0eCGz userstatementsummaries kserve 4XuMd2Iiz"
 
 # Default prometheus port is 9090, but we run Karamel on that port.
 default['prometheus']['port']                     = "9089"

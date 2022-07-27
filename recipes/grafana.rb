@@ -16,6 +16,7 @@ end
 
 
 grafana_downloaded = "#{node['grafana']['home']}/.grafana.extracted_#{node['grafana']['version']}"
+grafana_run_permission = "#{node['grafana']['home']}/.grafana.run_permission_#{node['grafana']['version']}"
 # Extract grafana
 bash 'extract_grafana' do
         user "root"
@@ -25,6 +26,8 @@ bash 'extract_grafana' do
                 chmod 750 #{node['grafana']['home']}
                 touch #{grafana_downloaded}
                 chown #{node['hopsmonitor']['user']} #{grafana_downloaded}
+                touch #{grafana_run_permission}
+                chown #{node['hopsmonitor']['user']} #{grafana_run_permission}
 
         EOH
      not_if { ::File.exists?( grafana_downloaded ) }
@@ -201,6 +204,7 @@ end
 
 dashboards_with_viewer_permission = node['grafana']['dashboard']['viewer_permission']
 bash 'set_dashboard_permissions' do
+  user "root"
   code <<-EOH
     FOLDERS=$(curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
                    --request GET \
@@ -221,5 +225,7 @@ bash 'set_dashboard_permissions' do
         --data '{"items": [{ "role": "Viewer", "permission": 1 }]}' \
         #{public_ip}:#{node['grafana']['port']}/api/dashboards/uid/${uid}/permissions
     done
+    rm #{grafana_run_permission}
   EOH
+  only_if { ::File.exists?( grafana_run_permission ) }
 end

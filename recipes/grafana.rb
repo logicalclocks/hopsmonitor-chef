@@ -57,7 +57,7 @@ directory "#{node['grafana']['base_dir']}/data" do
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode "750"
-  action :create_if_missing
+  action :create
 end
 
 directory "#{node['grafana']['base_dir']}/logs" do

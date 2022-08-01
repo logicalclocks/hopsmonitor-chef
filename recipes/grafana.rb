@@ -204,28 +204,31 @@ end
 
 #chef_sleep '10' ? if grafana is not up yet
 dashboards_with_viewer_permission = node['grafana']['dashboard']['viewer_permission']
+cmd = "
+FOLDERS=$(curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
+--request GET \
+#{public_ip}:#{node['grafana']['port']}/api/folders | jq -r .[].uid)
+
+for uid in ${FOLDERS}; do
+curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
+--header "Content-Type: application/json" \
+--request POST \
+--data '{"items": []}'\
+#{public_ip}:#{node['grafana']['port']}/api/folders/${uid}/permissions
+done
+
+for uid in #{dashboards_with_viewer_permission}; do
+curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
+--header "Content-Type: application/json" \
+--request POST \
+--data '{"items": [{ "role": "Viewer", "permission": 1 }]}' \
+#{public_ip}:#{node['grafana']['port']}/api/dashboards/uid/${uid}/permissions
+done
+"
 bash 'set_dashboard_permissions' do
   user "root"
   code <<-EOH
-    FOLDERS=$(curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
-                   --request GET \
-                   #{public_ip}:#{node['grafana']['port']}/api/folders | jq -r .[].uid)
-
-    for uid in ${FOLDERS}; do
-      curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
-        --header "Content-Type: application/json" \
-        --request POST \
-        --data '{"items": []}'\
-        #{public_ip}:#{node['grafana']['port']}/api/folders/${uid}/permissions
-    done
-
-    for uid in #{dashboards_with_viewer_permission}; do
-      curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
-        --header "Content-Type: application/json" \
-        --request POST \
-        --data '{"items": [{ "role": "Viewer", "permission": 1 }]}' \
-        #{public_ip}:#{node['grafana']['port']}/api/dashboards/uid/${uid}/permissions
-    done
+    #{cmd} &> "#{grafana_run_permission}_results"
     rm #{grafana_run_permission}
     touch "#{grafana_run_permission}_done"
   EOH

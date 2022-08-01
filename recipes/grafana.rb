@@ -212,7 +212,7 @@ for uid in ${FOLDERS}; do
 curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
 --header 'Content-Type: application/json' \
 --request POST \
---data '{\"items\": []}'\
+--data '{\"items\": []}' \
 #{public_ip}:#{node['grafana']['port']}/api/folders/${uid}/permissions
 done
 

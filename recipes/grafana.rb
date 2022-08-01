@@ -228,6 +228,7 @@ bash 'set_dashboard_permissions' do
         #{public_ip}:#{node['grafana']['port']}/api/dashboards/uid/${uid}/permissions
     done
     rm #{grafana_run_permission}
+    touch "#{grafana_run_permission}_done"
   EOH
   only_if { ::File.exists?( grafana_run_permission ) }
 end

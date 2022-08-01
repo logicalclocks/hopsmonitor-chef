@@ -181,7 +181,6 @@ template systemd_script do
     notifies :enable, resources(:service => service_name)
   end
     notifies :restart, resources(:service => service_name)
-  end
 end
 
 kagent_config "#{service_name}" do

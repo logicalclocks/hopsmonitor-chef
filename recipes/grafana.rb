@@ -227,8 +227,11 @@ done"
 bash 'set_dashboard_permissions' do
   user "root"
   code <<-EOH
+    set -e
     #{cmd} &> "#{grafana_run_permission}_results"
     rm #{grafana_run_permission}
   EOH
+  retries 5
+  retry_delay 10
   only_if { ::File.exists?( grafana_run_permission ) }
 end

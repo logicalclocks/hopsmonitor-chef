@@ -177,10 +177,11 @@ template systemd_script do
   group "root"
   mode 0754
 
-if node['services']['enabled'] == "true"
-  notifies :enable, resources(:service => service_name)
-end
-  notifies :restart, resources(:service => service_name)
+  if node['services']['enabled'] == "true"
+    notifies :enable, resources(:service => service_name)
+  end
+    notifies :restart, resources(:service => service_name)
+  end
 end
 
 kagent_config "#{service_name}" do
@@ -202,6 +203,7 @@ if service_discovery_enabled()
   end
 end 
 
+#chef_sleep '10' ? if grafana is not up yet
 dashboards_with_viewer_permission = node['grafana']['dashboard']['viewer_permission']
 bash 'set_dashboard_permissions' do
   user "root"

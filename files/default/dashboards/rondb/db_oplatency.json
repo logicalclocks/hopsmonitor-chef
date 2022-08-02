@@ -68,7 +68,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "This is the latency from start to finish, includes communication with API",
       "fill": 1,
@@ -109,7 +109,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (upperBound) (rate(ndb_ndbinfo_tc_time_track_transactions{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
@@ -155,7 +155,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "This is the latency from start of table/range scan to finish",
       "fill": 1,
@@ -196,7 +196,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (upperBound) (rate(ndb_ndbinfo_tc_time_track_scans{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
@@ -242,7 +242,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "This is the latency for a read key operation",
       "fill": 1,
@@ -283,7 +283,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (upperBound) (rate(ndb_ndbinfo_tc_time_track_read_key{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
@@ -329,7 +329,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "This is the latency for a write key operation (doesn't include commit phase)",
       "fill": 1,
@@ -370,7 +370,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (upperBound) (rate(ndb_ndbinfo_tc_time_track_write_key{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
@@ -416,7 +416,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "This is the latency for a index key operation",
       "fill": 1,
@@ -457,7 +457,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (upperBound) (rate(ndb_ndbinfo_tc_time_track_index_key{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
@@ -507,7 +507,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "definition": "label_values(nodeID)",
         "hide": 0,

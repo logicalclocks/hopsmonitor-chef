@@ -68,7 +68,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Checkpoint and REDO logging speed",
       "fill": 1,
@@ -110,7 +110,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum(ndb_ndbinfo_disk_write_speed_lcp{nodeID=\"$nodeID\"})",
           "format": "time_series",
@@ -122,7 +122,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum(ndb_ndbinfo_disk_write_speed_redo{nodeID=\"$nodeID\"})",
           "format": "time_series",
@@ -169,7 +169,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Checkpoint and REDO logging speed",
       "fill": 1,
@@ -211,7 +211,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (threadNO)(ndb_ndbinfo_disk_write_speed_lcp{nodeID=\"$nodeID\"})",
           "format": "time_series",
@@ -223,7 +223,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (threadNO)(ndb_ndbinfo_disk_write_speed_redo{nodeID=\"$nodeID\"})",
           "format": "time_series",
@@ -274,7 +274,7 @@
         "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "definition": "label_values(nodeID)",
         "hide": 0,

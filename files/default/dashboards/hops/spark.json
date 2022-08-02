@@ -97,7 +97,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Latest sample of the value of number of active tasks, summed over all executors active in the selected time filter interval.",
       "fieldConfig": {
@@ -161,7 +161,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (exported_instance) ({__name__=~\".*executor_threadpool_activeTasks\", exported_instance=\"$applicationId\"})",
           "format": "time_series",
@@ -175,7 +175,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Total executor CPU time computed from from executor metrics. Displays CPU time used by all the executors' JVMs. It contains CPU time used for tasks and other activities in the JVM, notably garbage collection.",
       "fieldConfig": {
@@ -240,7 +240,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (exported_instance) ({__name__=~\".*executor_jvmCpuTime\", exported_instance=\"$applicationId\"})",
           "format": "time_series",
@@ -298,7 +298,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Total task CPU usage from task metrics. Displays CPU time used for all the completed tasks, from the task metrics data source. ",
       "fieldConfig": {
@@ -363,7 +363,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (exported_instance) ({__name__=~\".*executor_cpuTime\", exported_instance=\"$applicationId\"})",
           "format": "time_series",
@@ -418,7 +418,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "fieldConfig": {
         "defaults": {
@@ -482,7 +482,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "{__name__=~\".*driver_DAGScheduler_stage_runningStages\", exported_instance=\"$applicationId\"}",
           "format": "time_series",
@@ -532,7 +532,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "fieldConfig": {
         "defaults": {
@@ -596,7 +596,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "{__name__=~\".*driver_DAGScheduler_stage_failedStages\", exported_instance=\"$applicationId\"}",
           "format": "time_series",
@@ -646,7 +646,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "fieldConfig": {
         "defaults": {
@@ -710,7 +710,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "{__name__=~\".*driver_DAGScheduler_stage_waitingStages\", exported_instance=\"$applicationId\"}",
           "format": "time_series",
@@ -760,7 +760,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Bytes read from HDFS. ",
       "fieldConfig": {
@@ -826,7 +826,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (exported_instance) ({__name__=~\".*executor_filesystem_hdfs_read_bytes\", exported_instance=\"$applicationId\"})",
           "format": "time_series",
@@ -882,7 +882,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Bytes written to HDFS",
       "fieldConfig": {
@@ -948,7 +948,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (exported_instance) ({__name__=~\".*executor_filesystem_hdfs_read_bytes\", exported_instance=\"$applicationId\"})",
           "format": "time_series",
@@ -1003,7 +1003,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Total time spent in GC operations during task execution. Displays values for all the completed tasks, from the task metrics data source.",
       "fieldConfig": {
@@ -1068,7 +1068,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (exported_instance) ({__name__=~\".*executor_jvmGCTime\", exported_instance=\"$applicationId\"})",
           "format": "time_series",
@@ -1124,7 +1124,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Number of completed tasks, from JVM threadpool metrics.",
       "fieldConfig": {
@@ -1188,7 +1188,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "sum by (exported_instance) ({__name__=~\".*executor_threadpool_completeTasks\", exported_instance=\"$applicationId\"})",
           "format": "time_series",
@@ -1267,7 +1267,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Number of active tasks per executor\n",
       "fill": 2,
@@ -1314,7 +1314,7 @@
           "alias": "N# active tasks - Executor $tag_process",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "{__name__=~\".*executor_threadpool_activeTasks\", exported_instance=\"$applicationId\"}",
           "format": "time_series",
@@ -1400,7 +1400,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "",
       "fill": 2,
@@ -1445,7 +1445,7 @@
           "alias": "JVM CPU - Executor $tag_process",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "rate({__name__=~\".*executor_jvmCpuTime\", exported_instance=\"$applicationId\"}[30s])",
           "format": "time_series",
@@ -1537,7 +1537,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Time the JVM process has spent in garbage collection (Rate)",
       "fill": 2,
@@ -1582,7 +1582,7 @@
           "alias": "GCTime - Executor $tag_process",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "rate({__name__=~\".*executor_jvmGCTime\", exported_instance=\"$applicationId\"}[30s])",
           "format": "time_series",
@@ -1676,7 +1676,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "Total task CPU utilization computed from task metrics. ",
       "fill": 2,
@@ -1721,7 +1721,7 @@
           "alias": "Task CPU - Executor $tag_process",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "rate({__name__=~\".*executor_cpuTime\", exported_instance=\"$applicationId\"}[30s])",
           "format": "time_series",
@@ -1821,7 +1821,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -1864,7 +1864,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "{__name__=~\".*executor_threadpool_completeTasks\", exported_instance=\"$applicationId\"}",
           "format": "time_series",
@@ -1912,7 +1912,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 2,
       "fillGradient": 0,
@@ -1956,7 +1956,7 @@
           "alias": "run time - Executor $tag_process",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "rate({__name__=~\".*executor_runTime\", exported_instance=\"$applicationId\"}[30s])",
           "format": "time_series",
@@ -2050,7 +2050,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 2,
       "gridPos": {
@@ -2088,7 +2088,7 @@
           "alias": "shuffle write time - Executor $tag_process",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "rate({__name__=~\".*executor_shuffleWriteTime\", exported_instance=\"$applicationId\"}[30s])",
           "format": "time_series",
@@ -2208,7 +2208,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 2,
       "gridPos": {
@@ -2246,7 +2246,7 @@
           "alias": "hdfs bytes read - Executor $tag_process",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "rate({__name__=~\".*executor_filesystem_hdfs_read_bytes\", exported_instance=\"$applicationId\"}[30s])",
           "format": "time_series",
@@ -2340,7 +2340,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 2,
       "gridPos": {
@@ -2378,7 +2378,7 @@
           "alias": "hdfs bytes read - Executor $tag_process",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "rate({__name__=~\".*executor_filesystem_hdfs_write_bytes\", exported_instance=\"$applicationId\"}[30s])",
           "format": "time_series",
@@ -2472,7 +2472,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "description": "",
       "fill": 2,
@@ -2511,7 +2511,7 @@
           "alias": "shuffle Total Bytes Read - Executor $tag_process",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "rate({__name__=~\".*executor_shuffleTotalBytesRead\", exported_instance=\"$applicationId\"}[30s])",
           "format": "time_series",
@@ -2605,7 +2605,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 2,
       "gridPos": {
@@ -2643,7 +2643,7 @@
           "alias": "shuffleBytesWritten - Executor $tag_process",
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "expr": "rate({__name__=~\".*executor_shuffleBytesWritten\", exported_instance=\"$applicationId\"}[30s])",
           "format": "time_series",

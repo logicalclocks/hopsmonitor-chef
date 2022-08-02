@@ -95,7 +95,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fieldConfig": {
           "defaults": {
@@ -159,7 +159,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "airflow_dag_status{instance=\"$airflow\",status=\"running\"}",
             "format": "time_series",
@@ -178,7 +178,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -219,7 +219,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "sum by (status) (rate(airflow_dag_status{instance=\"$airflow\"}[1m]))",
             "format": "time_series",
@@ -266,7 +266,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -309,7 +309,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "sum by (owner) (airflow_dag_status{instance=\"$airflow\", status=\"running\"})",
             "format": "time_series",
@@ -378,7 +378,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fieldConfig": {
           "defaults": {
@@ -442,7 +442,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "sum by (status) (airflow_task_status{instance=\"$airflow\", status=\"running\"})",
             "format": "time_series",
@@ -466,7 +466,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -507,7 +507,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "sum by (status) (rate(airflow_task_status{instance=\"$airflow\"}[1m]))",
             "format": "time_series",
@@ -555,7 +555,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -598,7 +598,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "sum by (owner) (airflow_task_status{instance=\"$airflow\", status=\"running\"})",
             "format": "time_series",
@@ -641,7 +641,7 @@
       {
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fieldConfig": {
           "defaults": {
@@ -705,7 +705,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "sum by (status) (airflow_task_status{instance=\"$airflow\", status=\"queued\"})",
             "format": "time_series",
@@ -751,7 +751,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -792,7 +792,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "process_cpu_seconds_total{instance=\"$airflow\"}",
             "format": "time_series",
@@ -838,7 +838,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -879,7 +879,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "process_virtual_memory_bytes{instance=\"$airflow\"}",
             "format": "time_series",
@@ -890,7 +890,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "process_resident_memory_bytes{instance=\"$airflow\"}",
             "format": "time_series",
@@ -940,7 +940,7 @@
           "current": {},
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "definition": "label_values(airflow_dag_run_duration, instance)",
           "hide": 0,

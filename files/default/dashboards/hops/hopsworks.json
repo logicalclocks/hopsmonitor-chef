@@ -93,7 +93,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -134,7 +134,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "rate(vendor:http_service_server_request_count2xx_count{instance=\"$hopsworks\"}[1m])",
             "format": "time_series",
@@ -145,7 +145,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "rate(vendor:http_service_server_request_count3xx_count{instance=\"$hopsworks\"}[1m])",
             "format": "time_series",
@@ -156,7 +156,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "rate(vendor:http_service_server_request_count4xx_count{instance=\"$hopsworks\"}[1m])",
             "format": "time_series",
@@ -167,7 +167,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "rate(vendor:http_service_server_request_count5xx_count{instance=\"$hopsworks\"}[1m])",
             "format": "time_series",
@@ -213,7 +213,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -254,7 +254,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:http_service_server_request_maxtime_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -265,7 +265,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:http_service_server_request_processingtime_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -311,7 +311,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -352,7 +352,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:network_http_listener_2_connection_queue_countopenconnections_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -363,7 +363,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:network_http_listener_2_connection_queue_countqueued_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -374,7 +374,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:network_http_listener_2_connection_queue_countoverflows_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -420,7 +420,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -461,7 +461,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "rate(vendor:http_service_server_request_countbytesreceived_count{instance=\"$hopsworks\"}[1m])",
             "format": "time_series",
@@ -472,7 +472,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "rate(vendor:http_service_server_request_countbytestransmitted_count{instance=\"$hopsworks\"}[1m])",
             "format": "time_series",
@@ -544,7 +544,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -585,7 +585,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:network_http_listener_2_thread_pool_maxthreads_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -596,7 +596,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:network_http_listener_2_thread_pool_currentthreadcount_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -607,7 +607,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:network_http_listener_2_thread_pool_currentthreadsbusy_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -618,7 +618,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "base:thread_daemon_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -629,7 +629,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "base:thread_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -675,7 +675,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "description": "",
         "fill": 1,
@@ -717,7 +717,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:jvm_memory_usedheapsize_count_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -728,7 +728,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:jvm_memory_usednonheapsize_count_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -739,7 +739,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:jvm_memory_committedheapsize_count_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -750,7 +750,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:jvm_memory_committednonheapsize_count_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -761,7 +761,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:jvm_memory_initheapsize_count_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -772,7 +772,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "vendor:jvm_memory_initnonheapsize_count_count{instance=\"$hopsworks\"}",
             "format": "time_series",
@@ -818,7 +818,7 @@
         "dashes": false,
         "datasource": {
           "type": "prometheus",
-          "uid": "${DS_PROMETHEUS}"
+          "uid": "PBFA97CFB590B2093"
         },
         "fill": 1,
         "fillGradient": 0,
@@ -859,7 +859,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "rate(vendor:jvm_garbage_collectors_ps_mark_sweep_collectiontime_count_count{instance=\"$hopsworks\"}[1m])",
             "format": "time_series",
@@ -870,7 +870,7 @@
           {
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "expr": "rate(vendor:jvm_garbage_collectors_ps_scavenge_collectiontime_count_count{instance=\"$hopsworks\"}[1m])",
             "format": "time_series",
@@ -930,7 +930,7 @@
             "dashes": false,
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "fill": 1,
             "gridPos": {
@@ -966,7 +966,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_hopsworks_pool_averageconnwaittime_count{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -977,7 +977,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_airflow_pool_averageconnwaittime_count{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -988,7 +988,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_ejb_timer_pool_averageconnwaittime_count{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1034,7 +1034,7 @@
             "dashes": false,
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "fill": 1,
             "gridPos": {
@@ -1070,7 +1070,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_hopsworks_pool_numconnfree_current{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1081,7 +1081,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_hopsworks_pool_numconnused_current{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1093,7 +1093,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_airflow_pool_numconnfree_current{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1104,7 +1104,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_airflow_pool_numconnused_current{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1116,7 +1116,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_ejb_timer_pool_numconnfree_current{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1127,7 +1127,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_ejb_timer_pool_numconnused_current{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1139,7 +1139,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_hopsworks_pool_waitqueuelength_count{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1151,7 +1151,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_airflow_pool_waitqueuelength_count{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1163,7 +1163,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:resources_ejb_timer_pool_waitqueuelength_count{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1210,7 +1210,7 @@
             "dashes": false,
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "fill": 1,
             "gridPos": {
@@ -1246,7 +1246,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "rate(vendor:resources_hopsworks_pool_numconncreated_count{instance=\"$hopsworks\"}[1m])",
                 "format": "time_series",
@@ -1257,7 +1257,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "rate(vendor:resources_hopsworks_pool_numconntimedout_count{instance=\"$hopsworks\"}[1m])",
                 "format": "time_series",
@@ -1268,7 +1268,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "rate(vendor:resources_hopsworks_pool_numconndestroyed_count{instance=\"$hopsworks\"}[1m])",
                 "format": "time_series",
@@ -1279,7 +1279,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "rate(vendor:resources_hopsworks_pool_numconnacquired_count{instance=\"$hopsworks\"}[1m])",
                 "format": "time_series",
@@ -1290,7 +1290,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "rate(vendor:resources_hopsworks_pool_numconnfailedvalidation_count{instance=\"$hopsworks\"}[1m])",
                 "format": "time_series",
@@ -1301,7 +1301,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "rate(vendor:resources_hopsworks_pool_numpotentialconnleak_count{instance=\"$hopsworks\"}[1m])",
                 "format": "time_series",
@@ -1374,7 +1374,7 @@
             "dashes": false,
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "fill": 1,
             "gridPos": {
@@ -1410,7 +1410,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:transaction_service_activecount_count{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1456,7 +1456,7 @@
             "dashes": false,
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "fill": 1,
             "gridPos": {
@@ -1492,7 +1492,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "rate(vendor:transaction_service_committedcount_count{instance=\"$hopsworks\"}[1m])",
                 "format": "time_series",
@@ -1503,7 +1503,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "rate(vendor:transaction_service_rolledbackcount_count{instance=\"$hopsworks\"}[1m])",
                 "format": "time_series",
@@ -1549,7 +1549,7 @@
             "dashes": false,
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "fill": 1,
             "gridPos": {
@@ -1585,7 +1585,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:executor_service_concurrent_hops_executor_service_active_count_count{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1596,7 +1596,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "vendor:executor_service_concurrent_hops_executor_service_pool_size_count{instance=\"$hopsworks\"}",
                 "format": "time_series",
@@ -1642,7 +1642,7 @@
             "dashes": false,
             "datasource": {
               "type": "prometheus",
-              "uid": "${DS_PROMETHEUS}"
+              "uid": "PBFA97CFB590B2093"
             },
             "fill": 1,
             "gridPos": {
@@ -1678,7 +1678,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "rate(vendor:executor_service_concurrent_hops_executor_service_task_count_count{instance=\"$hopsworks\"}[1m])",
                 "format": "time_series",
@@ -1689,7 +1689,7 @@
               {
                 "datasource": {
                   "type": "prometheus",
-                  "uid": "${DS_PROMETHEUS}"
+                  "uid": "PBFA97CFB590B2093"
                 },
                 "expr": "rate(vendor:executor_service_concurrent_hops_executor_service_completed_task_count_count{instance=\"$hopsworks\"}[1m])",
                 "format": "time_series",
@@ -1752,7 +1752,7 @@
           "current": {},
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "PBFA97CFB590B2093"
           },
           "definition": "label_values(vendor:http_service_server_request_count2xx_count, instance)",
           "hide": 0,

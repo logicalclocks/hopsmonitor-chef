@@ -2738,10 +2738,7 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "text": "application_1607967931264_0012",
-          "value": "application_1607967931264_0012"
-        },
+        "current": {},
         "hide": 0,
         "label": "applicationId",
         "name": "applicationId",

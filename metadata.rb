@@ -79,7 +79,7 @@ attribute "grafana/port",
           :type => "string"
 
 attribute "grafana/dashboard/viewer_permission",
-          :description => "Space separated list of dashboard uids with viewer permission. Default: 'wYQy0eCGz userstatementsummaries'",
+          :description => "Space separated list of dashboard uids with viewer permission. Default: 'onlineFS user_statement_summaries kserve kubernetes'",
           :type => "string"
 
 #

@@ -9,17 +9,18 @@
       "pluginName": "Prometheus"
     }
   ],
+  "__elements": [],
   "__requires": [
     {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.3.2"
+      "version": "9.0.2"
     },
     {
       "type": "panel",
       "id": "graph",
-      "name": "Graph",
+      "name": "Graph (old)",
       "version": ""
     },
     {
@@ -33,32 +34,44 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "NDB deatiled thread monitoring dashboard",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1606819501775,
+  "iteration": 1659431706827,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percent"
         },
         "overrides": []
@@ -90,7 +103,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -100,6 +113,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\"}[60s])/10000)",
           "format": "time_series",
           "interval": "",
@@ -108,6 +125,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\"}[60s])/10000)\n",
           "format": "time_series",
           "interval": "",
@@ -117,9 +138,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Thread stats",
       "tooltip": {
         "shared": true,
@@ -128,33 +147,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -162,10 +172,12 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percent"
         },
         "overrides": []
@@ -197,7 +209,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -207,6 +219,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"ldm\"}[60s])/10000)",
           "format": "time_series",
           "interval": "",
@@ -215,6 +231,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"ldm\"}[60s])/10000)\n",
           "format": "time_series",
           "interval": "",
@@ -223,6 +243,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"ldm\"}[60s])/10000)+sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"ldm\"}[60s])/10000)",
           "interval": "",
           "legendFormat": "{{threadName}}[{{threadNO}}] Total",
@@ -230,9 +254,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "LDM detailed thread stats",
       "tooltip": {
         "shared": true,
@@ -241,33 +263,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -275,10 +288,12 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percent"
         },
         "overrides": []
@@ -310,7 +325,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -320,6 +335,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"recv\"}[60s])/10000)",
           "format": "time_series",
           "interval": "",
@@ -328,6 +347,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"recv\"}[60s])/10000)\n",
           "format": "time_series",
           "interval": "",
@@ -336,6 +359,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"recv\"}[60s])/10000)+sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"recv\"}[60s])/10000)",
           "interval": "",
           "legendFormat": "{{threadName}}[{{threadNO}}] Total",
@@ -343,9 +370,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "recv detailed thread stats",
       "tooltip": {
         "shared": true,
@@ -354,33 +379,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -388,10 +404,12 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percent"
         },
         "overrides": []
@@ -423,7 +441,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -433,6 +451,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"tc\"}[60s])/10000)",
           "format": "time_series",
           "interval": "",
@@ -441,6 +463,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"tc\"}[60s])/10000)\n",
           "format": "time_series",
           "interval": "",
@@ -449,6 +475,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"tc\"}[60s])/10000)+sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"tc\"}[60s])/10000)",
           "interval": "",
           "legendFormat": "{{threadName}}[{{threadNO}}] Total",
@@ -456,9 +486,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "TC thread stats",
       "tooltip": {
         "shared": true,
@@ -467,33 +495,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -501,10 +520,12 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percent"
         },
         "overrides": []
@@ -536,7 +557,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -546,6 +567,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"rep\"}[60s])/10000)",
           "format": "time_series",
           "interval": "",
@@ -554,6 +579,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"rep\"}[60s])/10000)\n",
           "format": "time_series",
           "interval": "",
@@ -562,6 +591,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"rep\"}[60s])/10000)+sum by (threadName)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"rep\"}[60s])/10000)",
           "interval": "",
           "legendFormat": "{{threadName}} Total",
@@ -569,9 +602,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "rep thread stats",
       "tooltip": {
         "shared": true,
@@ -580,33 +611,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -614,10 +636,12 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percent"
         },
         "overrides": []
@@ -649,7 +673,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -659,6 +683,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"main\"}[60s])/10000)",
           "format": "time_series",
           "interval": "",
@@ -667,6 +695,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"main\"}[60s])/10000)\n",
           "format": "time_series",
           "interval": "",
@@ -675,6 +707,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"main\"}[60s])/10000)+sum by (threadName)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"main\"}[60s])/10000)",
           "interval": "",
           "legendFormat": "{{threadName}} Total",
@@ -682,9 +718,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "main thread stats",
       "tooltip": {
         "shared": true,
@@ -693,33 +727,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -727,10 +752,12 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percent"
         },
         "overrides": []
@@ -762,7 +789,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -772,6 +799,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,theadNO)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"send\"}[60s])/10000)",
           "format": "time_series",
           "interval": "",
@@ -780,6 +811,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,theadNO)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"send\"}[60s])/10000)\n",
           "format": "time_series",
           "interval": "",
@@ -788,6 +823,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_system_time{nodeID=\"$nodeID\",threadName=\"send\"}[60s])/10000)+sum by (threadName,threadNO)(rate(ndb_ndbinfo_threadstat_user_time{nodeID=\"$nodeID\",threadName=\"send\"}[60s])/10000)",
           "interval": "",
           "legendFormat": "{{threadName}}[{{threadNO}}] Total",
@@ -795,9 +834,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "send thread stats",
       "tooltip": {
         "shared": true,
@@ -806,61 +843,55 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 26,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {},
-        "datasource": "Prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
         "definition": "label_values(nodeID)",
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Node ID",
         "multi": false,
         "name": "nodeID",
         "options": [],
-        "query": "label_values(nodeID)",
+        "query": {
+          "query": "label_values(nodeID)",
+          "refId": "Prometheus-nodeID-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 3,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -899,5 +930,6 @@
   "timezone": "",
   "title": "Database Detailed Thread Activity",
   "uid": "ndb_detailed_threads",
-  "version": 2
+  "version": 2,
+  "weekStart": ""
 }

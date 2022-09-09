@@ -9,17 +9,18 @@
       "pluginName": "Prometheus"
     }
   ],
+  "__elements": [],
   "__requires": [
     {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.3.2"
+      "version": "9.0.2"
     },
     {
       "type": "panel",
       "id": "graph",
-      "name": "Graph",
+      "name": "Graph (old)",
       "version": ""
     },
     {
@@ -33,53 +34,43 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "NDB disk operations latency monitoring dashboard",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1606819665740,
+  "iteration": 1659431721891,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
+      "description": "",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -106,7 +97,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -116,6 +107,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (upperBound) (rate(ndb_ndbinfo_pgman_time_track_page_reads{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "interval": "",
@@ -124,9 +119,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Disk page read latency",
       "tooltip": {
         "shared": true,
@@ -135,33 +128,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -169,31 +153,11 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
+      "description": "",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -220,7 +184,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -230,6 +194,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (upperBound) (rate(ndb_ndbinfo_pgman_time_track_page_writes{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "interval": "",
@@ -238,9 +206,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Disk page write latency",
       "tooltip": {
         "shared": true,
@@ -249,33 +215,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -283,31 +240,11 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
+      "description": "",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -334,7 +271,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -344,6 +281,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (upperBound) (rate(ndb_ndbinfo_pgman_time_track_get_page{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "interval": "",
@@ -352,9 +293,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "get_page latency",
       "tooltip": {
         "shared": true,
@@ -363,33 +302,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -397,31 +327,11 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": null,
-            "filterable": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
+      "description": "",
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -448,7 +358,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -458,6 +368,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (upperBound) (rate(ndb_ndbinfo_pgman_time_track_log_waits{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "interval": "",
@@ -466,9 +380,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "UNDO log wait latency",
       "tooltip": {
         "shared": true,
@@ -477,61 +389,55 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 26,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {},
-        "datasource": "Prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
         "definition": "label_values(nodeID)",
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Node ID",
         "multi": false,
         "name": "nodeID",
         "options": [],
-        "query": "label_values(nodeID)",
+        "query": {
+          "query": "label_values(nodeID)",
+          "refId": "Prometheus-nodeID-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 3,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -570,5 +476,6 @@
   "timezone": "",
   "title": "Database Disk Operation Latency",
   "uid": "ndb_disk_latency",
-  "version": 2
+  "version": 2,
+  "weekStart": ""
 }

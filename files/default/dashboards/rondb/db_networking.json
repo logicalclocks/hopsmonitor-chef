@@ -9,17 +9,18 @@
       "pluginName": "Prometheus"
     }
   ],
+  "__elements": [],
   "__requires": [
     {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.3.2"
+      "version": "9.0.2"
     },
     {
       "type": "panel",
       "id": "graph",
-      "name": "Graph",
+      "name": "Graph (old)",
       "version": ""
     },
     {
@@ -39,34 +40,41 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "NDB network monitoring dashboard",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1606820895865,
+  "iteration": 1659431761930,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -95,7 +103,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -105,6 +113,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (nodeID) (rate(ndb_ndbinfo_transporters_bytes_received{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "interval": "",
@@ -113,6 +125,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (nodeID) (rate(ndb_ndbinfo_transporters_bytes_sent{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "interval": "",
@@ -122,9 +138,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Network",
       "tooltip": {
         "shared": true,
@@ -133,33 +147,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "decbytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -167,12 +172,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -201,7 +203,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -211,6 +213,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (nodeID, remoteNodeID) (rate(ndb_ndbinfo_transporters_bytes_received{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "interval": "",
@@ -219,6 +225,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (nodeID, remoteNodeID) (rate(ndb_ndbinfo_transporters_bytes_sent{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "interval": "",
@@ -228,9 +238,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Network",
       "tooltip": {
         "shared": true,
@@ -239,33 +247,24 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "decbytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -275,14 +274,11 @@
           "value": "current"
         }
       ],
-      "datasource": "Prometheus",
-      "description": "Transporter is using >60% of send buffer",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
+      "description": "Transporter is using >60% of send buffer",
       "fontSize": "100%",
       "gridPos": {
         "h": 7,
@@ -292,7 +288,6 @@
       },
       "id": 26,
       "links": [],
-      "pageSize": null,
       "scroll": true,
       "showHeader": true,
       "sort": {
@@ -327,6 +322,10 @@
       ],
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "ndb_ndbinfo_transporters_slowdown{nodeID=\"$nodeID\"}",
           "format": "time_series",
           "instant": true,
@@ -336,8 +335,6 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Slowdown transporters",
       "transform": "timeseries_aggregations",
       "type": "table-old"
@@ -349,14 +346,11 @@
           "value": "current"
         }
       ],
-      "datasource": "Prometheus",
-      "description": "Transporter is using >80% of send buffer",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
+      "description": "Transporter is using >80% of send buffer",
       "fontSize": "100%",
       "gridPos": {
         "h": 7,
@@ -366,7 +360,6 @@
       },
       "id": 27,
       "links": [],
-      "pageSize": null,
       "scroll": true,
       "showHeader": true,
       "sort": {
@@ -401,6 +394,10 @@
       ],
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "ndb_ndbinfo_transporters_overloaded{nodeID=\"$nodeID\"}",
           "format": "time_series",
           "instant": true,
@@ -410,38 +407,39 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Overloaded  transporters",
       "transform": "timeseries_aggregations",
       "type": "table-old"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 26,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {},
-        "datasource": "Prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
         "definition": "label_values(nodeID)",
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Node ID",
         "multi": false,
         "name": "nodeID",
         "options": [],
-        "query": "label_values(nodeID)",
+        "query": {
+          "query": "label_values(nodeID)",
+          "refId": "Prometheus-nodeID-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 3,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -480,5 +478,6 @@
   "timezone": "",
   "title": "Database Networking",
   "uid": "ndb_networking",
-  "version": 4
+  "version": 2,
+  "weekStart": ""
 }

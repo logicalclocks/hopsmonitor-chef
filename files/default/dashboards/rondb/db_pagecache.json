@@ -9,6 +9,7 @@
       "pluginName": "Prometheus"
     }
   ],
+  "__elements": [],
   "__requires": [
     {
       "type": "panel",
@@ -20,12 +21,12 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.3.2"
+      "version": "9.0.2"
     },
     {
       "type": "panel",
       "id": "graph",
-      "name": "Graph",
+      "name": "Graph (old)",
       "version": ""
     },
     {
@@ -39,32 +40,43 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "NDB page cache monitoring dashboard",
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1606821245199,
+  "iteration": 1659431796837,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "decimals": 2,
           "mappings": [],
           "max": 100,
@@ -112,9 +124,13 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "100 * (1 + sum (rate(ndb_ndbinfo_diskpagebuffer_direct_return{nodeID=\"$nodeID\"}[60s]))) / (1 + (sum (rate(ndb_ndbinfo_diskpagebuffer_direct_return{nodeID=\"$nodeID\"}[60s])) + sum(rate(ndb_ndbinfo_diskpagebuffer_wait_io{nodeID=\"$nodeID\"}[60s]))))",
           "format": "time_series",
           "instant": true,
@@ -124,20 +140,19 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Disk Page Cache hit ratio",
       "type": "gauge"
     },
     {
-      "cacheTimeout": null,
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "decimals": 2,
           "mappings": [],
           "max": 100,
@@ -185,9 +200,13 @@
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "100 * (1 + sum by (threadNO) (rate(ndb_ndbinfo_diskpagebuffer_direct_return{nodeID=\"$nodeID\"}[60s]))) / (1 + (sum by (threadNO) (rate(ndb_ndbinfo_diskpagebuffer_direct_return{nodeID=\"$nodeID\"}[60s])) + sum by (threadNO) (rate(ndb_ndbinfo_diskpagebuffer_wait_io{nodeID=\"$nodeID\"}[60s]))))",
           "format": "time_series",
           "instant": true,
@@ -197,49 +216,17 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Disk Page Cache hit ratio",
       "type": "gauge"
     },
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {},
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "index": 0,
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "index": 1,
-                "value": 95
-              },
-              {
-                "color": "green",
-                "index": 2,
-                "value": 98
-              }
-            ]
-          }
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -268,7 +255,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -278,6 +265,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum (rate(ndb_ndbinfo_diskpagebuffer_direct_return{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "instant": false,
@@ -287,12 +278,20 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum (rate(ndb_ndbinfo_diskpagebuffer_wait_io{nodeID=\"$nodeID\"}[60s]))",
           "interval": "",
           "legendFormat": "PageCache Misses ",
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum (rate(ndb_ndbinfo_diskpagebuffer_wait_queue{nodeID=\"$nodeID\"}[60s]))",
           "interval": "",
           "legendFormat": "PageCache Waits ",
@@ -300,9 +299,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Disk Page Cache stats",
       "tooltip": {
         "shared": true,
@@ -311,73 +308,34 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {},
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "index": 0,
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "index": 1,
-                "value": 95
-              },
-              {
-                "color": "green",
-                "index": 2,
-                "value": 98
-              }
-            ]
-          }
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -406,7 +364,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -416,6 +374,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadNO) (rate(ndb_ndbinfo_diskpagebuffer_direct_return{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "instant": false,
@@ -425,12 +387,20 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadNO) (rate(ndb_ndbinfo_diskpagebuffer_wait_io{nodeID=\"$nodeID\"}[60s]))",
           "interval": "",
           "legendFormat": "PageCache Misses[{{threadNO}}] ",
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadNO) (rate(ndb_ndbinfo_diskpagebuffer_wait_queue{nodeID=\"$nodeID\"}[60s]))",
           "interval": "",
           "legendFormat": "PageCache Waits[{{threadNO}}] ",
@@ -438,9 +408,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Disk Page Cache detailed stats, for LDM threads starting at id=1, last id is extent pages",
       "tooltip": {
         "shared": true,
@@ -449,73 +417,34 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {},
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "index": 0,
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "index": 1,
-                "value": 95
-              },
-              {
-                "color": "green",
-                "index": 2,
-                "value": 98
-              }
-            ]
-          }
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -544,7 +473,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -554,6 +483,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum (rate(ndb_ndbinfo_diskpagebuffer_pages_written{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "instant": false,
@@ -563,18 +496,30 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum (rate(ndb_ndbinfo_diskpagebuffer_pages_written_lcp{nodeID=\"$nodeID\"}[60s]))",
           "interval": "",
           "legendFormat": "Page Writes in LCP ",
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum (rate(ndb_ndbinfo_diskpagebuffer_wait_queue{nodeID=\"$nodeID\"}[60s]))",
           "interval": "",
           "legendFormat": "Page Reads",
           "refId": "C"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum (rate(ndb_ndbinfo_diskpagebuffer_log_waits{nodeID=\"$nodeID\"}[60s]))",
           "interval": "",
           "legendFormat": "Log waits",
@@ -582,9 +527,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Disk Page RW stats",
       "tooltip": {
         "shared": true,
@@ -593,73 +536,34 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "aliasColors": {},
       "bars": false,
-      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {},
-          "mappings": [],
-          "max": 100,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "red",
-                "index": 0,
-                "value": null
-              },
-              {
-                "color": "yellow",
-                "index": 1,
-                "value": 95
-              },
-              {
-                "color": "green",
-                "index": 2,
-                "value": 98
-              }
-            ]
-          }
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -688,7 +592,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.3.2",
+      "pluginVersion": "9.0.2",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -698,6 +602,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadNO) (rate(ndb_ndbinfo_diskpagebuffer_pages_written{nodeID=\"$nodeID\"}[60s]))",
           "format": "time_series",
           "instant": false,
@@ -707,18 +615,30 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadNO) (rate(ndb_ndbinfo_diskpagebuffer_pages_written_lcp{nodeID=\"$nodeID\"}[60s]))",
           "interval": "",
           "legendFormat": "Page Writes in LCP[{{threadNO}}] ",
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadNO) (rate(ndb_ndbinfo_diskpagebuffer_wait_queue{nodeID=\"$nodeID\"}[60s]))",
           "interval": "",
           "legendFormat": "Page Reads[{{threadNO}}] ",
           "refId": "C"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "sum by (threadNO) (rate(ndb_ndbinfo_diskpagebuffer_log_waits{nodeID=\"$nodeID\"}[60s]))",
           "interval": "",
           "legendFormat": "Log waits[{{threadNO}}]",
@@ -726,9 +646,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Disk Page RW detailed stats",
       "tooltip": {
         "shared": true,
@@ -737,61 +655,55 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
       "yaxes": [
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 26,
+  "schemaVersion": 36,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": null,
         "current": {},
-        "datasource": "Prometheus",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
         "definition": "label_values(nodeID)",
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Node ID",
         "multi": false,
         "name": "nodeID",
         "options": [],
-        "query": "label_values(nodeID)",
+        "query": {
+          "query": "label_values(nodeID)",
+          "refId": "Prometheus-nodeID-Variable-Query"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 3,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -830,5 +742,6 @@
   "timezone": "",
   "title": "Database Page Cache",
   "uid": "ndb_page_cache",
-  "version": 3
+  "version": 2,
+  "weekStart": ""
 }

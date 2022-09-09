@@ -16,6 +16,7 @@ end
 
 
 grafana_downloaded = "#{node['grafana']['home']}/.grafana.extracted_#{node['grafana']['version']}"
+grafana_run_permission = "#{node['grafana']['home']}/.grafana.run_permission_#{node['grafana']['version']}"
 # Extract grafana
 bash 'extract_grafana' do
         user "root"
@@ -25,6 +26,8 @@ bash 'extract_grafana' do
                 chmod 750 #{node['grafana']['home']}
                 touch #{grafana_downloaded}
                 chown #{node['hopsmonitor']['user']} #{grafana_downloaded}
+                touch #{grafana_run_permission}
+                chown #{node['hopsmonitor']['user']} #{grafana_run_permission}
 
         EOH
      not_if { ::File.exists?( grafana_downloaded ) }
@@ -174,9 +177,9 @@ template systemd_script do
   group "root"
   mode 0754
 
-if node['services']['enabled'] == "true"
-  notifies :enable, resources(:service => service_name)
-end
+  if node['services']['enabled'] == "true"
+    notifies :enable, resources(:service => service_name)
+  end
   notifies :restart, resources(:service => service_name)
 end
 
@@ -198,3 +201,37 @@ if service_discovery_enabled()
     action :register
   end
 end 
+
+#chef_sleep '10' ? if grafana is not up yet
+dashboards_with_viewer_permission = node['grafana']['dashboard']['viewer_permission']
+cmd = "FOLDERS=$(curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
+--request GET \
+#{public_ip}:#{node['grafana']['port']}/api/folders | jq -r .[].uid)
+
+for uid in ${FOLDERS}; do
+curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
+--header 'Content-Type: application/json' \
+--request POST \
+--data '{\"items\": []}' \
+#{public_ip}:#{node['grafana']['port']}/api/folders/${uid}/permissions
+done
+
+for uid in #{dashboards_with_viewer_permission}; do
+curl -u #{node['grafana']['admin_user']}:#{node['grafana']['admin_password']} \
+--header 'Content-Type: application/json' \
+--request POST \
+--data '{\"items\": [{ \"role\": \"Viewer\", \"permission\": 1 }]}' \
+#{public_ip}:#{node['grafana']['port']}/api/dashboards/uid/${uid}/permissions
+done"
+
+bash 'set_dashboard_permissions' do
+  user "root"
+  code <<-EOH
+    set -e
+    #{cmd} &>> "#{grafana_run_permission}_results"
+    rm #{grafana_run_permission}
+  EOH
+  retries 5
+  retry_delay 10
+  only_if { ::File.exists?( grafana_run_permission ) }
+end

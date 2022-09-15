@@ -359,9 +359,19 @@ scrape_configs:
   <% end -%>
   <% if node['install']['kubernetes'] == 'false' -%>
   - job_name: 'cadvisor'
-    scrape_interval: 15s
-    static_configs:
-      - targets: ['localhost:<%= node['hops']['cadvisor']['port'] %>']
+    scrape_interval:     10s
+    consul_sd_configs:
+      - server: localhost:<%= node['consul']['http_api_port'] %>
+        scheme: https
+        datacenter: lc
+        tls_config:
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
+          insecure_skip_verify: true
+
+        services: ['cadvisor']
+        tags: ['cadvisor']
   <% end -%>
 <% if @managed_cloud -%>
 remote_write:

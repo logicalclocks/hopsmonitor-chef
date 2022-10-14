@@ -2,7 +2,7 @@ groups:
 - name: Hopsworks 
   rules:
   - alert: HopsworksDown 
-    expr: absent(vendor:http_service_server_request_count2xx_count) > 0
+    expr: absent(vendor_http_service_server_request_count2xx_count) > 0
     for: 1m
     labels:
       type: system-alert

@@ -1631,7 +1631,7 @@
           "expr": "vendor_executorService_concurrent_hopsExecutorService_ActiveCount_count{instance=\"$hopsworks\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Active threads",
+          "legendFormat": "Hops active threads",
           "refId": "A"
         },
         {
@@ -1642,13 +1642,13 @@
           "expr": "vendor_executorService_concurrent_hopsExecutorService_PoolSize_count{instance=\"$hopsworks\"}",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Pool size",
+          "legendFormat": "Hops pool size",
           "refId": "B"
         }
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Managed executor",
+      "title": "Managed executor pools",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1747,6 +1747,104 @@
       "thresholds": [],
       "timeRegions": [],
       "title": "Managed executor - rates",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "mode": "time",
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 60
+      },
+      "hiddenSeries": false,
+      "id": 27,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "9.0.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "vendor:executor_service_concurrent_jupyter_executor_service_active_count_count{instance=\"$hopsworks\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Jupyter Active threads",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "expr": "vendor:executor_service_concurrent_jupyter_executor_service_pool_size_count{instance=\"$hopsworks\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "Jupyter Pool size",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeRegions": [],
+      "title": "Jupyter managed executor pools",
       "tooltip": {
         "shared": true,
         "sort": 0,

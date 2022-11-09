@@ -1380,14 +1380,14 @@
                             "expr": "vendor:executor_service_concurrent_hops_executor_service_active_count_count{instance=\"$hopsworks\"}",
                             "format": "time_series",
                             "intervalFactor": 1,
-                            "legendFormat": "Active threads",
+                            "legendFormat": "Hops active threads",
                             "refId": "A"
                         },
                         {
                             "expr": "vendor:executor_service_concurrent_hops_executor_service_pool_size_count{instance=\"$hopsworks\"}",
                             "format": "time_series",
                             "intervalFactor": 1,
-                            "legendFormat": "Pool size",
+                            "legendFormat": "Hops pool size",
                             "refId": "B"
                         }
                     ],
@@ -1395,7 +1395,7 @@
                     "timeFrom": null,
                     "timeRegions": [],
                     "timeShift": null,
-                    "title": "Managed executor",
+                    "title": "Managed executor pools",
                     "tooltip": {
                         "shared": true,
                         "sort": 0,
@@ -1489,6 +1489,99 @@
                     "timeRegions": [],
                     "timeShift": null,
                     "title": "Managed executor - rates",
+                    "tooltip": {
+                        "shared": true,
+                        "sort": 0,
+                        "value_type": "individual"
+                    },
+                    "type": "graph",
+                    "xaxis": {
+                        "buckets": null,
+                        "mode": "time",
+                        "name": null,
+                        "show": true,
+                        "values": []
+                    },
+                    "yaxes": [
+                        {
+                            "format": "short",
+                            "label": null,
+                            "logBase": 1,
+                            "max": null,
+                            "min": null,
+                            "show": true
+                        },
+                        {
+                            "format": "short",
+                            "label": null,
+                            "logBase": 1,
+                            "max": null,
+                            "min": null,
+                            "show": true
+                        }
+                    ],
+                    "yaxis": {
+                        "align": false,
+                        "alignLevel": null
+                    }
+                },
+                {
+                    "aliasColors": {},
+                    "bars": false,
+                    "dashLength": 10,
+                    "dashes": false,
+                    "datasource": "Prometheus",
+                    "fill": 1,
+                    "gridPos": {
+                        "h": 8,
+                        "w": 12,
+                        "x": 0,
+                        "y": 36
+                    },
+                    "id": 27,
+                    "legend": {
+                        "avg": false,
+                        "current": false,
+                        "max": false,
+                        "min": false,
+                        "show": true,
+                        "total": false,
+                        "values": false
+                    },
+                    "lines": true,
+                    "linewidth": 1,
+                    "links": [],
+                    "nullPointMode": "null",
+                    "options": {},
+                    "percentage": false,
+                    "pointradius": 2,
+                    "points": false,
+                    "renderer": "flot",
+                    "seriesOverrides": [],
+                    "spaceLength": 10,
+                    "stack": false,
+                    "steppedLine": false,
+                    "targets": [
+                        {
+                            "expr": "vendor:executor_service_concurrent_jupyter_executor_service_active_count_count{instance=\"$hopsworks\"}",
+                            "format": "time_series",
+                            "intervalFactor": 1,
+                            "legendFormat": "Jupyter Active threads",
+                            "refId": "A"
+                        },
+                        {
+                            "expr": "vendor:executor_service_concurrent_jupyter_executor_service_pool_size_count{instance=\"$hopsworks\"}",
+                            "format": "time_series",
+                            "intervalFactor": 1,
+                            "legendFormat": "Jupyter Pool size",
+                            "refId": "B"
+                        }
+                    ],
+                    "thresholds": [],
+                    "timeFrom": null,
+                    "timeRegions": [],
+                    "timeShift": null,
+                    "title": "Jupyter Managed executor",
                     "tooltip": {
                         "shared": true,
                         "sort": 0,

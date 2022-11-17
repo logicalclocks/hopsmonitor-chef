@@ -1789,10 +1789,10 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 60
+        "y": 68
       },
       "hiddenSeries": false,
-      "id": 27,
+      "id": 28,
       "legend": {
         "avg": false,
         "current": false,
@@ -1824,7 +1824,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "vendor:executor_service_concurrent_jupyter_executor_service_active_count_count{instance=\"$hopsworks\"}",
+          "expr": "vendor_executorService_concurrent_jupyterExecutorService_ActiveCount_count{instance=\"$hopsworks\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Jupyter Active threads",
@@ -1835,7 +1835,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "vendor:executor_service_concurrent_jupyter_executor_service_pool_size_count{instance=\"$hopsworks\"}",
+          "expr": "vendor_executorService_concurrent_jupyterExecutorService_PoolSize_count{instance=\"$hopsworks\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Jupyter Pool size",

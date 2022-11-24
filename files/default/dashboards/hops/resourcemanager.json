@@ -1471,7 +1471,7 @@
           "type": "prometheus",
           "uid": "PBFA97CFB590B2093"
         },
-        "definition": "label_values(resourcemanager_ClusterMetrics_num_active_nms, instance)",
+        "definition": "label_values(resourcemanager_queue_apps_submitted, instance)",
         "hide": 0,
         "includeAll": false,
         "label": "Resource Manager",
@@ -1479,7 +1479,7 @@
         "name": "rm",
         "options": [],
         "query": {
-          "query": "label_values(resourcemanager_ClusterMetrics_num_active_nms, instance)",
+          "query": "label_values(resourcemanager_queue_apps_submitted, instance)",
           "refId": "Prometheus-rm-Variable-Query"
         },
         "refresh": 1,

@@ -128,6 +128,7 @@ end
 if service_discovery_enabled()
   consul_service "Registering node exporter with Consul" do
     service_definition "node-exporter-consul.hcl.erb"
+    reload_consul !is_managed_cloud()
     action :register
   end
 end 

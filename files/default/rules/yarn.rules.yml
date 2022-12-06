@@ -9,3 +9,11 @@ groups:
     annotations:
       summary: "There are unhealthy Yarn Node Managers"
       description: "There are {{ $value }} unhealthy Yarn Node Managers\n Check the Yarn Admin UI for more information"
+  - alert: ResourceManagerDown
+    expr: absent(resourcemanager_queue_active_applications) > 0
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "The ResourceManager is unresponsive"
+      description: "The ResourceManager is not reporting metrics"

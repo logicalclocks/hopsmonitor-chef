@@ -46,4 +46,11 @@ groups:
       summary: "Out of HopsFS storage"
       description: "HopsFS Storage (< 20% left)\n  VALUE = {{ $value }}"
 
-
+  - alert: HopsFSNamenodeDown
+    expr: absent(namenode_FSNamesystemState_capacity_used) > 0
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "HopsFS Namenode is unresponsive"
+      description: "HopsFS Namenode is not reporting metrics"

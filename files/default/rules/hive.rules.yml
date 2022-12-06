@@ -2,7 +2,7 @@ groups:
 - name: Hive 
   rules:
   - alert: HiveServer2Down 
-    expr: absent(hs2_hs2_completed_sql_operation_CLOSED) > 0
+    expr: absent(hs2_hs2_active_sessions) > 0
     for: 1m
     labels:
       type: system-alert
@@ -11,7 +11,7 @@ groups:
       description: "Hive server 2 is not reporting metrics" 
 
   - alert: HiveMetastoreDown 
-    expr: absent(hm_active_calls_get_databases) > 0
+    expr: absent(hm_open_connections) > 0
     for: 1m
     labels:
       type: system-alert

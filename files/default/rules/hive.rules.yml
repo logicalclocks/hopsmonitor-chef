@@ -7,8 +7,8 @@ groups:
     labels:
       type: system-alert
     annotations:
-      summary: "Hive server 2 is unresponsive"
-      description: "Hive server 2 is not reporting metrics" 
+      summary: "Hive servers are unresponsive"
+      description: "Hive servers are not reporting metrics" 
 
   - alert: HiveMetastoreDown 
     expr: absent(hm_open_connections) > 0
@@ -16,5 +16,5 @@ groups:
     labels:
       type: system-alert
     annotations:
-      summary: "Hive metasetore is unresponsive"
-      description: "Hive metastore is not reporting metrics"
+      summary: "Hive metasetores are unresponsive"
+      description: "Hive metastores are not reporting metrics"

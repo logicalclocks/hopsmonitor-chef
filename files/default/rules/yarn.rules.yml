@@ -15,5 +15,5 @@ groups:
     labels:
       type: system-alert
     annotations:
-      summary: "The ResourceManager is unresponsive"
-      description: "The ResourceManager is not reporting metrics"
+      summary: "The ResourceManagers are unresponsive"
+      description: "The ResourceManagers are not reporting metrics"

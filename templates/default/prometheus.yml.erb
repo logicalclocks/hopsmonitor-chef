@@ -4,7 +4,7 @@ global:
   # scrape_timeout is set to the global default (10s).
   <% if @managed_cloud -%>
   external_labels:
-    cluster: INSTANCE_ID
+    cloud_cluster_id: INSTANCE_ID
   <% end -%>
 alerting:
   alertmanagers:

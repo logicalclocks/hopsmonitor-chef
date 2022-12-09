@@ -110,7 +110,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "rate(vendor:http_service_server_request_count2xx_count[1m])",
+          "expr": "rate(vendor_http_service_server_request_count2xx_count[1m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "2xx",
@@ -121,7 +121,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "rate(vendor:http_service_server_request_count3xx_count[1m])",
+          "expr": "rate(vendor_http_service_server_request_count3xx_count[1m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "3xx",
@@ -132,7 +132,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "rate(vendor:http_service_server_request_count4xx_count[1m])",
+          "expr": "rate(vendor_http_service_server_request_count4xx_count[1m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "4xx",
@@ -143,7 +143,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "rate(vendor:http_service_server_request_count5xx_count[1m])",
+          "expr": "rate(vendor_http_service_server_request_count5xx_count[1m])",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "5xx",
@@ -1566,8 +1566,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1658,8 +1657,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1750,8 +1748,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1842,8 +1839,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "transparent",
-                "value": null
+                "color": "transparent"
               },
               {
                 "color": "red",
@@ -1935,8 +1931,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2053,8 +2048,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2145,8 +2139,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "transparent",
-                "value": null
+                "color": "transparent"
               },
               {
                 "color": "red",
@@ -2238,8 +2231,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2327,6 +2319,6 @@
   "timezone": "",
   "title": "Cluster Overview",
   "uid": "JarP-IK4k",
-  "version": 9,
+  "version": 2,
   "weekStart": ""
 }

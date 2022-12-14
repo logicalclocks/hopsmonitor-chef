@@ -2653,290 +2653,192 @@
       "type": "stat"
     },
     {
-      "columns": [],
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "align": "auto",
-            "displayMode": "auto",
-            "filterable": true,
-            "inspect": false
-          }
-        },
-        "overrides": []
-      },
-      "fontSize": "100%",
+      "id": 52,
       "gridPos": {
         "h": 9,
         "w": 24,
         "x": 0,
         "y": 38
       },
-      "id": 52,
-      "pluginVersion": "8.5.4",
-      "scroll": true,
-      "showHeader": true,
-      "sort": {
-        "col": 17,
-        "desc": true
-      },
-      "styles": [
-        {
-          "alias": "Container",
-          "align": "auto",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 0,
-          "link": false,
-          "linkTooltip": "Drill Down this TFV",
-          "linkUrl": "/d/ZA8w_fJZz/flights-by-status?var-datasource=$datasource&var-tfv=$__cell_4&var-namespace=$__cell_9",
-          "mappingType": 1,
-          "pattern": "container",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        },
-        {
-          "alias": "Count",
-          "align": "auto",
-          "colorMode": "row",
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 0,
-          "mappingType": 1,
-          "pattern": "Value",
-          "thresholds": [
-            "1",
-            "5"
-          ],
-          "type": "number",
-          "unit": "short"
-        },
-        {
-          "alias": "Namespace",
-          "align": "auto",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 0,
-          "mappingType": 1,
-          "pattern": "exported_namespace",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        },
-        {
-          "alias": "Pod Name",
-          "align": "auto",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 0,
-          "mappingType": 1,
-          "pattern": "exported_pod",
-          "thresholds": [],
-          "type": "number",
-          "unit": "short"
-        },
-        {
-          "alias": "",
-          "align": "auto",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "/.*/",
-          "thresholds": [],
-          "type": "hidden",
-          "unit": "short"
-        }
-      ],
+      "type": "table",
+      "title": "Last Containers Restarts Count",
       "targets": [
         {
+          "refId": "A",
           "datasource": {
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "kube_pod_container_status_restarts_total{exported_namespace=~\"$namespace\"}",
-          "format": "table",
-          "instant": true,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
+          "expr": "kube_pod_container_status_restarts_total",
+          "editorMode": "code",
+          "range": true,
+          "format": "table"
         }
       ],
-      "title": "Last Containers Restarts Count",
-      "transform": "table",
-      "transformations": [
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [],
-            "match": "any",
-            "type": "include"
-          }
+      "options": {
+        "showHeader": true,
+        "footer": {
+          "show": false,
+          "reducer": [
+            "sum"
+          ],
+          "fields": ""
         }
-      ],
-      "type": "table"
-    },
-    {
-      "columns": [],
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PBFA97CFB590B2093"
       },
-      "description": "",
       "fieldConfig": {
         "defaults": {
           "custom": {
             "align": "auto",
             "displayMode": "auto",
-            "filterable": true,
             "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "value": null,
+                "color": "green"
+              },
+              {
+                "value": 80,
+                "color": "red"
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
           }
         },
         "overrides": []
       },
-      "fontSize": "100%",
+      "datasource": {
+        "uid": "PBFA97CFB590B2093",
+        "type": "prometheus"
+      },
+      "pluginVersion": "9.0.2",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "job": true,
+              "pod": false,
+              "service": true,
+              "instance": true,
+              "exported_namespace": true,
+              "exported_pod": true,
+              "__name__": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value": "Restarts"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": 53,
       "gridPos": {
         "h": 9,
         "w": 24,
         "x": 0,
         "y": 47
       },
-      "id": 53,
-      "pluginVersion": "8.5.4",
-      "scroll": true,
-      "showHeader": true,
-      "sort": {
-        "col": 17,
-        "desc": true
-      },
-      "styles": [
+      "type": "table",
+      "title": "Container memory usages",
+      "transformations": [
         {
-          "alias": "Container",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "container",
-          "thresholds": [],
-          "unit": "short"
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "join_label"
+          }
         },
         {
-          "alias": "Namespace",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "namespace",
-          "thresholds": [],
-          "unit": "short"
-        },
-        {
-          "alias": "Mem Requested",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "Value #C",
-          "thresholds": [],
-          "type": "number",
-          "unit": "bytes"
-        },
-        {
-          "alias": "Current Usage",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "Value #A",
-          "thresholds": [],
-          "type": "number",
-          "unit": "bytes"
-        },
-        {
-          "alias": "Max. Value Observed",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "Value #B",
-          "thresholds": [],
-          "type": "number",
-          "unit": "bytes"
-        },
-        {
-          "alias": "",
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "Time",
-          "thresholds": [],
-          "type": "hidden",
-          "unit": "short"
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time 1": true,
+              "Time 2": true,
+              "Time 3": true,
+              "container 2": true,
+              "container 3": true,
+              "join_label": true,
+              "name 2": true,
+              "name 3": true,
+              "namespace 2": true,
+              "namespace 3": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value #A": "Max memory",
+              "Value #B": "Mem Requested",
+              "Value #C": "Currrent Usage",
+              "container 1": "Container",
+              "name 1": "Name",
+              "namespace 1": "Namespace"
+            }
+          }
         }
       ],
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "pluginVersion": "9.0.2",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false,
+            "filterable": true
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "color": {
+            "mode": "thresholds"
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "options": {
+        "showHeader": true,
+        "footer": {
+          "show": true,
+          "reducer": [
+            "sum"
+          ],
+          "fields": "",
+          "enablePagination": false
+        }
+      },
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "max(container_memory_usage_bytes{namespace=~\"$namespace\", container!=\"\", name!=\"\",instance=~\"$node\"}) by ( namespace, name, container)",
+          "editorMode": "code",
+          "expr": "label_join(max(container_memory_max_usage_bytes{instance=~\"$node\", namespace=~\"$namespace\", name!=\"\", container!=\"\"}) by (namespace, name, container),  \"join_label\", \"_\", \"name\", \"namespace\", \"container\")",
           "format": "table",
-          "hide": false,
-          "instant": true,
-          "intervalFactor": 1,
-          "legendFormat": "",
+          "interval": "",
+          "range": true,
           "refId": "A"
         },
         {
@@ -2944,10 +2846,11 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "max(container_memory_max_usage_bytes{namespace=~\"$namespace\", name!=\"\", container!=\"\", instance=~\"$node\"}) by (namespace, name, container)",
+          "editorMode": "code",
+          "expr": "label_join(max(container_spec_memory_limit_bytes{instance=~\"$node\", namespace=~\"$namespace\", name!=\"\", container!=\"\"}) by (namespace, name, container),  \"join_label\", \"_\", \"name\", \"namespace\", \"container\")",
           "format": "table",
-          "instant": true,
-          "intervalFactor": 1,
+          "hide": false,
+          "range": true,
           "refId": "B"
         },
         {
@@ -2955,26 +2858,15 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "max(container_spec_memory_limit_bytes{namespace=~\"$namespace\", name!=\"\", container!=\"\", instance=~\"$node\"}) by (namespace, name, container)",
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "label_join(max(container_memory_working_set_bytes{instance=~\"$node\", namespace=~\"$namespace\", name!=\"\", container!=\"\"}) by (namespace, name, container),  \"join_label\", \"_\", \"name\", \"namespace\", \"container\")",
           "format": "table",
-          "instant": true,
-          "intervalFactor": 1,
+          "hide": false,
+          "range": true,
           "refId": "C"
         }
-      ],
-      "title": "Container memory usage bytes",
-      "transform": "table",
-      "transformations": [
-        {
-          "id": "filterByValue",
-          "options": {
-            "filters": [],
-            "match": "any",
-            "type": "include"
-          }
-        }
-      ],
-      "type": "table"
+      ]
     }
   ],
   "schemaVersion": 36,

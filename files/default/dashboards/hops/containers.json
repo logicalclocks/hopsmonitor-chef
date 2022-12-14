@@ -162,10 +162,10 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(container_memory_usage_bytes{id=~\".*docker.*\"})/1024/1024",
+          "expr": "sum(container_memory_working_set_bytes{id=~\".*docker.*\"})/1024/1024",
           "intervalFactor": 2,
           "legendFormat": "",
-          "metric": "container_memory_usage_bytes",
+          "metric": "container_memory_working_set_bytes",
           "refId": "A",
           "step": 240
         }
@@ -245,7 +245,7 @@
           "expr": "sum(rate(container_cpu_user_seconds_total{image!=\"\"}[5m]) * 100)",
           "intervalFactor": 2,
           "legendFormat": "",
-          "metric": "container_memory_usage_bytes",
+          "metric": "container_cpu_user_seconds_total",
           "refId": "A",
           "step": 240
         }

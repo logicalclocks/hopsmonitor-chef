@@ -10,6 +10,15 @@ groups:
       summary: "Hive servers are unresponsive"
       description: "Hive servers are not reporting metrics" 
 
+  - alert: HiveServer2PartiallyDown
+    expr: count by(instance) (hs2_hs2_active_sessions offset 5m) > count by(instance) (hs2_hs2_active_sessions)
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "One or more Hive servers are unresponsive"
+      description: "One or more Hive servers are not reporting metrics" 
+
   - alert: HiveMetastoreDown 
     expr: absent(hm_open_connections) > 0
     for: 1m
@@ -18,3 +27,12 @@ groups:
     annotations:
       summary: "Hive metasetores are unresponsive"
       description: "Hive metastores are not reporting metrics"
+
+  - alert: HiveMetastorePartiallyDown
+    expr: count by(instance) (hm_open_connections offset 5m) > count by(instance) (hm_open_connections)
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "One or more Hive metasetores are unresponsive"
+      description: "One or more Hive metastores are not reporting metrics"

@@ -54,3 +54,12 @@ groups:
     annotations:
       summary: "HopsFS is unresponsive"
       description: "HopsFS is not reporting metrics"
+
+  - alert: HopsFSNamenodePartiallyDown
+    expr: count by(instance) (namenode_FSNamesystemState_capacity_used offset 5m) > count by(instance) (namenode_FSNamesystemState_capacity_used)
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "One or more HopsFS namenodes are unresponsive"
+      description: "One or more HopsFS namenodes are not reporting metrics"

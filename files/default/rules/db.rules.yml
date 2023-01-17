@@ -2,7 +2,7 @@ groups:
 - name: rondb
   rules:
   - alert: DatanodeDown
-    expr: (ndb_ndbinfo_processes{nodeType="NDB"} offset 5m) > ndb_ndbinfo_processes{nodeType="NDB"}
+    expr: (ndb_ndbinfo_processes{nodeType="NDB"} offset 5m) > ndb_ndbinfo_processes{nodeType="NDB"} OR absent(ndb_ndbinfo_processes{nodeType="NDB"})
     for: 1m
     labels:
       type: system-alert
@@ -11,7 +11,7 @@ groups:
       description: "RonDB datanode is down"
 
   - alert: ManagementDown
-    expr: (ndb_ndbinfo_processes{nodeType="MGM"} offset 5m) > ndb_ndbinfo_processes{nodeType="MGM"}
+    expr: (ndb_ndbinfo_processes{nodeType="MGM"} offset 5m) > ndb_ndbinfo_processes{nodeType="MGM"} OR absent(ndb_ndbinfo_processes{nodeType="MGM"})
     for: 1m
     labels:
       type: system-alert
@@ -20,7 +20,7 @@ groups:
       description: "RonDB management node is down"
 
   - alert: MySQLdDown
-    expr: (ndb_ndbinfo_processes{nodeType="API",processName="mysqld"} offset 5m) > ndb_ndbinfo_processes{nodeType="API",processName="mysqld"} 
+    expr: (ndb_ndbinfo_processes{nodeType="API",processName="mysqld"} offset 5m) > ndb_ndbinfo_processes{nodeType="API",processName="mysqld"} OR absent(ndb_ndbinfo_processes{nodeType="API",processName="mysqld"})
     for: 1m
     labels:
       type: system-alert

@@ -164,7 +164,7 @@
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "/^Value$/",
+          "fields": "",
           "values": false
         },
         "textMode": "auto"

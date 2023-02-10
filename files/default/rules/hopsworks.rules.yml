@@ -1,7 +1,7 @@
 groups:
 - name: Hopsworks 
   rules:
-  - alert: HopsworksDown 
+  - alert: Down 
     expr: absent(vendor_http_service_server_request_count2xx_count) > 0
     for: 1m
     labels:
@@ -9,3 +9,21 @@ groups:
     annotations:
       summary: "Hopsworks is down"
       description: "Hopsworks is not reporting metrics" 
+
+  - alert: 500Errors
+    expr: rate(vendor_http_service_server_request_count5xx_count[1m]) > 0
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Hopsworks is returning 500 errors"
+      description: "Hopsworks is returning 500 errors"
+
+  - alert: HighMemory 
+    expr: rate(vendor_jvm_garbage_collectors_PS_MarkSweep_collectiontime_count_count[1m]) > 300 
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Hopsworks high GC time"
+      description: "Hopsworks is running out of heap memory and is experiencing long GC pauses"

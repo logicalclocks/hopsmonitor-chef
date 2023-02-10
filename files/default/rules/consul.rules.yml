@@ -1,0 +1,20 @@
+groups:
+- name: consul
+  rules:
+  - alert: UnhealthyCluster 
+    expr: consul_autopilot_healthy == 0
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Consul autopilot reports unhealthy nodes"
+      description: "There are unhealthy consul agents. Check Grafana dashboard for more information."
+
+  - alert: NoMetrics 
+    expr: absent(consul_autopilot_healthy)
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Consul agents are not reporting any metrics"
+      description: "All consul agents seem to be down and are not reporting any metric."

@@ -42,6 +42,39 @@ scrape_configs:
         services: ['prometheus']
         tags: ['pushgateway']
 
+  - job_name: consul
+
+    honor_timestamps: true
+    metrics_path: '/v1/agent/metrics'
+    scheme: https
+    params:
+      format: ["prometheus"]
+    tls_config:
+      ca_file: "<%= @hops_ca %>"
+      cert_file: "<%= @certificate %>"
+      key_file: "<%= @key %>"
+      insecure_skip_verify: true
+
+    consul_sd_configs:
+      - server: localhost:<%= node['consul']['http_api_port'] %>
+        scheme: https
+        datacenter: lc
+        tls_config:
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
+          insecure_skip_verify: true
+
+        services: ['consul']
+
+    relabel_configs:
+      - source_labels: ['__address__']
+        separator:     ':'
+        regex:         '(.*):(<%= node['consul']['rpc_port'] %>)'
+        target_label:  '__address__'
+        replacement:   '${1}:<%= node['consul']['http_api_port'] %>'
+
+
   - job_name: 'airflow'
 
     scrape_interval:     10s 

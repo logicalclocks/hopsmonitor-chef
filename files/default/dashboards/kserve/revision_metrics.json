@@ -1250,7 +1250,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(container_memory_rss{namespace=\"$namespace\", pod=~\"$revision-deployment-.*\"})",
+          "expr": "sum(container_memory_rss{namespace=\"$namespace\", job=\"kubernetes-cadvisor\", pod=~\"$revision-deployment-.*\"})",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,

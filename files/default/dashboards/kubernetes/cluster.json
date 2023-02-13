@@ -190,7 +190,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "(sum(kube_pod_info{node=~\"$node\"}) / sum(kube_node_status_allocatable_pods{node=~\".*\"})) * 100",
+          "expr": "(sum(kube_pod_info{node=~\"$node\"}) / sum(kube_node_status_allocatable{node=~\".*\", resource=\"pods\"})) * 100",
           "interval": "10s",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -272,7 +272,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "(sum(kube_pod_container_resource_requests_cpu_cores{node=~\"$node\"}) / sum(kube_node_status_allocatable_cpu_cores{node=~\"$node\"})) * 100",
+          "expr": "(sum(kube_pod_container_resource_requests{node=~\"$node\", resource=\"cpu\"}) / sum(kube_node_status_allocatable{node=~\"$node\", resource=\"cpu\"})) * 100",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -354,7 +354,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "(sum(kube_pod_container_resource_requests_memory_bytes{node=~\"$node\"}) / sum(kube_node_status_allocatable_memory_bytes{node=~\"$node\"})) * 100",
+          "expr": "(sum(kube_pod_container_resource_requests{node=~\"$node\", resource=\"memory\"}) / sum(kube_node_status_allocatable{node=~\"$node\", resource=\"memory\"})) * 100",
           "interval": "10s",
           "intervalFactor": 1,
           "refId": "A",
@@ -365,15 +365,24 @@
       "type": "gauge"
     },
     {
+      "id": 7,
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 1
+      },
+      "type": "gauge",
+      "title": "Cluster Disk Usage",
       "datasource": {
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
+      "pluginVersion": "9.0.2",
+      "maxDataPoints": 100,
+      "links": [],
       "fieldConfig": {
         "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "mappings": [
             {
               "options": {
@@ -385,8 +394,6 @@
               "type": "special"
             }
           ],
-          "max": 100,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -404,47 +411,40 @@
               }
             ]
           },
+          "color": {
+            "mode": "thresholds"
+          },
+          "max": 100,
+          "min": 0,
           "unit": "percent"
         },
         "overrides": []
       },
-      "gridPos": {
-        "h": 4,
-        "w": 6,
-        "x": 18,
-        "y": 1
-      },
-      "id": 7,
-      "links": [],
-      "maxDataPoints": 100,
       "options": {
-        "orientation": "horizontal",
         "reduceOptions": {
+          "values": false,
           "calcs": [
             "lastNotNull"
           ],
-          "fields": "",
-          "values": false
+          "fields": ""
         },
+        "orientation": "horizontal",
         "showThresholdLabels": false,
         "showThresholdMarkers": true
       },
-      "pluginVersion": "9.0.2",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum (container_memory_working_set_bytes{id=\"/\",kubernetes_io_hostname=~\"^$node$\"}) / sum (machine_memory_bytes{kubernetes_io_hostname=~\"^$node$\"}) * 100",
+          "expr": "sum (container_memory_working_set_bytes{id=\"/\",node=~\"^$node$\", job=\"kubernetes-cadvisor\"}) / sum (machine_memory_bytes{node=~\"^$node$\", job=\"kubernetes-cadvisor\"}) * 100",
           "interval": "10s",
           "intervalFactor": 1,
           "refId": "A",
           "step": 10
         }
-      ],
-      "title": "Cluster Disk Usage",
-      "type": "gauge"
+      ]
     },
     {
       "aliasColors": {},
@@ -496,7 +496,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_node_status_allocatable_pods{node=~\"$node\"})",
+          "expr": "sum(kube_node_status_allocatable{node=~\"$node\", resource=\"pods\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -618,7 +618,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_node_status_allocatable_cpu_cores{node=~\"$node\"})",
+          "expr": "sum(kube_node_status_allocatable{node=~\"$node\", resource=\"cpu\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "capacity",
@@ -629,7 +629,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_pod_container_resource_requests_cpu_cores{node=~\"$node\"})",
+          "expr": "sum(kube_pod_container_resource_requests{node=~\"$node\", resource=\"cpu\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "requested",
@@ -717,7 +717,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_node_status_allocatable_memory_bytes{node=~\"$node\"})",
+          "expr": "sum(kube_node_status_allocatable{node=~\"$node\", resource=\"memory\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "allocatable",
@@ -739,7 +739,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_pod_container_resource_requests_memory_bytes{node=~\"$node\"})",
+          "expr": "sum(kube_pod_container_resource_requests{node=~\"$node\", resource=\"memory\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "requested",
@@ -826,7 +826,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(container_fs_usage_bytes{device=~\"^/dev/[sv]d[a-z][1-9]$\",id=\"/\",kubernetes_io_hostname=~\"^$node$\"})",
+          "expr": "sum(container_fs_usage_bytes{device=~\"^/dev/[sv]d[a-z][1-9]$\",id=\"/\",node=~\"^$node$\",job=\"kubernetes-cadvisor\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -838,7 +838,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum (container_fs_limit_bytes{device=~\"^/dev/[sv]d[a-z][1-9]$\",id=\"/\",kubernetes_io_hostname=~\"^$node$\"})",
+          "expr": "sum (container_fs_limit_bytes{device=~\"^/dev/[sv]d[a-z][1-9]$\",id=\"/\",node=~\"^$node$\",job=\"kubernetes-cadvisor\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -2566,7 +2566,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_pod_container_resource_requests_cpu_cores{exported_namespace=~\"$namespace\", node=~\"$node\"})",
+          "expr": "sum(kube_pod_container_resource_requests{exported_namespace=~\"$namespace\", node=~\"$node\", resource=\"cpu\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -2643,7 +2643,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_pod_container_resource_requests_memory_bytes{exported_namespace=~\"$namespace\", node=~\"$node\"})",
+          "expr": "sum(kube_pod_container_resource_requests{resource=\"memory\", exported_namespace=~\"$namespace\", node=~\"$node\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -2748,7 +2748,7 @@
         "y": 47
       },
       "type": "table",
-      "title": "Container memory usages",
+      "title": "Container Memory Usage",
       "transformations": [
         {
           "id": "seriesToColumns",
@@ -2763,22 +2763,23 @@
               "Time 1": true,
               "Time 2": true,
               "Time 3": true,
-              "container 2": true,
-              "container 3": true,
-              "join_label": true,
-              "name 2": true,
-              "name 3": true,
-              "namespace 2": true,
-              "namespace 3": true
+              "container_label_io_kubernetes_container_name 2": true,
+              "container_label_io_kubernetes_container_name 3": true,
+              "container_label_io_kubernetes_pod_name 2": true,
+              "container_label_io_kubernetes_pod_name 3": true,
+              "container_label_io_kubernetes_pod_namespace 2": true,
+              "container_label_io_kubernetes_pod_namespace 3": true,
+              "join_label": true
             },
             "indexByName": {},
             "renameByName": {
-              "Value #A": "Max memory",
-              "Value #B": "Mem Requested",
-              "Value #C": "Currrent Usage",
-              "container 1": "Container",
-              "name 1": "Name",
-              "namespace 1": "Namespace"
+              "Value #A": "Requested",
+              "Value #B": "Max. Observed",
+              "Value #C": "Current Usage",
+              "container_label_io_kubernetes_container_name 1": "container_name",
+              "container_label_io_kubernetes_pod_name 1": "pod",
+              "container_label_io_kubernetes_pod_namespace 1": "namespace",
+              "join_label": ""
             }
           }
         }
@@ -2813,20 +2814,39 @@
           "color": {
             "mode": "thresholds"
           },
-          "unit": "decbytes"
+          "decimals": 2,
+          "unit": "bytes"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "pod"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 334
+              }
+            ]
+          }
+        ]
       },
       "options": {
         "showHeader": true,
         "footer": {
-          "show": true,
+          "show": false,
           "reducer": [
             "sum"
           ],
-          "fields": "",
-          "enablePagination": false
-        }
+          "fields": ""
+        },
+        "sortBy": [
+          {
+            "displayName": "Current Usage",
+            "desc": true
+          }
+        ]
       },
       "targets": [
         {
@@ -2835,9 +2855,8 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "label_join(max(container_memory_max_usage_bytes{instance=~\"$node\", namespace=~\"$namespace\", name!=\"\", container!=\"\"}) by (namespace, name, container),  \"join_label\", \"_\", \"name\", \"namespace\", \"container\")",
+          "expr": "label_join(max(container_spec_memory_limit_bytes{node=~\"$node\",container_label_io_kubernetes_pod_namespace=~\"$namespace\",name!=\"\", job=\"kubernetes-cadvisor\", container_label_io_kubernetes_pod_name!=\"\", container_label_io_kubernetes_container_name!=\"POD\"}) by (container_label_io_kubernetes_pod_namespace, container_label_io_kubernetes_container_name, container_label_io_kubernetes_pod_name),  \"join_label\", \"_\", \"container_label_io_kubernetes_pod_namespace\", \"container_label_io_kubernetes_container_name\", \"container_label_io_kubernetes_pod_name\")",
           "format": "table",
-          "interval": "",
           "range": true,
           "refId": "A"
         },
@@ -2847,7 +2866,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "label_join(max(container_spec_memory_limit_bytes{instance=~\"$node\", namespace=~\"$namespace\", name!=\"\", container!=\"\"}) by (namespace, name, container),  \"join_label\", \"_\", \"name\", \"namespace\", \"container\")",
+          "expr": "label_join(max(container_memory_max_usage_bytes{node=~\"$node\",container_label_io_kubernetes_pod_namespace=~\"$namespace\",name!=\"\", job=\"kubernetes-cadvisor\", container_label_io_kubernetes_pod_name!=\"\",  container_label_io_kubernetes_container_name!=\"POD\"}) by (container_label_io_kubernetes_pod_namespace, container_label_io_kubernetes_container_name, container_label_io_kubernetes_pod_name),  \"join_label\", \"_\", \"container_label_io_kubernetes_pod_namespace\", \"container_label_io_kubernetes_container_name\", \"container_label_io_kubernetes_pod_name\")",
           "format": "table",
           "hide": false,
           "range": true,
@@ -2859,8 +2878,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "exemplar": false,
-          "expr": "label_join(max(container_memory_working_set_bytes{instance=~\"$node\", namespace=~\"$namespace\", name!=\"\", container!=\"\"}) by (namespace, name, container),  \"join_label\", \"_\", \"name\", \"namespace\", \"container\")",
+          "expr": "label_join(max(container_memory_working_set_bytes{node=~\"$node\",container_label_io_kubernetes_pod_namespace=~\"$namespace\", name!=\"\", job=\"kubernetes-cadvisor\", container_label_io_kubernetes_pod_name!=\"\",  container_label_io_kubernetes_container_name!=\"POD\"}) by (container_label_io_kubernetes_pod_namespace, container_label_io_kubernetes_container_name, container_label_io_kubernetes_pod_name),  \"join_label\", \"_\", \"container_label_io_kubernetes_pod_namespace\", \"container_label_io_kubernetes_container_name\", \"container_label_io_kubernetes_pod_name\")",
           "format": "table",
           "hide": false,
           "range": true,

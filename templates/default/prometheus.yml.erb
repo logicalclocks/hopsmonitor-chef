@@ -302,7 +302,7 @@ scrape_configs:
   - job_name: 'kubernetes-cadvisor'
     scrape_interval: 15s
     kubernetes_sd_configs:
-      - role: node
+      - role: endpoints
         api_server: https://<%= @kube_master_ip %>:<%= node['kube-hops']['apiserver']['port'] %>
         tls_config:
           ca_file: <%= @kube_ca %>
@@ -316,14 +316,17 @@ scrape_configs:
       key_file: <%= @prometheus_kube_key %>
       insecure_skip_verify: true
     relabel_configs:
-      - action: labelmap
-        regex: __meta_kubernetes_node_label_(.+)
+      - source_labels: [__meta_kubernetes_service_label_app]
+        action: keep
+        regex: cadvisor
       - target_label: __address__
         replacement: <%= @kube_master_ip %>:<%= node['kube-hops']['apiserver']['port'] %>
-      - source_labels: [__meta_kubernetes_node_name]
+      - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_pod_container_port_number]
+        regex: "(.*)+;(.*)+;(.*)"
         target_label: __metrics_path__
-        replacement: /api/v1/nodes/${1}/proxy/metrics/cadvisor
-
+        replacement: /api/v1/namespaces/${1}/services/${2}:${3}/proxy/metrics
+      - source_labels: [__meta_kubernetes_pod_node_name]
+        target_label: node
   - job_name: 'istio-envoy'
     scrape_interval: 15s
     metrics_path: /stats/prometheus
@@ -374,7 +377,7 @@ scrape_configs:
       key_file: <%= @prometheus_kube_key %>
       insecure_skip_verify: true
     relabel_configs:
-      - source_labels: [__meta_kubernetes_service_label_app]
+      - source_labels: [__meta_kubernetes_service_label_app_kubernetes_io_name]
         action: keep
         regex: kube-state-metrics
       - target_label: __address__

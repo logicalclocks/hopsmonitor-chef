@@ -11,7 +11,7 @@ groups:
       description: "Hive servers are not reporting metrics" 
 
   - alert: HiveServer2PartiallyDown
-    expr: count by(instance) (hs2_hs2_active_sessions offset 5m) > count by(instance) (hs2_hs2_active_sessions)
+    expr: count by(job) (hs2_hs2_active_sessions offset 5m) > count by(job) (hs2_hs2_active_sessions)
     for: 1m
     labels:
       type: system-alert
@@ -29,7 +29,7 @@ groups:
       description: "Hive metastores are not reporting metrics"
 
   - alert: HiveMetastorePartiallyDown
-    expr: count by(instance) (hm_open_connections offset 5m) > count by(instance) (hm_open_connections)
+    expr: count by(job) (hm_open_connections offset 5m) > count by(job) (hm_open_connections)
     for: 1m
     labels:
       type: system-alert

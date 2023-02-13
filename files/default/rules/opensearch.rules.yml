@@ -1,0 +1,29 @@
+groups:
+- name: opensearch 
+  rules:
+  - alert: YellowCluster 
+    expr: max(elasticsearch_cluster_health_status{color="yellow"}) by (cluster) > 0 
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Opensearch cluster state is yellow"
+      description: "Opensearch cluster health is degraded."
+
+  - alert: RedCluster 
+    expr: max(elasticsearch_cluster_health_status{color="red"}) by (cluster) > 0 
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Opensearch cluster state is red"
+      description: "Opensearch cluster is down."
+
+  - alert: NoMetrics 
+    expr: absent(elasticsearch_cluster_health_status) 
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "No metrics are reported for Opensearch"
+      description: "Opensearch cluster is not reporting any metric."

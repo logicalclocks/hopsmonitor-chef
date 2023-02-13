@@ -1,0 +1,29 @@
+groups:
+- name: onlinefs 
+  rules:
+  - alert: WriteErrors
+    expr: rate(onlinefs_clusterj_error_write_counter_total[30s]) > 0 
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "OnlineFS errors writing to RonDB"
+      description: "OnlineFS is experiencing errors writing to RonDB"
+
+  - alert: MissingServices 
+    expr: count by (job) (onlinefs_clusterj_success_write_counter_total offset 5m) > count by (job) (onlinefs_clusterj_success_write_counter_total) 
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "OnlineFS instances are not reporting metrics"
+      description: "One ore more OnlineFS instances are not reporting metrics"
+
+  - alert: NoMetrics 
+    expr: absent(onlinefs_clusterj_success_write_counter_total)
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "No OnlineFS instances is reporting metrics"
+      description: "All OnlineFS instances seem to be down and not reporting metrics"

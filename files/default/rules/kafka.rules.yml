@@ -1,0 +1,38 @@
+groups:
+- name: kafka
+  rules:
+    - alert: offline_partition_count 
+      expr: sum(kafka_controller_kafkacontroller_offlinepartitionscount) by (job) > 0 
+      for: 1m
+      labels:
+        type: system-alert
+      annotations:
+        summary: 'Kafka: {{ $value }} partitions offline'
+        description: 'Offline partitions are not available for reading and writing. Restart the brokers, if needed, and check the logs for errors.'
+
+    - alert: under_replicated_partition_count 
+      expr: sum(kafka_server_replicamanager_underreplicatedpartitions) by (job) > 0 
+      for: 1m
+      labels:
+        type: system-alert
+      annotations:
+        summary: 'Kafka: {{ $value }} under replicated partitions'
+        description: 'Under-replicated partitions means that one or more replicas are not available. This is usually because a broker is down.  Restart the broker, and check for errors in the logs.'
+
+    - alert: active_controller 
+      expr: sum(kafka_controller_kafkacontroller_activecontrollercount) by(job) != 1 
+      for: 1m
+      labels:
+        type: system-alert
+      annotations:
+        summary: 'The Kafka cluster has no active controller'
+        description: 'No broker in the cluster is reporting as the active controller in the last 1 minute interval. During steady state there should be only one active controller per cluster.'
+
+    - alert: NoMetrics 
+      expr: absent(kafka_controller_kafkacontroller_offlinepartitionscount)
+      for: 1m
+      labels:
+        type: system-alert
+      annotations:
+        summary: "The Kafka cluster is not reporting any metric"
+        description: "All Kafka brokers seem to be down and are not reporting any metric."

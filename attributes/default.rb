@@ -12,7 +12,7 @@ default['hopsmonitor']['group_id']                = '1503'
 
 default['hopsmonitor']['dir']                     = node['install']['dir'].empty? ? "/srv" : node['install']['dir']
 
-default['grafana']['version']                     = "9.0.2" #"6.2.4"
+default['grafana']['version']                     = "9.3.6"
 default['grafana']['url']                         = "#{node['download_url']}/grafana-#{node['grafana']['version']}.linux-amd64.tar.gz"
 default['grafana']['port']                        = 3000
 
@@ -21,7 +21,6 @@ default['grafana']['admin_password']              = "adminpw"
 
 default['grafana']['home']                        = node['hopsmonitor']['dir'] + "/grafana-" + "#{node['grafana']['version']}"
 default['grafana']['base_dir']                    = node['hopsmonitor']['dir'] + "/grafana"
-default['grafana']['pid_file']                    = "/tmp/grafana.pid"
 # Space separated list of dashboard uids with viewer permission. Viewer role will be mapped to HOPS_USER
 # rest of the dashboards will be Admin only. Default onlineFS, userstatementsummaries, kserve, kubernetes
 default['grafana']['dashboard']['viewer_permission'] = "onlineFS user_statement_summaries kserve kubernetes"

@@ -68,7 +68,7 @@ directory "#{node['grafana']['base_dir']}/logs" do
 end
 
 
-template "#{node['grafana']['base_dir']}/conf/defaults.ini" do
+template "#{node['grafana']['base_dir']}/conf/grafana.ini" do
   source "grafana.ini.erb"
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']

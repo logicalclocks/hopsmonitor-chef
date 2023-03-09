@@ -73,7 +73,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -120,6 +121,7 @@
       "type": "timeseries"
     }
   ],
+  "refresh": "5s",
   "schemaVersion": 37,
   "style": "dark",
   "tags": [],
@@ -134,6 +136,6 @@
   "timezone": "",
   "title": "Flying Duck",
   "uid": "AJPnana4z",
-  "version": 5,
+  "version": 7,
   "weekStart": ""
 }

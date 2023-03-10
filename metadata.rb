@@ -152,3 +152,14 @@ attribute "cloud/queue_config/max_sample_per_send",
 attribute "cloud/queue_config/batch_send_deadline",
           :description => "maximum time before a metric is sent to hopsworks.ai",
           :type => "string"
+
+#
+# node_exporter
+#
+attribute "node_exporter/filesystem/regex",
+          :description => "Regular expression of filesystem mount point to ignore reporting",
+          :type => "string"
+
+attribute "node_exporter/port",
+          :description => "Port node_exporter will be listening to. Default: 9100",
+          :type => "string"

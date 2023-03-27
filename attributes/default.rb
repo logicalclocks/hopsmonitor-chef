@@ -80,6 +80,11 @@ default['alertmanager']['email']['auth_secret']     = ""
 default['alertmanager']['email']['auth_identity']   = ""
 default['alertmanager']['email']['text']            = "summary: {{ .CommonAnnotations.summary }}\ndescription: {{ .CommonAnnotations.description }}"
 
+# Alertmanager webhook configuration
+default['alertmanager']['webhook']['url']           = ""
+default['alertmanager']['webhook']['send_resolved'] = "true" 
+
+
 default['pushgateway']['port']                     = "9095"
 default['pushgateway']['version']                  = "1.3.0"
 default['pushgateway']['url']                      = "#{node['download_url']}/prometheus/pushgateway-#{node['pushgateway']['version']}.linux-amd64.tar.gz"

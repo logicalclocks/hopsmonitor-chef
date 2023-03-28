@@ -138,6 +138,14 @@ attribute "alertmanager/email/text",
           :description => "Email text template",
           :type => "string"
 
+attribute "alertmanager/webhook/url",
+          :description => "Webhook url configuration for alertmanager",
+          :type => "string"
+
+attribute "alertmanager/webhook/send_resolved",
+          :description => "Webhook send_resolved configuration for alertmanager",
+          :type => "string"
+
 #
 # Managed cloud
 #

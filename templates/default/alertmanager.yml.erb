@@ -2,7 +2,9 @@ global:
   resolve_timeout: 5m
 templates:
 - "<%= node['alertmanager']['tmpl_dir']%>/*.tmpl"
-<% if !node['alertmanager']['email']['to'].empty? or !node['alertmanager']['slack']['api_url'].empty? -%> 
+<% if !node['alertmanager']['email']['to'].empty? or 
+      !node['alertmanager']['slack']['api_url'].empty? or
+      !node['alertmanager']['webhook']['url'].empty? -%> 
 route:
   group_by: ['alertname']
   group_wait: 10s
@@ -20,6 +22,11 @@ route:
     - match:
         type: "system-alert"
       receiver: 'email'
+<% end -%>
+<% if !node['alertmanager']['webhook']['url'].empty? -%>
+    - match:
+        type: "system-alert"
+      receiver: 'webhook'
 <% end -%>
 receivers:
 - name: 'default'
@@ -42,4 +49,10 @@ receivers:
     auth_secret: <%= node['alertmanager']['email']['auth_secret'] %>
     auth_identity: <%= node['alertmanager']['email']['auth_identity'] %>
     text: "<%= node['alertmanager']['email']['text'] %>"
+<% end -%>
+<% if !node['alertmanager']['webhook']['url'].empty? -%>
+- name: 'webhook'
+  webhook_configs:
+  - url: <%= node['alertmanager']['webhook']['url'] %>
+    send_resolved: <%= node['alertmanager']['webhook']['send_resolved'] %>
 <% end -%>

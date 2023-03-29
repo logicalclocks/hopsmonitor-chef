@@ -95,7 +95,7 @@ default['pushgateway']['base_dir']                 = "#{node['pushgateway']['roo
 
 # Managed cloud
 default['cloud']['queue_config']['capacity']             = "10000"
-default['cloud']['queue_config']['max_sample_per_send']  = "5000"
+default['cloud']['queue_config']['max_sample_per_send']  = "4000"
 default['cloud']['queue_config']['batch_send_deadline']  = "60s"
 default['cloud']['metrics']['port']                      = "9096"
 

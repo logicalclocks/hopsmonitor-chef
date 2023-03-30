@@ -24,10 +24,12 @@
       - *Feature store:* {{ .Labels.featureStore }}
       - *Feature group:* {{ .Labels.featureGroup }}
       - *Feature group version:* {{ .Labels.featureGroupVersion }}
+     {{- else if .Labels.featureMonitorConfig }}
+      - *FeatureMonitoring Config Name* {{ .Labels.featureMonitorConfig}}
+      - *FeatureMonitoring Result Id* {{ .Labels.featureMonitorResultId}}
      {{- end }}
      {{- if .Labels.status }}
       - *Status:* {{ .Labels.status }}
      {{- end }}
  {{ end }}
 {{ end }}
-

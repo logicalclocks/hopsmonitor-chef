@@ -27,6 +27,10 @@
      {{- else if .Labels.featureMonitorConfig }}
       - *FeatureMonitoring Config Name* {{ .Labels.featureMonitorConfig}}
       - *FeatureMonitoring Result Id* {{ .Labels.featureMonitorResultId}}
+     {{- if .Labels.featureViewName }}
+      - *Feature View Name* {{ .Labels.featureViewName }}
+      - *Feature View Version* {{ .Labels.featureViewVersion }}
+     {{- end }}
      {{- end }}
      {{- if .Labels.status }}
       - *Status:* {{ .Labels.status }}

@@ -24,13 +24,14 @@
       - *Feature store:* {{ .Labels.featureStore }}
       - *Feature group:* {{ .Labels.featureGroup }}
       - *Feature group version:* {{ .Labels.featureGroupVersion }}
-     {{- else if .Labels.featureMonitorConfig }}
-      - *FeatureMonitoring Config Name* {{ .Labels.featureMonitorConfig}}
-      - *FeatureMonitoring Result Id* {{ .Labels.featureMonitorResultId}}
-     {{- if .Labels.featureViewName }}
-      - *Feature View Name* {{ .Labels.featureViewName }}
-      - *Feature View Version* {{ .Labels.featureViewVersion }}
      {{- end }}
+     {{- if .Labels.featureMonitorConfig }}
+      - *Feature Monitoring Config Name* {{ .Labels.featureMonitorConfig}}
+      - *Feature Monitoring Result Id* {{ .Labels.featureMonitorResultId}}
+     {{- end }}
+     {{- if .Labels.featureViewName }}
+       - *FeatureView Name* {{ .Labels.featureViewName }}
+       - *FeatureView Version* {{ .Labels.featureViewVersion }}
      {{- end }}
      {{- if .Labels.status }}
       - *Status:* {{ .Labels.status }}

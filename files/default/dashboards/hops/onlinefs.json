@@ -111,7 +111,7 @@
           },
           "editorMode": "builder",
           "expr": "onlinefs_members_in_consumer_group",
-          "legendFormat": "__auto",
+          "legendFormat": "{{host}}",
           "range": true,
           "refId": "A"
         }
@@ -127,56 +127,60 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "fixed"
           },
           "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 100,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "stepBefore",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "log": 2,
-              "type": "symlog"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
+            "fillOpacity": 80,
+            "lineWidth": 0,
+            "spanNulls": false
           },
-          "mappings": [],
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "STABLE"
+                },
+                "1": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "DEAD"
+                },
+                "2": {
+                  "color": "blue",
+                  "index": 2,
+                  "text": "EMPTY"
+                },
+                "3": {
+                  "color": "yellow",
+                  "index": 3,
+                  "text": "COMPLETING_REBALANCE"
+                },
+                "4": {
+                  "color": "orange",
+                  "index": 4,
+                  "text": "PREPARING_REBALANCE"
+                },
+                "5": {
+                  "color": "purple",
+                  "index": 5,
+                  "text": "UNKNOWN"
+                }
+              },
+              "type": "value"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "transparent",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
@@ -188,12 +192,15 @@
       },
       "id": 20,
       "options": {
+        "alignValue": "center",
         "legend": {
-          "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
         },
+        "mergeValues": true,
+        "rowHeight": 0.5,
+        "showValue": "auto",
         "tooltip": {
           "mode": "single",
           "sort": "none"
@@ -206,14 +213,18 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "builder",
+          "exemplar": true,
           "expr": "onlinefs_consumer_group_state",
-          "legendFormat": "__auto",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{consumer_group}}",
           "range": true,
           "refId": "A"
         }
       ],
       "title": "Consumer group state",
-      "type": "timeseries"
+      "type": "state-timeline"
     },
     {
       "aliasColors": {},
@@ -1197,6 +1208,6 @@
   "timezone": "",
   "title": "OnlineFS",
   "uid": "onlineFS",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }

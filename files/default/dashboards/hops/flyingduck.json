@@ -390,7 +390,7 @@
           "refId": "A"
         }
       ],
-      "title": "Execution time (ms)",
+      "title": "Execution time (s)",
       "type": "timeseries"
     }
   ],

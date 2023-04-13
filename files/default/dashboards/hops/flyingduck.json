@@ -305,7 +305,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-GrYlRd",
+            "mode": "thresholds",
             "seriesBy": "last"
           },
           "custom": {

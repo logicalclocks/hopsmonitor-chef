@@ -105,8 +105,8 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "builder",
-          "expr": "rate(flyingduck_request_counter_total[30s])",
+          "editorMode": "code",
+          "expr": "rate(flyingduck_request_counter_total{instance=~\"$instance\"}[30s])",
           "legendFormat": "{{action}}",
           "range": true,
           "refId": "A"
@@ -197,8 +197,8 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "builder",
-          "expr": "flyingduck_memory_utilization_gauge",
+          "editorMode": "code",
+          "expr": "flyingduck_memory_utilization_gauge{instance=~\"$instance\"}",
           "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
@@ -285,8 +285,8 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "builder",
-          "expr": "avg_over_time(flyingduck_queue_time_gauge[$__interval])",
+          "editorMode": "code",
+          "expr": "avg_over_time(flyingduck_queue_time_gauge{instance=~\"$instance\"}[$__interval])",
           "legendFormat": "{{action}}",
           "range": true,
           "refId": "A"
@@ -377,8 +377,8 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "builder",
-          "expr": "avg_over_time(flyingduck_execution_time_gauge[$__interval])",
+          "editorMode": "code",
+          "expr": "avg_over_time(flyingduck_execution_time_gauge{instance=~\"$instance\"}[$__interval])",
           "legendFormat": "{{action}}",
           "range": true,
           "refId": "A"
@@ -465,8 +465,8 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "builder",
-          "expr": "flyingduck_request_queue_gauge",
+          "editorMode": "code",
+          "expr": "flyingduck_request_queue_gauge{instance=~\"$instance\"}",
           "legendFormat": "{{action}}",
           "range": true,
           "refId": "A"
@@ -481,7 +481,39 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "10.0.2.15:12810"
+          ],
+          "value": [
+            "10.0.2.15:12810"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
+        "definition": "label_values(flyingduck_queue_time_gauge, instance)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "instance",
+        "multi": true,
+        "name": "instance",
+        "options": [],
+        "query": {
+          "query": "label_values(flyingduck_queue_time_gauge, instance)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
   },
   "time": {
     "from": "now-1h",
@@ -491,6 +523,6 @@
   "timezone": "",
   "title": "Flying Duck",
   "uid": "AJPnana4z",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }

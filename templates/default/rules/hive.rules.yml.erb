@@ -38,7 +38,7 @@ groups:
       description: "One or more Hive metastores are not reporting metrics"
 
   - alert: HiveMetastoreHighMemory 
-    expr: rate(jvm_gc_collection_seconds_count{instance=~".+:<%= node['hive2']['hm']['metrics_port'] %>",gc="ConcurrentMarkSweep"}[1m]) > 300
+    expr: rate(jvm_gc_collection_seconds_count{instance=~".+:<%= node['hive2']['hm']['metrics_port'] %>",gc="ConcurrentMarkSweep"}[1m]) > 0.3
     for: 5m
     labels:
       type: system-alert
@@ -47,7 +47,7 @@ groups:
       description: "Hive Metastore is running out of heap memory and is experiencing long GC pauses"
 
   - alert: HiveServer2HighMemory
-    expr: rate(hs2_gc_ConcurrentMarkSweep_time[1m]) > 300
+    expr: rate(hs2_gc_ConcurrentMarkSweep_time[1m]) > 0.3
     for: 5m
     labels:
       type: system-alert

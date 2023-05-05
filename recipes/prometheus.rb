@@ -164,20 +164,38 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
             })
 end
 
+# Recreate the rules directory
 directory node['prometheus']['rules_dir'] do 
   action :delete
   recursive true 
 end
 
-remote_directory node['prometheus']['rules_dir'] do 
-  source "rules"
+directory node['prometheus']['rules_dir'] do
+  action :create
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0700
-  files_owner node['hopsmonitor']['user']
-  files_group node['hopsmonitor']['group']
-  files_mode 0700
 end
+
+rules = [
+  "hive",
+  "consul",
+  "hopsworks",
+  "kafka",
+  "onlinefs",
+  "opensearch",
+  "db",
+  "hopsfs",
+  "yarn",
+  "host"
+].each { |rule_file|
+  template "#{node['prometheus']['rules_dir']}/#{rule_file}.rules.yml" do
+    source "rules/#{rule_file}.rules.yml.erb"
+    owner node['hopsmonitor']['user']
+    group node['hopsmonitor']['group']
+    mode 0700
+  end
+}
 
 case node['platform_family']
 when "rhel"

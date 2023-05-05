@@ -36,3 +36,12 @@ groups:
     annotations:
       summary: "One or more Hive metasetores are unresponsive"
       description: "One or more Hive metastores are not reporting metrics"
+
+  - alert: HiveMetastoreHighMemory 
+    expr: rate(jvm_gc_collection_seconds_count{instance=~".+:<%= node['hive2']['hm']['metrics_port'] %>",gc="ConcurrentMarkSweep"}) > 300
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Hive Metastore High GC time"
+      description: "Hive Metastore is running out of heap memory and is experiencing long GC pauses"

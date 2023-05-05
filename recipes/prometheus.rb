@@ -169,14 +169,24 @@ directory node['prometheus']['rules_dir'] do
   recursive true 
 end
 
-remote_directory node['prometheus']['rules_dir'] do 
-  source "rules"
-  owner node['hopsmonitor']['user']
-  group node['hopsmonitor']['group']
-  mode 0700
-  files_owner node['hopsmonitor']['user']
-  files_group node['hopsmonitor']['group']
-  files_mode 0700
+rules = [
+  "hive.rules",
+  "consul.rules",
+  "hopsworks.rules",
+  "kafka.rules",
+  "onlinefs.rules",
+  "opensearch.rules",
+  "db.rules",
+  "hopsfs.rules",
+  "yarn.rules",
+  "host.rules"
+].each |rule_file| do
+  template "#{node['prometheus']['rules_dir']}/#{rule_file}" do
+    source "#{rule_file}.erb"
+    owner node['hopsmonitor']['user']
+    group node['hopsmonitor']['group']
+    mode 0700
+  end
 end
 
 case node['platform_family']

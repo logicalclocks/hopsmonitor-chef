@@ -3,6 +3,9 @@
 base_package_filename = File.basename(node['alertmanager']['url'])
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
 
+public_ip=my_public_ip()
+alertmanager_peers= node['hopsmonitor'].attribute?('alertmanager')? private_recipe_ips('hopsmonitor', 'alertmanager') : []
+
 remote_file cached_package_filename do
   source node['alertmanager']['url']
   owner "root"
@@ -106,6 +109,9 @@ template systemd_script do
   owner "root"
   group "root"
   mode 0664
+  variables({
+    :alertmanager_peers => alertmanager_peers - [public_ip]
+  })
   if node['services']['enabled'] == "true"
     notifies :enable, "service[alertmanager]"
   end

@@ -101,6 +101,13 @@ attribute "alertmanager/port",
           :description => "port on which alertmanager listens",
           :type => "string"
 
+attribute "alertmanager/clustered",
+          :description => "enables HA mode",
+          :type => "string"
+attribute "alertmanager/cluster/listen_address",
+          :description => "alertmanager cluster listen address for communication with peers",
+          :type => "string"
+
 attribute "alertmanager/slack/api_url",
           :description => "Slack api url for sending alerts to slack",
           :type => "string"

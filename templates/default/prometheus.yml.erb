@@ -9,7 +9,10 @@ global:
 alerting:
   alertmanagers:
   - static_configs:
-    - targets: ['<%= @alertmanagers %>']
+    - targets:
+    <% @alertmanagers.each do |ipaddress| %>
+      - <%= "#{ipaddress}:#{node['alertmanager']['port']}" %> \
+    <% end %>
 
 rule_files:
   - <%= node['prometheus']['rules_dir'] %>/*

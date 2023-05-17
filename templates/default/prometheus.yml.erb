@@ -11,7 +11,7 @@ alerting:
   - static_configs:
     - targets:
     <% @alertmanagers.each do |ipaddress| %>
-      - <%= "#{ipaddress}:#{node['alertmanager']['port']}" %> \
+      - <%= "#{ipaddress}:#{node['alertmanager']['port']}" %>
     <% end %>
 
 rule_files:

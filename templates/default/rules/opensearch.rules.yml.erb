@@ -29,7 +29,7 @@ groups:
       description: "Opensearch cluster is not reporting any metric."
   
   - alert: TooManyShards
-    expr: elasticsearch_cluster_health_active_shards > 0.9 * elasticsearch_cluster_health_number_of_data_nodes * elasticsearch_clustersettings_stats_max_shards_per_node	
+    expr: max(elasticsearch_cluster_health_active_shards) > 0.9 * max(elasticsearch_cluster_health_number_of_data_nodes) * max(elasticsearch_clustersettings_stats_max_shards_per_node)	
     for: 5m
     labels:
       type: system-alert

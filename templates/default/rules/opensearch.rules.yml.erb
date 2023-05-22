@@ -27,3 +27,12 @@ groups:
     annotations:
       summary: "No metrics are reported for Opensearch"
       description: "Opensearch cluster is not reporting any metric."
+  
+  - alert: TooManyShards
+    expr: max(elasticsearch_cluster_health_active_shards) > 0.9 * max(elasticsearch_cluster_health_number_of_data_nodes) * max(elasticsearch_clustersettings_stats_max_shards_per_node)	
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Openseach cluster is running out of shards"
+      description: "Opensearch cluster is reaching the maximum number of shards."

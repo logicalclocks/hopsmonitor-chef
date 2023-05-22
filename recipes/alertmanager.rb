@@ -107,7 +107,7 @@ template systemd_script do
   group "root"
   mode 0664
   variables({
-    :alertmanager_peers => consul_helper.get_service_fqdn("alertmanager.prometheus")
+    :alertmanager_fqdn => consul_helper.get_service_fqdn("alertmanager.prometheus")
   })
   if node['services']['enabled'] == "true"
     notifies :enable, "service[alertmanager]"

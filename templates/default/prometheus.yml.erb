@@ -8,11 +8,17 @@ global:
   <% end -%>
 alerting:
   alertmanagers:
-  - static_configs:
-    - targets:
-    <% @alertmanagers.each do |ipaddress| %>
-      - <%= "#{ipaddress}:#{node['alertmanager']['port']}" %>
-    <% end %>
+  - consul_sd_configs:
+    - server: localhost:<%= node['consul']['http_api_port'] %>
+      scheme: https
+      datacenter: lc
+      tls_config:
+        ca_file: "<%= @hops_ca %>"
+        cert_file: "<%= @certificate %>"
+        key_file: "<%= @key %>"
+        insecure_skip_verify: true
+      services: ['prometheus']
+      tags: ['alertmanager']
 
 rule_files:
   - <%= node['prometheus']['rules_dir'] %>/*

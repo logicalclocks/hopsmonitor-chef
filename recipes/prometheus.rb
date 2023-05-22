@@ -6,7 +6,6 @@ include_recipe "hopsmonitor::_security"
 
 base_package_filename = File.basename(node['prometheus']['url'])
 cached_package_filename = "#{Chef::Config['file_cache_path']}/#{base_package_filename}"
-alertmanagers= node['hopsmonitor'].attribute?('alertmanager')? private_recipe_ips('hopsmonitor', 'alertmanager') : []
 
 remote_file cached_package_filename do
   source node['prometheus']['url']
@@ -153,7 +152,6 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   mode '0700'
   action :create
   variables({
-              'alertmanagers' => alertmanagers,
               'certificate' => certificate,
               'key' => key,
               'hops_ca' => hops_ca,

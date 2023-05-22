@@ -13,9 +13,7 @@ ExecStart = <%= node['alertmanager']['base_dir'] %>/alertmanager \
             --web.listen-address=0.0.0.0:<%= node['alertmanager']['port'] %> \
             <% if node['alertmanager']['clustered'] == "true" -%>
               --cluster.listen-address=0.0.0.0:<%= node['alertmanager']['cluster']['listen_address'] %> \
-              <% @alertmanager_peers.each do |ipaddress| %>
-              --cluster.peer=<%= "#{ipaddress}:#{node['alertmanager']['cluster']['listen_address']}" %> \
-              <% end %>
+              --cluster.peer=<%= "#{@alertmanager_peers}:#{node['alertmanager']['cluster']['listen_address']}" %> \
             <% end -%>
             --storage.path=<%= node['alertmanager']['data_dir'] %>
 

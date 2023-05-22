@@ -25,7 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 41,
+  "id": 33,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -111,8 +111,8 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "editorMode": "builder",
-          "expr": "rdrs_rondb_connection_state",
+          "editorMode": "code",
+          "expr": "rdrs_rondb_connection_state{instance=\"$rdrs_instance\"}",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -972,9 +972,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "10.0.2.15:4406",
-          "value": "10.0.2.15:4406"
+          "selected": true,
+          "text": "192.168.123.103:4406",
+          "value": "192.168.123.103:4406"
         },
         "datasource": {
           "type": "prometheus",
@@ -1008,6 +1008,6 @@
   "timezone": "",
   "title": "RonDB  API Server",
   "uid": "bOa9vOU4z",
-  "version": 29,
+  "version": 1,
   "weekStart": ""
 }

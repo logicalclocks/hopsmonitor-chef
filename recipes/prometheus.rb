@@ -152,7 +152,6 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   mode '0700'
   action :create
   variables({
-              'alertmanagers' => consul_helper.get_service_fqdn("alertmanager.prometheus") + ":" + node['alertmanager']['port'],
               'certificate' => certificate,
               'key' => key,
               'hops_ca' => hops_ca,

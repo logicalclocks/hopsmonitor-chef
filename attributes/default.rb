@@ -50,9 +50,9 @@ default['node_exporter']['base_dir']              = "#{node['prometheus']['root_
 default['node_exporter']['filesystem']['regex']   = "^/(dev|proc|sys|var/lib/docker/.+)($|/)"
 default['node_exporter']["text_metrics"]          = "#{default['node_exporter']['base_dir']}/text_metrics"
 
-default['alertmanager']['port']                     = "9093"
+default['alertmanager']['port']                     = "9193"
 default['alertmanager']['clustered']                = "false"
-default['alertmanager']['cluster']['listen_address']= "9094"
+default['alertmanager']['cluster']['listen_address']= "9194"
 default['alertmanager']['version']                  = "0.17.0"
 default['alertmanager']['url']                      = "#{node['download_url']}/prometheus/alertmanager-#{node['alertmanager']['version']}.linux-amd64.tar.gz"
 default['alertmanager']['root_dir']                 = "#{node['hopsmonitor']['dir']}/alertmanager"

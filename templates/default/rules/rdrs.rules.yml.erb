@@ -1,0 +1,42 @@
+groups:
+- name: RDRS
+  rules:
+  - alert: RdrsServerDown
+    expr: absent(rdrs_endpoints_response_time_summary) == 1
+    for: 1m
+    labels:
+      type: system-alert
+      severity: critical
+    annotations:
+      summary: "All RDRS servers are down"
+      description: "RDRS is not reporting metrics" 
+
+  - alert: RdrsRonDbDisconnected
+    expr: sum(rdrs_rondb_connection_state) by (instance) > 0
+    for: 2m
+    labels:
+      type: system-alert
+      severity: critical
+    annotations:
+      summary: "No connection to RonDB on {{$labels.instance}} from Rdrs server"
+      description: "No connection to RonDB"
+
+  - alert: Rdrs500Errors
+    expr: sum(rate(rdrs_endpoints_response_status_count{endpoint!="/metrics", status="500"}[1m])) by (instance) > 0
+    for: 2m
+    labels:
+      type: system-alert
+      severity: critical
+    annotations:
+      summary: "RDRS is returning 500 errors on {{$labels.instance}}"
+      description: "RDRS is returning 500 errors"
+
+  - alert: RdrsHighErrorRate 
+    expr: sum by(endpoint, instance) (rate(rdrs_endpoints_response_status_count{endpoint!="/metrics", status!="200"}[1m])) / on() group_left() (sum(rate(rdrs_endpoints_response_status_count{endpoint!="/metrics"}[1m]) + 0.0001) by (instance) * 1.0) > 0.1
+    for: 5m
+    labels:
+      type: system-alert
+      severity: warning
+    annotations:
+      summary: "High error rate in rdrs on {{$labels.instance}}"
+      description: "Percentage of non-200 response status is greater than 10%"

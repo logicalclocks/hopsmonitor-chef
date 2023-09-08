@@ -18,7 +18,7 @@ groups:
       type: system-alert
       severity: critical
     annotations:
-      summary: "No connection to RonDB on {{$labels.instance}} from Rdrs server"
+      summary: "No connection to RonDB on {{$labels.instance}} from RDRS server"
       description: "No connection to RonDB"
 
   - alert: Rdrs500Errors
@@ -38,5 +38,5 @@ groups:
       type: system-alert
       severity: warning
     annotations:
-      summary: "High error rate in rdrs on {{$labels.instance}}"
+      summary: "High error rate in RDRS on {{$labels.instance}}"
       description: "Percentage of non-200 response status is greater than 10%"

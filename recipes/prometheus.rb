@@ -186,7 +186,8 @@ rules = [
   "db",
   "hopsfs",
   "yarn",
-  "host"
+  "host",
+  "rdrs"
 ].each { |rule_file|
   template "#{node['prometheus']['rules_dir']}/#{rule_file}.rules.yml" do
     source "rules/#{rule_file}.rules.yml.erb"

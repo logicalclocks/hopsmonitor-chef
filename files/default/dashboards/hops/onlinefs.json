@@ -157,7 +157,7 @@
           "refId": "A"
         }
       ],
-      "title": "Consumer group members count",
+      "title": "Consumer group member count",
       "type": "timeseries"
     },
     {
@@ -343,7 +343,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Maximum deserialization time for instance",
+      "title": "Maximum deserialization time",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -434,7 +434,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Deserialization time in quantile for feature group",
+      "title": "Deserialization time for feature group",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -525,7 +525,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Maximum processing time for instance",
+      "title": "Maximum processing time",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -616,7 +616,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Processing time in quantiles for feature group",
+      "title": "Processing time for feature group entry",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -738,7 +738,7 @@
           "refId": "A"
         }
       ],
-      "title": "Message rate for instance",
+      "title": "Message rate",
       "type": "timeseries"
     },
     {
@@ -805,7 +805,7 @@
           "refId": "A"
         }
       ],
-      "title": "Message count for instance",
+      "title": "Message count",
       "type": "piechart"
     },
     {
@@ -1065,7 +1065,7 @@
           "refId": "A"
         }
       ],
-      "title": "Byte rate for instance",
+      "title": "Byte rate",
       "type": "timeseries"
     },
     {
@@ -1132,7 +1132,7 @@
           "refId": "A"
         }
       ],
-      "title": "Messages size for instance",
+      "title": "Messages size",
       "type": "piechart"
     },
     {
@@ -1391,13 +1391,13 @@
             "uid": "PBFA97CFB590B2093"
           },
           "editorMode": "code",
-          "expr": "sum by(instance) (\n  onlinefs_clusterj_error_write_counter_total{instance=\"$instance\"}\n)",
+          "expr": "sum by(instance) (\n  onlinefs_clusterj_error_write_counter_total\n)",
           "legendFormat": "{{ feature_group_id }}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Total errors by instance",
+      "title": "Total errors",
       "type": "piechart"
     },
     {
@@ -1558,7 +1558,7 @@
           "refId": "A"
         }
       ],
-      "title": "Success rate for instance",
+      "title": "Success rate",
       "type": "timeseries"
     },
     {
@@ -1768,7 +1768,7 @@
           "refId": "A"
         }
       ],
-      "title": "Error rate for instance",
+      "title": "Error rate",
       "type": "timeseries"
     },
     {

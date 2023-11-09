@@ -11,7 +11,7 @@ alerting:
   - consul_sd_configs:
     - server: localhost:<%= node['consul']['http_api_port'] %>
       scheme: https
-      datacenter: lc
+      datacenter: <%= node['consul']['datacenter'] %>
       tls_config:
         ca_file: "<%= @hops_ca %>"
         cert_file: "<%= @certificate %>"
@@ -41,7 +41,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -67,7 +67,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -91,7 +91,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -107,7 +107,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -125,7 +125,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -145,7 +145,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -426,7 +426,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"

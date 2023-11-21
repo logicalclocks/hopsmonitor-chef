@@ -41,6 +41,7 @@ default['prometheus']['base_dir']                 = "#{node['prometheus']['root_
 default['prometheus']['data_dir']                 = "#{node['prometheus']['root_dir']}/prometheus-data"
 default['prometheus']['retention_time']           = "15d"
 default['prometheus']['rules_dir']                = "#{node['prometheus']['base_dir']}/alerting-rules"
+default['prometheus']['rondb_replication_alert']  = "false"
 
 default['node_exporter']['version']               = "0.18.1"
 default['node_exporter']['url']                   = "#{node['download_url']}/prometheus/node_exporter-#{node['node_exporter']['version']}.linux-amd64.tar.gz"

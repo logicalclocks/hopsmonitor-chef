@@ -94,6 +94,10 @@ attribute "prometheus/port",
           :description => "Port on which prometheus listens",
           :type => "string"
 
+attribute "prometheus/rondb_replication_alert",
+          :description => "Configure alerts for RonDB Global replication. Default: false",
+          :type => "string"
+
 #
 # Alertmanager
 # 

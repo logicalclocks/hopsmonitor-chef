@@ -188,7 +188,16 @@ rules = [
   "yarn",
   "host",
   "rdrs"
-].each { |rule_file|
+]
+
+# Add the kafka rules if bring your own kafka is not enabled
+if node.attribute?('hopsworks') and
+    node['hopsworks'].attribute?('enable_bring_your_own_kafka') and
+    node['hopsworks']['enable_bring_your_own_kafka'].casecmp?("true")
+  rules -= ['kafka']
+end
+
+rules.each { |rule_file|
   template "#{node['prometheus']['rules_dir']}/#{rule_file}.rules.yml" do
     source "rules/#{rule_file}.rules.yml.erb"
     owner node['hopsmonitor']['user']

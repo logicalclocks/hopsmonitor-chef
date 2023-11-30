@@ -1,2 +1,2 @@
-### Karamelized cookbook to deploy Hopsworks monitoring infrastructure
+### Karamelized cookbook to deploy Hopsworks monitoring infrastructure 
 

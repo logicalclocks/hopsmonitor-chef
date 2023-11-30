@@ -434,7 +434,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Deserialization time for feature group",
+      "title": "Maximum deserialization time for feature group",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -616,7 +616,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Processing time for feature group entry",
+      "title": "Maximum processing time for feature group",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1924,8 +1924,8 @@
       {
         "current": {
           "selected": false,
-          "text": "14",
-          "value": "14"
+          "text": "15",
+          "value": "15"
         },
         "datasource": {
           "type": "prometheus",

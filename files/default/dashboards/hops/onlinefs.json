@@ -434,7 +434,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Maximum deserialization time for feature group",
+      "title": "Maximum deserialization time for feature group and quantile",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -616,7 +616,7 @@
       ],
       "thresholds": [],
       "timeRegions": [],
-      "title": "Maximum processing time for feature group",
+      "title": "Maximum processing time for feature group and quantile",
       "tooltip": {
         "shared": true,
         "sort": 0,

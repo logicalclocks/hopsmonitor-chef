@@ -164,7 +164,7 @@ template "#{node['grafana']['base_dir']}/conf/provisioning/datasources/provision
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   variables ({
-    'prometheus' => consul_helper.get_service_fqdn("prometheus"),
+    'prometheus' => consul_helper.get_service_fqdn("prometheus.prometheus"),
   })
   mode 0700
 end

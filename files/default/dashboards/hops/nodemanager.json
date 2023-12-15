@@ -478,7 +478,7 @@
         ],
         "thresholds": [],
         "timeRegions": [],
-        "title": "Memoy",
+        "title": "Memory",
         "tooltip": {
           "shared": true,
           "sort": 0,

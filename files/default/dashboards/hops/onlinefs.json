@@ -1885,7 +1885,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": false,
+  "refresh": "5s",
   "schemaVersion": 37,
   "style": "dark",
   "tags": [],
@@ -1924,8 +1924,8 @@
       {
         "current": {
           "selected": false,
-          "text": "15",
-          "value": "15"
+          "text": "4109",
+          "value": "4109"
         },
         "datasource": {
           "type": "prometheus",

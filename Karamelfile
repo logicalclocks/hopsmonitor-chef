@@ -5,7 +5,9 @@ dependencies:
   - recipe: hopsmonitor::default
     global:
       - kagent::default
+      - consul::slave
   - recipe: hopsmonitor::prometheus
     global:
+      - consul::slave
       - kagent::default
       - kube-hops::addons

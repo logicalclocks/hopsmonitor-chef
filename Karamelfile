@@ -2,12 +2,13 @@ dependencies:
   - recipe: hopsmonitor::install
     global:
       - kagent::install
+  - recipe: hopsmonitor::node_exporter
+    global:
+      - consul::slave
   - recipe: hopsmonitor::default
     global:
       - kagent::default
-      - consul::slave
   - recipe: hopsmonitor::prometheus
     global:
-      - consul::slave
       - kagent::default
       - kube-hops::addons

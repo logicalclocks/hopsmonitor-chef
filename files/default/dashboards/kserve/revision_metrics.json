@@ -1128,7 +1128,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_pod_container_resource_requests_cpu_cores{exported_namespace=\"$namespace\", exported_pod=~\"$revision-deployment-.*\"})",
+          "expr": "sum(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", exported_pod=~\"$revision-deployment-.*\", resource=\"memory\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1151,7 +1151,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_pod_container_resource_limits_cpu_cores{exported_namespace=\"$namespace\", exported_pod=~\"$revision-deployment-.*\"})",
+          "expr": "sum(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", exported_pod=~\"$revision-deployment-.*\", resource=\"cpu\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Core limit",
@@ -1238,7 +1238,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_pod_container_resource_requests_memory_bytes{exported_namespace=\"$namespace\", exported_pod=~\"$revision-deployment-.*\"})",
+          "expr": "sum(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", exported_pod=~\"$revision-deployment-.*\", resource=\"memory\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1262,7 +1262,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "sum(kube_pod_container_resource_limits_memory_bytes{exported_namespace=\"$namespace\", exported_pod=~\"$revision-deployment-.*\"})",
+          "expr": "sum(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", exported_pod=~\"$revision-deployment-.*\", resource=\"memory\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "C"

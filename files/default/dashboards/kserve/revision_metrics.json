@@ -1128,7 +1128,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "label_replace(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", container=\"kserve-container\", exported_pod=~\"$configuration\", resource=\"cpu\"}, \"exported_pod\", \"$2\", \"exported_pod\", \"(.*)(predictor|transformer)(.*)\")",
+          "expr": "label_replace(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", container=\"kserve-container\", exported_pod=~\"$configuration(.*)\", resource=\"cpu\"}, \"exported_pod\", \"$1$2\", \"exported_pod\", \"(.*)(predictor|transformer)(.*)\")",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1140,10 +1140,10 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "label_replace(rate(container_cpu_usage_seconds_total{container_label_io_kubernetes_pod_namespace=\"$namespace\", container_label_io_kubernetes_container_name=\"kserve-container\", name=~\"$configuration\"}[1m]), \"name\", \"$2\", \"name\", \"(.*)(predictor|transformer)(.*)\")",
+          "expr": "label_replace(rate(container_cpu_usage_seconds_total{container_label_io_kubernetes_pod_namespace=\"$namespace\", container_label_io_kubernetes_container_name=\"kserve-container\", container_label_io_kubernetes_pod_name=~\"$configuration(.*)\"}[1m]), \"container_label_io_kubernetes_pod_name\", \"$1$2\", \"container_label_io_kubernetes_pod_name\", \"(.*)(predictor|transformer)(.*)\")",
           "format": "time_series",
           "intervalFactor": 1,
-          "legendFormat": "Cores used - {{ name }}",
+          "legendFormat": "Cores used - {{ container_label_io_kubernetes_pod_name }}",
           "refId": "B"
         },
         {
@@ -1151,7 +1151,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "label_replace(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", container=\"kserve-container\", exported_pod=~\"$configuration\", resource=\"cpu\"}, \"exported_pod\", \"$2\", \"exported_pod\", \"(.*)(predictor|transformer)(.*)\")",
+          "expr": "label_replace(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", container=\"kserve-container\", exported_pod=~\"$configuration(.*)\", resource=\"cpu\"}, \"exported_pod\", \"$1$2\", \"exported_pod\", \"(.*)(predictor|transformer)(.*)\")",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "Core limit - {{ exported_pod }}",
@@ -1238,7 +1238,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "label_replace(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", container=\"kserve-container\", exported_pod=~\"$configuration\", resource=\"memory\"}, \"exported_pod\", \"$2\", \"exported_pod\", \"(.*)(predictor|transformer)(.*)\")",
+          "expr": "label_replace(kube_pod_container_resource_requests{exported_namespace=\"$namespace\", container=\"kserve-container\", exported_pod=~\"$configuration(.*)\", resource=\"memory\"}, \"exported_pod\", \"$1$2\", \"exported_pod\", \"(.*)(predictor|transformer)(.*)\")",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -1250,7 +1250,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "label_replace(container_memory_rss{container_label_io_kubernetes_pod_namespace=\"$namespace\", container_label_io_kubernetes_container_name=\"kserve-container\", job=\"kubernetes-cadvisor\", container_label_io_kubernetes_pod_name=~\"$configuration\"}, \"container_label_io_kubernetes_pod_name\", \"$2\", \"container_label_io_kubernetes_pod_name\", \"(.*)(predictor|transformer)(.*)\")",
+          "expr": "label_replace(container_memory_rss{container_label_io_kubernetes_pod_namespace=\"$namespace\", container_label_io_kubernetes_container_name=\"kserve-container\", job=\"kubernetes-cadvisor\", container_label_io_kubernetes_pod_name=~\"$configuration(.*)\"}, \"container_label_io_kubernetes_pod_name\", \"$1$2\", \"container_label_io_kubernetes_pod_name\", \"(.*)(predictor|transformer)(.*)\")",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1262,7 +1262,7 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "expr": "label_replace(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", container=\"kserve-container\", exported_pod=~\"$configuration\", resource=\"memory\"}, \"exported_pod\", \"$2\", \"exported_pod\", \"(.*)(predictor|transformer)(.*)\")",
+          "expr": "label_replace(kube_pod_container_resource_limits{exported_namespace=\"$namespace\", container=\"kserve-container\", exported_pod=~\"$configuration(.*)\", resource=\"memory\"}, \"exported_pod\", \"$1$2\", \"exported_pod\", \"(.*)(predictor|transformer)(.*)\")",
           "format": "time_series",
           "legendFormat": "Limit - {{ exported_pod }}",
           "intervalFactor": 1,

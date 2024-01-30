@@ -254,7 +254,7 @@
           "refId": "A"
         }
       ],
-      "title": "Success Rate (non-error responses)",
+      "title": "Success Rate (non-5xx and non-4xx responses)",
       "type": "stat"
     },
     {

@@ -8,8 +8,17 @@ global:
   <% end -%>
 alerting:
   alertmanagers:
-  - static_configs:
-    - targets: ['<%= @alertmanagers %>']
+  - consul_sd_configs:
+    - server: localhost:<%= node['consul']['http_api_port'] %>
+      scheme: https
+      datacenter: <%= node['consul']['datacenter'] %>
+      tls_config:
+        ca_file: "<%= @hops_ca %>"
+        cert_file: "<%= @certificate %>"
+        key_file: "<%= @key %>"
+        insecure_skip_verify: true
+      services: ['prometheus']
+      tags: ['alertmanager']
 
 rule_files:
   - <%= node['prometheus']['rules_dir'] %>/*
@@ -32,7 +41,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -58,7 +67,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -82,7 +91,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -98,7 +107,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -107,6 +116,24 @@ scrape_configs:
 
         tags: ['monitoring']
 
+  - job_name: 'rdrs'
+    scrape_interval:     10s
+    scheme: https
+    tls_config:
+      insecure_skip_verify: true
+
+    consul_sd_configs:
+      - server: localhost:<%= node['consul']['http_api_port'] %>
+        scheme: https
+        datacenter: <%= node['consul']['datacenter'] %>
+        tls_config:
+          ca_file: "<%= @hops_ca %>"
+          cert_file: "<%= @certificate %>"
+          key_file: "<%= @key %>"
+          insecure_skip_verify: true
+
+        services: ['rdrs']
+        tags: ['monitoring']
 
   - job_name: 'hopsworks'
 
@@ -118,7 +145,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"
@@ -399,7 +426,7 @@ scrape_configs:
     consul_sd_configs:
       - server: localhost:<%= node['consul']['http_api_port'] %>
         scheme: https
-        datacenter: lc
+        datacenter: <%= node['consul']['datacenter'] %>
         tls_config:
           ca_file: "<%= @hops_ca %>"
           cert_file: "<%= @certificate %>"

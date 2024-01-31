@@ -4,7 +4,7 @@ name             "hopsmonitor"
 license          "AGPLv3"
 description      "Deploy monitoring infrastructure for the Hopsworks platform"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "3.2.0"
+version          "3.7.0"
 source_url       "https://github.com/logicalclocks/hopsmonitor-chef"
 
 %w{ ubuntu debian centos }.each do |os|
@@ -19,6 +19,7 @@ depends 'tensorflow'
 depends 'hops_airflow'
 depends 'java'
 depends 'kube-hops'
+depends 'hive2'
 
 
 recipe "hopsmonitor::install", "Installs Prometheus/Grafana Server"
@@ -93,11 +94,22 @@ attribute "prometheus/port",
           :description => "Port on which prometheus listens",
           :type => "string"
 
+attribute "prometheus/rondb_replication_alert",
+          :description => "Configure alerts for RonDB Global replication. Default: false",
+          :type => "string"
+
 #
 # Alertmanager
 # 
 attribute "alertmanager/port",
           :description => "port on which alertmanager listens",
+          :type => "string"
+
+attribute "alertmanager/clustered",
+          :description => "enables HA mode",
+          :type => "string"
+attribute "alertmanager/cluster/listen_address",
+          :description => "alertmanager cluster listen address for communication with peers",
           :type => "string"
 
 attribute "alertmanager/slack/api_url",

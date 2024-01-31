@@ -1,6 +1,16 @@
 groups:
 - name: rondb
   rules:
+<% if node['prometheus']['rondb_replication_alert'].casecmp?("true") -%>
+  - alert: RonDB Global replication broken
+    expr: max(rate(mysql_slave_status_relay_log_pos[20s])) == 0 OR max(rate(mysql_slave_status_exec_master_log_pos[20s])) == 0 OR absent(mysql_slave_status_relay_log_pos)
+    for: 1m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB Global replication broken"
+      description: "RonDB Global replication broken"
+<% end -%>
   - alert: DatanodeDown
     expr: (ndb_ndbinfo_processes{nodeType="NDB"} offset 5m) > ndb_ndbinfo_processes{nodeType="NDB"} OR absent(ndb_ndbinfo_processes{nodeType="NDB"})
     for: 1m

@@ -82,10 +82,6 @@ hops_ca = "#{crypto_dir}/#{x509_helper.get_hops_ca_bundle_name()}"
 managed_cloud = is_managed_cloud()
 
 kube_certs_dir           = "#{crypto_dir}/kube"
-kube_data_pattern        = {'{data:' => "", '}'=>""}
-kube_crt_str             = +(node['hopsmonitor']['prometheus']['kube-crt'])
-kube_ca_str              = +(node['hopsmonitor']['prometheus']['kube-ca'])
-kube_key_str             = +(node['hopsmonitor']['prometheus']['kube-key'])
 prometheus_kube_key_path = "#{kube_certs_dir}/hopsmon.key"
 prometheus_kube_crt_path = "#{kube_certs_dir}/hopsmon.crt"
 kube_ca_path             = "#{kube_certs_dir}/kube_ca.pem"
@@ -102,10 +98,7 @@ if (node["install"]["kubernetes"].casecmp? "true") && (!managed_cloud)
   if node['hopsmonitor']['prometheus']['kube-crt'].eql? ""
     raise "No cert received from kube-hops::hopsmon"
   end
-  #Clean up the certs from kubernetes. The JSON.parse does not work so we clean the strings manually
-  kube_data_pattern.each {|k,v| (kube_ca_str).sub!(k,v)}
-  kube_data_pattern.each {|k,v| (kube_key_str).sub!(k,v)}
-  kube_data_pattern.each {|k,v| (kube_crt_str).sub!(k,v)}
+
   directory kube_certs_dir do
     owner node["kagent"]["certs_user"]
     group node["kagent"]["certs_user"]
@@ -123,21 +116,21 @@ if (node["install"]["kubernetes"].casecmp? "true") && (!managed_cloud)
 
   # Create the certificate files in the kube_certs_dir
   file prometheus_kube_crt_path do
-    content kube_crt_str
+    content node['hopsmonitor']['prometheus']['kube-crt']
     mode '0600'
     owner node["kagent"]["certs_user"]
     group node["kagent"]["certs_group"]
   end
 
   file prometheus_kube_key_path do
-    content kube_key_str
+    content node['hopsmonitor']['prometheus']['kube-key']
     mode '0600'
     owner node["kagent"]["certs_user"]
     group node["kagent"]["certs_group"]
   end
 
   file kube_ca_path do
-    content kube_ca_str
+    content node['hopsmonitor']['prometheus']['kube-ca']
     mode '0600'
     owner node["kagent"]["certs_user"]
     group node["kagent"]["certs_group"]
@@ -159,7 +152,6 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
   mode '0700'
   action :create
   variables({
-              'alertmanagers' => consul_helper.get_service_fqdn("alertmanager.prometheus") + ":" + node['alertmanager']['port'],
               'certificate' => certificate,
               'key' => key,
               'hops_ca' => hops_ca,
@@ -171,20 +163,48 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
             })
 end
 
+# Recreate the rules directory
 directory node['prometheus']['rules_dir'] do 
   action :delete
   recursive true 
 end
 
-remote_directory node['prometheus']['rules_dir'] do 
-  source "rules"
+directory node['prometheus']['rules_dir'] do
+  action :create
   owner node['hopsmonitor']['user']
   group node['hopsmonitor']['group']
   mode 0700
-  files_owner node['hopsmonitor']['user']
-  files_group node['hopsmonitor']['group']
-  files_mode 0700
 end
+
+rules = [
+  "hive",
+  "consul",
+  "hopsworks",
+  "kafka",
+  "onlinefs",
+  "opensearch",
+  "db",
+  "hopsfs",
+  "yarn",
+  "host",
+  "rdrs"
+]
+
+# Add the kafka rules if bring your own kafka is not enabled
+if node.attribute?('hopsworks') and
+    node['hopsworks'].attribute?('enable_bring_your_own_kafka') and
+    node['hopsworks']['enable_bring_your_own_kafka'].casecmp?("true")
+  rules -= ['kafka']
+end
+
+rules.each { |rule_file|
+  template "#{node['prometheus']['rules_dir']}/#{rule_file}.rules.yml" do
+    source "rules/#{rule_file}.rules.yml.erb"
+    owner node['hopsmonitor']['user']
+    group node['hopsmonitor']['group']
+    mode 0700
+  end
+}
 
 case node['platform_family']
 when "rhel"

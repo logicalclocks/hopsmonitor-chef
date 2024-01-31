@@ -4,6 +4,7 @@ include_attribute "hops"
 include_attribute "ndb"
 include_attribute "tensorflow"
 include_attribute "hops_airflow"
+include_attribute "hive2"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['user_id']                 = '1503'
@@ -12,7 +13,7 @@ default['hopsmonitor']['group_id']                = '1503'
 
 default['hopsmonitor']['dir']                     = node['install']['dir'].empty? ? "/srv" : node['install']['dir']
 
-default['grafana']['version']                     = "9.3.6"
+default['grafana']['version']                     = "9.3.16"
 default['grafana']['url']                         = "#{node['download_url']}/grafana-#{node['grafana']['version']}.linux-amd64.tar.gz"
 default['grafana']['port']                        = 3000
 
@@ -40,6 +41,7 @@ default['prometheus']['base_dir']                 = "#{node['prometheus']['root_
 default['prometheus']['data_dir']                 = "#{node['prometheus']['root_dir']}/prometheus-data"
 default['prometheus']['retention_time']           = "15d"
 default['prometheus']['rules_dir']                = "#{node['prometheus']['base_dir']}/alerting-rules"
+default['prometheus']['rondb_replication_alert']  = "false"
 
 default['node_exporter']['version']               = "0.18.1"
 default['node_exporter']['url']                   = "#{node['download_url']}/prometheus/node_exporter-#{node['node_exporter']['version']}.linux-amd64.tar.gz"
@@ -49,7 +51,9 @@ default['node_exporter']['base_dir']              = "#{node['prometheus']['root_
 default['node_exporter']['filesystem']['regex']   = "^/(dev|proc|sys|var/lib/docker/.+)($|/)"
 default['node_exporter']["text_metrics"]          = "#{default['node_exporter']['base_dir']}/text_metrics"
 
-default['alertmanager']['port']                     = "9093"
+default['alertmanager']['port']                     = "9193"
+default['alertmanager']['clustered']                = "false"
+default['alertmanager']['cluster']['listen_address']= "9194"
 default['alertmanager']['version']                  = "0.17.0"
 default['alertmanager']['url']                      = "#{node['download_url']}/prometheus/alertmanager-#{node['alertmanager']['version']}.linux-amd64.tar.gz"
 default['alertmanager']['root_dir']                 = "#{node['hopsmonitor']['dir']}/alertmanager"

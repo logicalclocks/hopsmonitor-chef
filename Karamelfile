@@ -2,6 +2,9 @@ dependencies:
   - recipe: hopsmonitor::install
     global:
       - kagent::install
+  - recipe: hopsmonitor::node_exporter
+    global:
+      - consul::slave
   - recipe: hopsmonitor::default
     global:
       - kagent::default

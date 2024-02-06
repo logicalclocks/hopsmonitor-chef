@@ -25,9 +25,16 @@
       - *Feature group:* {{ .Labels.featureGroup }}
       - *Feature group version:* {{ .Labels.featureGroupVersion }}
      {{- end }}
+     {{- if .Labels.featureMonitorConfig }}
+      - *Feature Monitoring Config Name* {{ .Labels.featureMonitorConfig}}
+      - *Feature Monitoring Result Id* {{ .Labels.featureMonitorResultId}}
+     {{- end }}
+     {{- if .Labels.featureViewName }}
+       - *FeatureView Name* {{ .Labels.featureViewName }}
+       - *FeatureView Version* {{ .Labels.featureViewVersion }}
+     {{- end }}
      {{- if .Labels.status }}
       - *Status:* {{ .Labels.status }}
      {{- end }}
  {{ end }}
 {{ end }}
-

@@ -130,5 +130,8 @@ if service_discovery_enabled()
     service_definition "node-exporter-consul.hcl.erb"
     reload_consul !is_managed_cloud()
     action :register
+    template_variables ({
+      :is_ndbmtd => exists_local('ndb', 'ndbd') || node['node_exporter']['is-ndbmtd'].casecmp?('true')
+    })
   end
 end 

@@ -2,7 +2,10 @@ service {
     id = "node_exporter/monitoring"
     name = "node_exporter"
     tags = [
-        "monitoring"
+        "monitoring",
+        <% if @is_ndbmtd -%>
+        "ndbmtd",
+        <% end -%>
     ]
     port = <%= node['node_exporter']['port'] %> 
     check = {

@@ -183,3 +183,15 @@ attribute "node_exporter/filesystem/regex",
 attribute "node_exporter/port",
           :description => "Port node_exporter will be listening to. Default: 9100",
           :type => "string"
+
+attribute "node_exporter/is-ndbmtd",
+          :description => "Flag to indicate that this node_exporter is installed in a machine where ndbmtd is installed to. It controls consul's tags. Normally it will auto-discovered except the cases where node_exporter is installed in a separate cluster definition. Default: false",
+          :type => "string"
+
+attribute "prometheus/rules/all-hosts-available-mem-threshold",
+          :description => "Percentage of minimum available memory for all but ndbmtd machines in the cluster, anything lower will fire an alert. Default: 10%",
+          :type => "string"
+
+attribute "prometheus/rules/ndbd-hosts-available-mem-threshold",
+          :description => "Percentage of minimum available memory for ndbmtd only machines in the cluster, anything lower will fire an alert. Default: 3%",
+          :type => "string"

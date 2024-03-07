@@ -51,6 +51,10 @@ scrape_configs:
         services: ['prometheus']
         tags: ['pushgateway']
 
+    relabel_configs:
+    - source_labels: ["__meta_consul_tags"]
+      target_label: tags
+
   - job_name: consul
 
     honor_timestamps: true
@@ -82,6 +86,8 @@ scrape_configs:
         regex:         '(.*):(<%= node['consul']['rpc_port'] %>)'
         target_label:  '__address__'
         replacement:   '${1}:<%= node['consul']['http_api_port'] %>'
+      - source_labels: ["__meta_consul_tags"]
+        target_label: tags
 
 
   - job_name: 'airflow'
@@ -100,6 +106,10 @@ scrape_configs:
 
         services: ['airflow']
         tags: ['monitoring']
+
+    relabel_configs:
+    - source_labels: ["__meta_consul_tags"]
+      target_label: tags
     
   - job_name: 'hadoop'
     scrape_interval:     10s
@@ -115,6 +125,10 @@ scrape_configs:
           insecure_skip_verify: true
 
         tags: ['monitoring']
+
+    relabel_configs:
+    - source_labels: ["__meta_consul_tags"]
+      target_label: tags
 
   - job_name: 'rdrs'
     scrape_interval:     10s
@@ -135,6 +149,10 @@ scrape_configs:
         services: ['rdrs']
         tags: ['monitoring']
 
+    relabel_configs:
+    - source_labels: ["__meta_consul_tags"]
+      target_label: tags
+
   - job_name: 'hopsworks'
 
     scrape_interval:     10s
@@ -154,6 +172,11 @@ scrape_configs:
 
         services: ['glassfish']
         tags: ['monitoring']
+
+    relabel_configs:
+    - source_labels: ["__meta_consul_tags"]
+      target_label: tags
+
   <% if node['install']['kubernetes'] == 'true' && !@managed_cloud -%>
   - job_name: 'knative-controller'
     scrape_interval: 3s

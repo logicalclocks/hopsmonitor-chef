@@ -193,5 +193,5 @@ attribute "prometheus/rules/all-hosts-available-mem-threshold",
           :type => "string"
 
 attribute "prometheus/rules/ndbd-hosts-available-mem-threshold",
-          :description => "Percentage of minimum available memory for ndbmtd only machines in the cluster, anything lower will fire an alert. Default: 3%",
+  :description => "Percentage of minimum available memory for ndbmtd only machines in the cluster, anything lower will fire an alert. Default: 1.5%",
           :type => "string"

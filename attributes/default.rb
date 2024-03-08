@@ -111,4 +111,4 @@ default['hopsmonitor']['prometheus']['kube-ca']          = ""
 
 # Configuration attributes for alerting rules
 default['prometheus']['rules']['all-hosts-available-mem-threshold']  = "10"
-default['prometheus']['rules']['ndbd-hosts-available-mem-threshold'] = "3"
+default['prometheus']['rules']['ndbd-hosts-available-mem-threshold'] = "1.5"

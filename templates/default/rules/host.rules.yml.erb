@@ -2,13 +2,22 @@ groups:
 - name: host 
   rules:
   - alert: OutOfMemory
-    expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10
+    expr: node_memory_MemAvailable_bytes{tags !~ ".*ndbmtd.*"} / node_memory_MemTotal_bytes{tags !~ ".*ndbmtd.*"} * 100 < <%= node['prometheus']['rules']['all-hosts-available-mem-threshold'] %>
     for: 5m
     labels:
       type: system-alert
     annotations:
       summary: "Out of memory (instance {{ $labels.instance }})"
-      description: "Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+      description: "Node memory is filling up (< <%= node['prometheus']['rules']['all-hosts-available-mem-threshold'] %>% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
+
+  - alert: RonDBDatanodesOutOfMemory
+    expr: node_memory_MemAvailable_bytes{tags =~ ".*ndbmtd.*"} / node_memory_MemTotal_bytes{tags =~ ".*ndbmtd.*"} * 100 < <%= node['prometheus']['rules']['ndbd-hosts-available-mem-threshold'] %>
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "RonDB datanode out of memory (instance {{ $labels.instance }})"
+      description: "Node memory is filling up (< <%= node['prometheus']['rules']['ndbd-hosts-available-mem-threshold'] %>% left)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}"
 
   - alert: OutOfInodes
     expr: node_filesystem_files_free / node_filesystem_files * 100 < 12

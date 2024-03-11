@@ -50,6 +50,7 @@ default['node_exporter']['home']                  = "#{node['prometheus']['root_
 default['node_exporter']['base_dir']              = "#{node['prometheus']['root_dir']}/node_exporter"
 default['node_exporter']['filesystem']['regex']   = "^/(dev|proc|sys|var/lib/docker/.+)($|/)"
 default['node_exporter']["text_metrics"]          = "#{default['node_exporter']['base_dir']}/text_metrics"
+default['node_exporter']['is-ndbmtd']             = "false"
 
 default['alertmanager']['port']                     = "9193"
 default['alertmanager']['clustered']                = "false"
@@ -107,3 +108,7 @@ default['cloud']['metrics']['port']                      = "9096"
 default['hopsmonitor']['prometheus']['kube-crt']         = ""
 default['hopsmonitor']['prometheus']['kube-key']         = ""
 default['hopsmonitor']['prometheus']['kube-ca']          = ""
+
+# Configuration attributes for alerting rules
+default['prometheus']['rules']['all-hosts-available-mem-threshold']  = "10"
+default['prometheus']['rules']['ndbd-hosts-available-mem-threshold'] = "1.5"

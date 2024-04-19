@@ -36,3 +36,12 @@ groups:
     annotations:
       summary: "Openseach cluster is running out of shards"
       description: "Opensearch cluster is reaching the maximum number of shards."
+  
+  - alert: HighMemoryUsage
+    expr: avg(elasticsearch_jvm_memory_used_bytes{area="heap"}) by (instance) / avg(elasticsearch_jvm_memory_max_bytes{area="heap"}) by (instance) > 0.9
+    for: 5m
+    labels:
+      type: system-alert
+    annotations:
+      summary: "Opensearch cluster is running out of heap memory"
+      description: "Opensearch cluster is using more than 90% of configured heap memory."

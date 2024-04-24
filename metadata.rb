@@ -20,7 +20,7 @@ depends 'hops_airflow'
 depends 'java'
 depends 'kube-hops'
 depends 'hive2'
-
+depends 'flyingduck'
 
 recipe "hopsmonitor::install", "Installs Prometheus/Grafana Server"
 recipe "hopsmonitor::default", "configures Grafana Server"

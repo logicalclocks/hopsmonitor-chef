@@ -187,7 +187,8 @@ rules = [
   "hopsfs",
   "yarn",
   "host",
-  "rdrs"
+  "rdrs",
+  "arrowflight"
 ]
 
 # Add the kafka rules if bring your own kafka is not enabled

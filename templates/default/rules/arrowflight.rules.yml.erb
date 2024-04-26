@@ -1,0 +1,32 @@
+groups:
+- name: ArrowFlight
+  rules:
+  - alert: ArrowFlightDown
+    expr: absent(flyingduck_request_counter_total) > 0
+    for: 1m
+    labels:
+      type: system-alert
+      severity: critical
+    annotations:
+      summary: "All ArrowFlight servers are down"
+      description: "ArrowFlight is not reporting metrics" 
+
+  - alert: ArrowFlightHighMemoryUsage
+    expr: avg(flyingduck_memory_utilization_gauge) by (instance) > 90
+    for: 5m
+    labels:
+      type: system-alert
+      severity: critical
+    annotations:
+      summary: "ArrowFlight servers are running out of memory"
+      description: "ArrowFlight servers are using more than 90% of configured memory."
+
+  - alert: ArrowFlightHighQueueTime
+    expr: max(flyingduck_queue_time_gauge) by (instance) > 0.9 * <%= node['flyingduck']['request_timeout_sec'] %>
+    for: 2m
+    labels:
+      type: system-alert
+      severity: critical
+    annotations:
+      summary: "The ArrowFlight servers are experiencing longer queue times"
+      description: "The ArrowFlight servers are nearing the <%= node['flyingduck']['request_timeout_sec'] %> seconds timeout limit for the request queue."

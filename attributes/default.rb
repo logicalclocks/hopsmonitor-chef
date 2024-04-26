@@ -5,6 +5,7 @@ include_attribute "ndb"
 include_attribute "tensorflow"
 include_attribute "hops_airflow"
 include_attribute "hive2"
+include_attribute "flyingduck"
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['user_id']                 = '1503'
